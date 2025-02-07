@@ -1,15 +1,14 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haley and Ty Wedding</title>
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="video-container">
         <video autoplay muted loop playsinline class="background-video">
-            <source src="images/Tuscany" type="video/quicktime">
+            <source src="images/Tuscany.mov" type="video/quicktime">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -17,4 +16,98 @@
         <p>We'll see you in Tuscany</p>
     </div>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ty & Haley's Wedding</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bellefair&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <video autoplay muted loop>
+                <source src="images/Tuscany.mov" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
+            <h1> 01.10.25</h1>
+        </div>
+
+        <!-- Story Section -->
+        <div class="story">
+            <p>Nearly 10 years ago, Ty and Haley fell for the hills of Tuscany, and subsequently, for each other.</p>
+            <p>They dreamed of getting married here one day, and only in hindsight did they know that was their first vow.</p>
+            <p>As love will have it, dreams sometimes do come true.</p>
+        </div>
+
+        <!-- Details Section -->
+        <div class="details">
+            <div class="textarea">
+                <h1>RSVPs coming  &nbsp;<span class="really">really</span>soon.</h1>
+                <h2>Until then, here are some preliminary <span class="arrow">^</span>details:</h2>
+                <div class="faq">
+                    <div class="column">
+                        <div><h2>Is this my invitation?</h2> <p>Yes! But we will send you a detailed invite with all the information and details to RSVP in the coming weeks. For now, we’ve tried to answer some of the questions you’re already (probably) thinking about.</p></div>
+                        <div><h2>Is it in Italy, actually?</h2> <p>Si, il es en Tuscano, Italia.</p></div>
+                        <div><h2>Where in Tuscany is this wedding??</h2> <p>We’ve booked a beautiful venue amongst the Tuscan hills, an hour south of Florence and about 30 minutes north of Sienna. We have reserved the property from Sept 29th to Oct 3rd.</p></div>
+                    </div>
+                    <div class="column">
+                        <div><h2>Will there be other events surrounding the wedding?</h2> <p>The ceremony is October 1st, but we are planning a few other events between Sept 29th and Oct 3rd. Festivities include a welcome event on Sept 29th, so consider joining us a few days early.</p></div>
+                        <div><h2>How do I get there?</h2> <p>The closest airports are Florence and Pisa, but you can also fly into Rome or Bologna, they’re just a little further away. We recommend renting a car upon arrival, as transit in the Tuscan hills is limited. However, there are a few train stations nearby our venue if you’d like to cab from those.</p></div>
+                        <div><h2>Will you have spaghetti?</h2> <p>Yes, and plenty of wine to wash it down.</p></div>
+                    </div>
+                    <div class="column">
+                        <div><h2>What about accommodation?</h2> <p>There is some, limited accommodation on our venue property for close friends and family, and many wonderful options nearby. We’ll provide more information about accommodation once official RSVPs are sent out.</p></div>
+                        <div><h2>Already busy that day?</h2> <p>That’s okay, life happens. If you know you can’t make it, please let us know as soon as possible. We’ll be missing you though.</p></div>
+                        <div><h2>My question isn’t here???</h2> <p>Feel free to send us a text and we’ll try our best to answer them.</p></div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <!-- Photos Section -->
+        <div class="photos">
+            <img src="images/Photobooth1.png" alt="Photo Booth">
+            <img src="images/Photobooth2.png" alt="Photo Booth">
+            <img src="images/Photobooth3.png" alt="Photo Booth">
+            <img src="images/Photobooth4.png" alt="Photo Booth">
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>See you in Tuscany!<br>– Haley & Ty</p>
+        </div>
+    </div>
+
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const photos = document.querySelectorAll(".photos img");
+
+        function swapRandomImages() {
+            if (photos.length < 2) return;
+
+            let index1 = Math.floor(Math.random() * photos.length);
+            let index2;
+            do {
+                index2 = Math.floor(Math.random() * photos.length);
+            } while (index1 === index2);
+
+            let tempSrc = photos[index1].src;
+            photos[index1].src = photos[index2].src;
+            photos[index2].src = tempSrc;
+        }
+
+        setInterval(swapRandomImages, 1500);
+    });
+</script> -->
+</body>
+
 </html>
