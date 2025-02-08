@@ -57,6 +57,8 @@ body {
 .hero h1 {
     position: absolute;
     font-family: "Bellefair", serif;
+    font-weight: 400;
+    font-style: normal;   
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -107,6 +109,7 @@ body {
 .details h1 {
     font-size: 48px;
     display: inline-block;
+    font-weight: normal;
     position: relative;
 }
 
@@ -116,7 +119,7 @@ body {
     position: absolute;
     font-weight: normal;
     top: -35px;
-    left: 270px; /* Adjust position based on your layout */
+    left: 250px; /* Adjust position based on your layout */
     font-style: italic;
 }
 
@@ -126,7 +129,7 @@ body {
     font-weight: normal;
     position: absolute;
     top: 105px;
-    left: 330px; /* Adjust this to place it between "coming" and "soon" */
+    left: 315px; /* Adjust this to place it between "coming" and "soon" */
 }
 
 .details h2 {
@@ -233,13 +236,13 @@ body {
     .really {
         font-size: 32px;
         top: -35px;
-        left: 220px; /* Adjust position based on your layout */
+        left: 215px; /* Adjust position based on your layout */
     }
 
     .arrow {
         font-size: 40px;
         top: 35px;
-        left: 265px; /* Adjust this to place it between "coming" and "soon" */
+        left: 255px; /* Adjust this to place it between "coming" and "soon" */
     }
 
     .details h2 {
@@ -273,7 +276,8 @@ body {
     }
 
     .details .textarea {
-        padding: 40px 12px;
+        padding: 80px 12px;
+        margin-top: 40px;
     }   
 
 
@@ -303,10 +307,6 @@ body {
         font-size: 2rem;
     }
 
-    details .textarea {
-        padding: 40px 24px;
-    }
-
 
     .details h1 {
         font-size: 32px;
@@ -322,17 +322,18 @@ body {
 
     .arrow {
         font-size: 40px;
-        top: 35px;
-        left: 205px; /* Adjust this to place it between "coming" and "soon" */
+        top: 70px;
+        left: 195px; /* Adjust this to place it between "coming" and "soon" */
     }
 
-    .details h2 {
+    .column h2 {
         font-size: 20px;
         font-weight: normal;
+        margin-top: 48px;
     }
 
     .details .faq div {
-        padding: 4px 0;
+        padding: 0px;
     }
 
     .photos {
