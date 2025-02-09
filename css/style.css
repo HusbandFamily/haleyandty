@@ -43,13 +43,6 @@ body {
     opacity: 0.8;
 }
 
-@media (max-width: 768px) {
-    .hero video {
-        width: calc(100% - 32px);
-        max-width: calc(100% - 32px);
-    }
-}
-
 .hero h1 {
     position: absolute;
     font-family: "Bellefair", serif;
@@ -177,9 +170,10 @@ body {
     }
 
     .hero video {
+        width: calc(100% - 32px);
+        max-width: calc(100% - 32px);
         object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
     }
-
 
     .hero h1 {
         font-size: 5rem;
@@ -251,11 +245,14 @@ body {
 @media (max-width: 480px) {
 
     .hero {
-        padding: 20px 0px;
+        padding: 12px 12px 0;
     }
 
     .hero video {
-        object-position: calc(50% + 100px) 50%; /* Moves video right by 100px */
+        width: calc(100% - 12px);
+        max-width: calc(100% - 12px);
+        object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
+        height: 90%;
     }
 
 
@@ -265,7 +262,7 @@ body {
 
 
     .story {
-        margin: 40px 24px;
+        margin: 0px 24px 40px;
         gap: 24px;
         font-size: 32px;
     }
@@ -299,7 +296,7 @@ body {
     .column h2 {
         font-size: 20px;
         font-weight: normal;
-        margin-top: 40px;
+        margin-top: 32px;
     }
 
     .faq div {
