@@ -252,7 +252,7 @@ body {
         width: calc(100% - 12px);
         max-width: calc(100% - 12px);
         object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
-        height: 90%;
+        height: 85%;
     }
 
 
