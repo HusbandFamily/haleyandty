@@ -106,7 +106,7 @@ body {
     font-size: 40px;
     line-height: 40px;
     display: inline-block;
-    width: 40px;
+    width: 30px;
     font-family: "Dawning of a New Day", serif;
     font-weight: normal;
     top: -35px;
@@ -231,7 +231,7 @@ body {
     }
 
     .details .faq div {
-        padding: 8px 0;
+        padding: 0px;
     }
 
     .photos {
@@ -246,23 +246,23 @@ body {
 
     .hero {
         padding: 12px 12px 0;
+        height: calc(85vh); /* Viewport height minus top & bottom padding */
     }
 
     .hero video {
         width: calc(100% - 12px);
         max-width: calc(100% - 12px);
         object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
-        height: 85%;
     }
 
 
     .details .textarea {
-        padding: 80px 12px;
+        padding: 80px 12px 40px;
     }   
 
 
     .story {
-        margin: 0px 24px 40px;
+        margin: 40px 24px;
         gap: 24px;
         font-size: 32px;
     }
