@@ -33,31 +33,25 @@
             </form>
 
             <script>
-              document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
+             document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-                // Dynamically create a form element
-                var form = document.createElement('form');
-                form.method = 'POST';
-                form.action = 'https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec';
-                
-                // Add form data as hidden input fields
-                new FormData(e.target).forEach((value, key) => {
-                    var input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = value;
-                    form.appendChild(input);
-                });
+            // Serialize form data to a query string (x-www-form-urlencoded)
+            var formData = new FormData(e.target);
+            var queryString = new URLSearchParams(formData).toString();
 
-                // Submit the form without a page refresh
-                document.body.appendChild(form);
-                form.submit();
+            fetch("https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec", {
+                method: "POST",
+                body: queryString, // Send data as x-www-form-urlencoded
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            })
+            .then(response => response.text())
+            .then(data => alert("Message sent!"))
+            .catch(error => console.error('Error:', error));
+        });
 
-                // Show a success message and reset the form
-                alert("RSVP submitted successfully!");
-                e.target.reset();
-            });
 
             </script>
 
