@@ -41,10 +41,12 @@
                     body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
                     headers: { "Content-Type": "application/json" }
                 })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(data => {
-                    alert("Message sent successfully!");
-                    e.target.reset();  // Clear the form after submission
+                    if (data.status === "Success") {
+                        alert("Message sent successfully!");
+                        e.target.reset();
+                    }
                 })
                 .catch(error => {
                     alert("There was an error submitting the form. Please try again.");
