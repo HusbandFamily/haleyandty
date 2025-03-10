@@ -33,26 +33,27 @@
             </form>
 
             <script>
-                document.getElementById('contactForm').addEventListener('submit', function(e) {
+               document.getElementById('contactForm').addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                fetch("https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec", {
+                const formData = JSON.stringify(Object.fromEntries(new FormData(e.target)));
+
+                fetch("https://corsproxy.io/?https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec", {
                     method: "POST",
-                    body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
+                    body: formData,
                     headers: { "Content-Type": "application/json" }
                 })
-                .then(response => response.json())
+                .then(response => response.text())
                 .then(data => {
-                    if (data.status === "Success") {
-                        alert("Message sent successfully!");
-                        e.target.reset();
-                    }
+                    alert("Message sent successfully!");
+                    e.target.reset();
                 })
                 .catch(error => {
                     alert("There was an error submitting the form. Please try again.");
                     console.error(error);
                 });
             });
+
             </script>
 
         </div>
