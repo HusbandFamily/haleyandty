@@ -1,22 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haley and Ty Wedding</title>
-</head>
-<body>
-    <div class="video-container">
-        <video autoplay muted loop playsinline class="background-video">
-            <source src="images/Tuscany.mov" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <div class="text-container">
-        <p>We'll see you in Tuscany</p>
-    </div>
-</body>
-</html> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,26 +20,37 @@
                 <input type="text" name="name" placeholder="Your Name" required>
 
                 <label>RSVP</label>
-                <input type="rsvp" name="rsvp" placeholder="RSVP" required>
+                <select name="rsvp" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
 
                 <label>Dietary Restrictions</label>
-                <textarea name="message" placeholder="Your Message" required></textarea>
+                <textarea name="diet" placeholder="Your Dietary Restrictions" required></textarea>
+
 
                 <button type="submit">Send</button>
             </form>
 
             <script>
                 document.getElementById('contactForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
+                e.preventDefault();
 
-                    fetch("https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec", {
-                        method: "POST",
-                        body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
-                        headers: { "Content-Type": "application/json" }
-                    })
-                    .then(response => response.text())
-                    .then(data => alert("Message sent!"));
+                fetch("https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec", {
+                    method: "POST",
+                    body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
+                    headers: { "Content-Type": "application/json" }
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert("Message sent successfully!");
+                    e.target.reset();  // Clear the form after submission
+                })
+                .catch(error => {
+                    alert("There was an error submitting the form. Please try again.");
+                    console.error(error);
                 });
+            });
             </script>
 
         </div>
