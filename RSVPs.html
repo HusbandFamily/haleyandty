@@ -33,25 +33,30 @@
             </form>
 
             <script>
-               document.getElementById('contactForm').addEventListener('submit', function(e) {
+              document.getElementById('contactForm').addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                const formData = JSON.stringify(Object.fromEntries(new FormData(e.target)));
-
-                fetch("https://corsproxy.io/?https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec", {
-                    method: "POST",
-                    body: formData,
-                    headers: { "Content-Type": "application/json" }
-                })
-                .then(response => response.text())
-                .then(data => {
-                    alert("Message sent successfully!");
-                    e.target.reset();
-                })
-                .catch(error => {
-                    alert("There was an error submitting the form. Please try again.");
-                    console.error(error);
+                // Dynamically create a form element
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec';
+                
+                // Add form data as hidden input fields
+                new FormData(e.target).forEach((value, key) => {
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = value;
+                    form.appendChild(input);
                 });
+
+                // Submit the form without a page refresh
+                document.body.appendChild(form);
+                form.submit();
+
+                // Show a success message and reset the form
+                alert("RSVP submitted successfully!");
+                e.target.reset();
             });
 
             </script>
