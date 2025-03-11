@@ -11,176 +11,57 @@
         <!-- Hidden RSVP Form -->
         <div id="formSection" style="display: none;">
             <form id="contactForm">
-                <!-- Name -->
                 <label>What is your name?</label>
-                <input type="text" name="name" id="name" placeholder="Your Name" required>
-                <p id="nameError" style="color: red; display: none;">Please enter your name.</p>
+                <input type="text" name="name" placeholder="Your Name" required>
 
-                <!-- RSVP -->
                 <label>Are you planning to attend the wedding?</label>
-                <label>
-                    <input type="radio" name="weddingAttendance" value="Yes" id="weddingYes" required> Yes
-                </label>
-                <label>
-                    <input type="radio" name="weddingAttendance" value="No" id="weddingNo" required> No
-                </label>
-                <p id="attendanceError" style="color: red; display: none;">Please select your attendance.</p>
+                <input type="radio" name="weddingAttendance" value="Yes" required> Yes
+                <input type="radio" name="weddingAttendance" value="No" required> No
 
-                <!-- Welcome Party -->
-                <label>We're planning a welcome party too. Will you attend?</label>
-                <label>
-                    <input type="radio" name="welcomeParty" value="Yes"> Yes
-                </label>
-                <label>
-                    <input type="radio" name="welcomeParty" value="No"> No
-                </label>
-                <label>
-                    <input type="radio" name="welcomeParty" value="Maybe"> Maybe
-                </label>
+                <label>Will you attend the welcome party?</label>
+                <select name="welcomeParty">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Maybe">Maybe</option>
+                </select>
 
-                <!-- Pool Party -->
-                <label>We're planning a pool party too. Will you attend?</label>
-                <label>
-                    <input type="radio" name="poolParty" value="Yes"> Yes
-                </label>
-                <label>
-                    <input type="radio" name="poolParty" value="No"> No
-                </label>
-                <label>
-                    <input type="radio" name="poolParty" value="Maybe"> Maybe
-                </label>
+                <label>Will you attend the pool party?</label>
+                <select name="poolParty">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Maybe">Maybe</option>
+                </select>
 
-                <!-- Dietary Restrictions -->
                 <label>Do you have any dietary restrictions?</label>
                 <textarea name="diet" placeholder="Your Dietary Restrictions"></textarea>
 
-                <!-- Wine Preference -->
-                <label>Red or white wine?</label>
-                <label>
-                    <input type="radio" name="winePreference" value="Red"> Red
-                </label>
-                <label>
-                    <input type="radio" name="winePreference" value="White"> White
-                </label>
-                <label>
-                    <input type="radio" name="winePreference" value="Juice"> Juice
-                </label>
+                <label>Red or White Wine?</label>
+                <select name="winePreference">
+                    <option value="Red">Red</option>
+                    <option value="White">White</option>
+                    <option value="Juice">Juice</option>
+                </select>
 
-                <input type="hidden" name="code" id="hiddenCode">
-                <button type="submit">Send</button>
+                <button type="submit">Submit</button>
             </form>
         </div>
 
-        <!-- Thank You Message Section -->
+        <!-- Thank You Message -->
         <div id="thankYouMessage" style="display: none;">
-            <h2>Thank you for responding!</h2>
+            <h3>Thank you for responding!</h3>
+            <p>We are so excited to have you join us for the big day!</p>
+            <a href="http://haleyandty.com" target="_blank">Wedding Day Details</a>  <!-- Link to the wedding details -->
         </div>
     </div>
 
 <script>
-    // Define valid guest codes (case-insensitive by normalizing to lowercase)
     const validCodes = {
-        "husband": "Husband",
-        "clarke": "Clarke",
+        "Husband": "Husband",
+        "Clarke": "Clarke",
     };
 
-    // Function to check the entered code
     function checkCode() {
-        const codeInput = document.getElementById('guestCodeInput').value.trim().toLowerCase(); // Convert input to lowercase
+        const codeInput = document.getElementById('guestCodeInput').value.trim().toUpperCase();
         const errorMessage = document.getElementById('errorMessage');
         const formSection = document.getElementById('formSection');
-        const codeSection = document.getElementById('codeSection');
-        const nameField = document.querySelector('input[name="name"]');
-        const hiddenCodeField = document.getElementById('hiddenCode');
-
-        // Check if the entered code is valid (case-insensitive)
-        const validCodeKey = Object.keys(validCodes).find(key => key.toLowerCase() === codeInput); // Convert keys to lowercase for comparison
-
-        if (validCodeKey) {
-            // ✅ Valid code - reveal the form
-            codeSection.style.display = 'none';
-            formSection.style.display = 'block';
-
-            // ✅ Clear the name field (do not auto-populate it anymore)
-            nameField.value = ''; // Ensure name field is empty
-            hiddenCodeField.value = validCodeKey; // Store the actual code in hidden field
-        } else {
-            // ❌ Invalid code - show error message and shake effect
-            errorMessage.style.display = 'block';
-            document.getElementById('guestCodeInput').classList.add('shake');
-
-            setTimeout(() => {
-                document.getElementById('guestCodeInput').classList.remove('shake');
-            }, 500);
-        }
-    }
-
-    // Handle form submission to Google Sheets
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
-    const form = document.getElementById('contactForm');
-    const thankYouMessage = document.getElementById('thankYouMessage');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Reset error messages
-        document.getElementById('nameError').style.display = 'none';
-        document.getElementById('attendanceError').style.display = 'none';
-
-        let valid = true;
-
-        // Check if Name is filled out
-        const nameField = document.getElementById('name');
-        if (!nameField.value.trim()) {
-            document.getElementById('nameError').style.display = 'block';
-            valid = false;
-        }
-
-        // Check if Wedding Attendance is selected
-        const weddingYes = document.getElementById('weddingYes');
-        const weddingNo = document.getElementById('weddingNo');
-        if (!weddingYes.checked && !weddingNo.checked) {
-            document.getElementById('attendanceError').style.display = 'block';
-            valid = false;
-        }
-
-        if (valid) {
-            // Send form data to Google Sheets using fetch
-            fetch(scriptURL, {
-                method: "POST",
-                body: new URLSearchParams(new FormData(form))
-            })
-            .then(response => response.text())
-            .then(data => {
-                if (data === "Success") {
-                    // ✅ On success, hide the form and show the thank you message
-                    form.reset();
-                    form.style.display = 'none';
-                    thankYouMessage.style.display = 'block';
-                } else {
-                    alert("There was an error submitting your RSVP. Please try again.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("There was an error processing your RSVP.");
-            });
-        }
-    });
-</script>
-
-<style>
-    /* Add a subtle shake effect for wrong codes */
-    .shake {
-        animation: shake 0.2s ease-in-out;
-    }
-
-    @keyframes shake {
-        0% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        50% { transform: translateX(5px); }
-        75% { transform: translateX(-5px); }
-        100% { transform: translateX(0); }
-    }
-</style>
-</body>
+        const codeSection = document.getElementById
