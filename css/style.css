@@ -11,6 +11,10 @@
 }
 
 
+
+/******* Code related to homepage *******/
+
+
 * {
     margin: 0;
     padding: 0;
@@ -43,11 +47,16 @@ body {
     opacity: 0.8;
 }
 
+@media (max-width: 768px) {
+    .hero video {
+        width: calc(100% - 32px);
+        max-width: calc(100% - 32px);
+    }
+}
+
 .hero h1 {
     position: absolute;
     font-family: "Bellefair", serif;
-    font-weight: 400;
-    font-style: normal;   
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -98,20 +107,26 @@ body {
 .details h1 {
     font-size: 48px;
     display: inline-block;
-    font-weight: normal;
     position: relative;
 }
 
 .really {
     font-size: 40px;
-    line-height: 40px;
-    display: inline-block;
-    width: 30px;
     font-family: "Dawning of a New Day", serif;
+    position: absolute;
     font-weight: normal;
     top: -35px;
+    left: 270px; /* Adjust position based on your layout */
     font-style: italic;
-    text-align: center;
+}
+
+.arrow {
+    font-size: 40px;
+    font-family: "Dawning of a New Day", serif;
+    font-weight: normal;
+    position: absolute;
+    top: 105px;
+    left: 330px; /* Adjust this to place it between "coming" and "soon" */
 }
 
 .details h2 {
@@ -163,6 +178,161 @@ body {
     font-size: 32px;
 }
 
+
+/************** Code related to Secret Password on RSVP Screen ***********/
+
+.secret-code {
+    padding: 120px 40px;
+    text-align: center;
+    color: #DAD6C5;
+}
+
+.secret-code h3 {
+    font-family: "Bellefair", serif;
+    color: #391B00;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.code-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.code-form label {
+    font-size: 20px;
+    text-align: left;
+    color: #391B00;
+}
+
+.code-form input {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height: 48px;
+    padding: 24px;
+    border: none;
+    border-radius: 120px;
+    background-color: #fff;
+    color: #391B00;
+    margin-bottom:0px;
+}
+
+.code-form button {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height:48px;
+    padding: 10px;
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: none;
+    border-radius: 120px;
+    cursor: pointer;
+}
+
+.code-form button:hover {
+    background-color: #847D6D;
+    opacity: 0.6;
+}
+
+
+/******** Code related to RSVP Questions on RSVP Screen ***********/
+
+.rsvp {
+    background-color: #DAD6C5;
+    padding: 80px 40px;
+    text-align: center;
+    color: #391B00;
+}
+
+.rsvp h1 {
+    font-family: "Bellefair", serif;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.rsvp-form label {
+    font-family: "Bellefair", serif;
+    font-size: 20px;
+    text-align: left;
+    color: #391B00;
+}
+
+.rsvp-form input, .rsvp-form select{
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    padding: 24px;
+    Height: 48px;
+    border: none;
+    border-radius: 120px;
+    background-color: #fff;
+    color: #391B00;
+    margin-bottom: 20px;
+}
+
+.rsvp-form button {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height:48px;
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: none;
+    border-radius: 120px;
+    cursor: pointer;
+}
+
+.rsvp-form button:hover {
+    background-color: #847D6D;
+    opacity: 0.6;
+}
+
+
+/******** Code related to Thank you message on RSVP screen **********/
+
+.thank-you {
+    background-color: #847D6D;
+    padding: 100px 40px;
+    text-align: center;
+    color: #DAD6C5;
+}
+
+.thank-you h3 {
+    font-family: "Bellefair", serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.thank-you a {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    color: #DAD6C5;
+    cursor: pointer;
+}
+
+.thank-you p {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #DAD6C5;
+}
+
+
+
+
+/******* Code related to homepage *******/
+
+
 @media (max-width: 768px) {
 
     .hero {
@@ -170,10 +340,9 @@ body {
     }
 
     .hero video {
-        width: calc(100% - 32px);
-        max-width: calc(100% - 32px);
         object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
     }
+
 
     .hero h1 {
         font-size: 5rem;
@@ -218,7 +387,14 @@ body {
 
     .really {
         font-size: 32px;
-        line-height: 32px;
+        top: -35px;
+        left: 220px; /* Adjust position based on your layout */
+    }
+
+    .arrow {
+        font-size: 40px;
+        top: 35px;
+        left: 265px; /* Adjust this to place it between "coming" and "soon" */
     }
 
     .details h2 {
@@ -231,7 +407,7 @@ body {
     }
 
     .details .faq div {
-        padding: 0px;
+        padding: 8px 0;
     }
 
     .photos {
@@ -243,26 +419,22 @@ body {
 }
 
 @media (max-width: 480px) {
-
     .hero {
-        padding: 12px 12px 0;
-        height: calc(85vh); /* Viewport height minus top & bottom padding */
+        padding: 20px 0px;
     }
 
     .hero video {
-        width: calc(100% - 12px);
-        max-width: calc(100% - 12px);
-        object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
+        object-position: calc(50% + 100px) 50%; /* Moves video right by 100px */
     }
 
-
     .details .textarea {
-        padding: 80px 12px 40px;
+        padding: 40px 12px;
     }   
 
 
     .story {
-        margin: 40px 24px;
+        margin: 0 24px;
+        padding: 12px 0;
         gap: 24px;
         font-size: 32px;
     }
@@ -286,6 +458,10 @@ body {
         font-size: 2rem;
     }
 
+    details .textarea {
+        padding: 40px 24px;
+    }
+
 
     .details h1 {
         font-size: 32px;
@@ -293,14 +469,25 @@ body {
         position: relative;
     }
 
-    .column h2 {
-        font-size: 20px;
-        font-weight: normal;
-        margin-top: 32px;
+    .really {
+        font-size: 32px;
+        top: -35px;
+        left: 170px; /* Adjust position based on your layout */
     }
 
-    .faq div {
-        padding: 0px;
+    .arrow {
+        font-size: 40px;
+        top: 35px;
+        left: 205px; /* Adjust this to place it between "coming" and "soon" */
+    }
+
+    .details h2 {
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    .details .faq div {
+        padding: 4px 0;
     }
 
     .photos {
