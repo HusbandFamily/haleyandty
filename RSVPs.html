@@ -11,19 +11,58 @@
         <!-- Hidden RSVP Form -->
         <div id="formSection" style="display: none;">
             <form id="contactForm">
-                <label>Name</label>
+                <!-- Name -->
+                <label>What is your name?</label>
                 <input type="text" name="name" placeholder="Your Name" required>
 
-                <label>RSVP</label>
+                <!-- RSVP -->
+                <label>Are you planning to attend the wedding?</label>
                 <label>
-                    <input type="radio" name="rsvp" value="Yes" required> Yes
+                    <input type="radio" name="weddingAttendance" value="Yes" required> Yes
                 </label>
                 <label>
-                    <input type="radio" name="rsvp" value="No" required> No
+                    <input type="radio" name="weddingAttendance" value="No" required> No
                 </label>
 
-                <label>Dietary Restrictions</label>
+                <!-- Welcome Party -->
+                <label>We're planning a welcome party too. Will you attend?</label>
+                <label>
+                    <input type="radio" name="welcomeParty" value="Yes" required> Yes
+                </label>
+                <label>
+                    <input type="radio" name="welcomeParty" value="No" required> No
+                </label>
+                <label>
+                    <input type="radio" name="welcomeParty" value="Maybe" required> Maybe
+                </label>
+
+                <!-- Pool Party -->
+                <label>We're planning a pool party too. Will you attend?</label>
+                <label>
+                    <input type="radio" name="poolParty" value="Yes" required> Yes
+                </label>
+                <label>
+                    <input type="radio" name="poolParty" value="No" required> No
+                </label>
+                <label>
+                    <input type="radio" name="poolParty" value="Maybe" required> Maybe
+                </label>
+
+                <!-- Dietary Restrictions -->
+                <label>Do you have any dietary restrictions?</label>
                 <textarea name="diet" placeholder="Your Dietary Restrictions"></textarea>
+
+                <!-- Wine Preference -->
+                <label>Red or white wine?</label>
+                <label>
+                    <input type="radio" name="winePreference" value="Red" required> Red
+                </label>
+                <label>
+                    <input type="radio" name="winePreference" value="White" required> White
+                </label>
+                <label>
+                    <input type="radio" name="winePreference" value="Juice" required> Juice
+                </label>
 
                 <input type="hidden" name="code" id="hiddenCode">
                 <button type="submit">Send</button>
