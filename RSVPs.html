@@ -64,4 +64,75 @@
         const codeInput = document.getElementById('guestCodeInput').value.trim().toUpperCase();
         const errorMessage = document.getElementById('errorMessage');
         const formSection = document.getElementById('formSection');
-        const codeSection = document.getElementById
+        const codeSection = document.getElementById('codeSection');
+        const nameField = document.querySelector('input[name="name"]');
+        const hiddenCodeField = document.getElementById('hiddenCode');
+
+        if (validCodes.hasOwnProperty(codeInput)) {
+            // Valid code - reveal the form
+            codeSection.style.display = 'none';
+            formSection.style.display = 'block';
+            nameField.value = validCodes[codeInput];
+            hiddenCodeField.value = codeInput;
+        } else {
+            // Invalid code - show error message
+            errorMessage.style.display = 'block';
+            document.getElementById('guestCodeInput').classList.add('shake');
+
+            setTimeout(() => {
+                document.getElementById('guestCodeInput').classList.remove('shake');
+            }, 500);
+        }
+    }
+
+    // Handle Form Submission
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        fetch(scriptURL, {
+            method: "POST",
+            body: new URLSearchParams(new FormData(form))
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data === "Success") {
+                // Hide the form and show the "Thank You" message
+                form.reset();
+                document.getElementById('formSection').style.display = 'none';
+                document.getElementById('thankYouMessage').style.display = 'block';
+            } else {
+                alert("There was an error submitting your RSVP. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("There was an error processing your RSVP.");
+        });
+    });
+
+    // Handle Enter key press to submit the code
+    document.getElementById('guestCodeInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            checkCode();
+        }
+    });
+</script>
+
+<style>
+    .shake {
+        animation: shake 0.2s ease-in-out;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+</style>
+
+</body>
