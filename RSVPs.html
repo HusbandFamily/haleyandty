@@ -27,33 +27,45 @@
         </div>
 
         <script>
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
-            
-            function checkCode() {
-                const code = document.getElementById('guestCodeInput').value;
-                fetch(scriptURL + '?code=' + code)
-                    .then(response => response.text())
-                    .then(data => {
-                        if (data === 'valid') {
-                            // Store code in browser so they don't enter it again
-                            localStorage.setItem('guestCode', code);
+            const scriptURL = "YOUR_DEPLOYED_SCRIPT_URL_HERE";
+            const form = document.getElementById('contactForm');
+            const submitButton = form.querySelector('button[type="submit"]');
+        
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitButton.textContent = "Sending...";
+                submitButton.disabled = true;
+        
+                // Package form data
+                const formData = new FormData(form);
+        
+                // Send data to Google Apps Script
+                fetch(scriptURL, {
+                    method: "POST",
+                    body: new URLSearchParams(formData)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "Success") {
+                        // ✅ Success! Clear form and show message
+                        alert("RSVP Submitted! Thank you.");
+                        form.reset();
+                    } else {
+                        // ❌ Something went wrong (like invalid code)
+                        alert("There was an error. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("There was a problem submitting your RSVP.");
+                })
+                .finally(() => {
+                    submitButton.textContent = "Send";
+                    submitButton.disabled = false;
+                });
+            });
+        </script>
 
-                            // Reveal the form and pass the code along
-                            document.getElementById('code-container').style.display = 'none';
-                            document.getElementById('rsvp-form').style.display = 'block';
-                            document.getElementById('hiddenCode').value = code;
-                        } else {
-                            document.getElementById('errorMessage').style.display = 'block';
-                        }
-                    });
-            }
-
-            // Auto-reveal the form if code was already entered
-            const savedCode = localStorage.getItem('guestCode');
-            if (savedCode) {
-                document.getElementById('guestCodeInput').value = savedCode;
-                checkCode();
-            }
         </script>
     </div>
 </body>
