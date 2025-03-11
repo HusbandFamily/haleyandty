@@ -15,7 +15,12 @@
                 <input type="text" name="name" placeholder="Your Name" required>
 
                 <label>RSVP</label>
-                <input type="text" name="rsvp" placeholder="RSVP (Yes/No)" required>
+                <label>
+                    <input type="radio" name="rsvp" value="Yes" required> Yes
+                </label>
+                <label>
+                    <input type="radio" name="rsvp" value="No" required> No
+                </label>
 
                 <label>Dietary Restrictions</label>
                 <textarea name="diet" placeholder="Your Dietary Restrictions"></textarea>
@@ -23,6 +28,11 @@
                 <input type="hidden" name="code" id="hiddenCode">
                 <button type="submit">Send</button>
             </form>
+        </div>
+
+        <!-- Thank You Message Section -->
+        <div id="thankYouMessage" style="display: none;">
+            <h2>Thank you for responding!</h2>
         </div>
     </div>
 
@@ -50,8 +60,8 @@
             codeSection.style.display = 'none';
             formSection.style.display = 'block';
 
-            // ✅ Automatically populate the name and hidden code
-            nameField.value = validCodes[validCodeKey]; // Use the correct code name
+            // ✅ Clear the name field (do not auto-populate it anymore)
+            nameField.value = ''; // Ensure name field is empty
             hiddenCodeField.value = validCodeKey; // Store the actual code in hidden field
         } else {
             // ❌ Invalid code - show error message and shake effect
@@ -67,6 +77,7 @@
     // Handle form submission to Google Sheets
     const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
     const form = document.getElementById('contactForm');
+    const thankYouMessage = document.getElementById('thankYouMessage');
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -79,9 +90,10 @@
         .then(response => response.text())
         .then(data => {
             if (data === "Success") {
-                alert("RSVP Submitted! Thank you.");
+                // ✅ On success, hide the form and show the thank you message
                 form.reset();
-                window.location.reload();
+                form.style.display = 'none';
+                thankYouMessage.style.display = 'block';
             } else {
                 alert("There was an error submitting your RSVP. Please try again.");
             }
