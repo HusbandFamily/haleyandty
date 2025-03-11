@@ -1,18 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVPs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bellefair&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap" rel="stylesheet">
+</head>
 <body>
     <div class="container">
         <!-- Secret Code Section -->
-        <div id="codeSection">
-            <h2>Enter Your Guest Code</h2>
-            <input type="text" id="guestCodeInput" placeholder="Enter your code">
-            <button onclick="checkCode()">Submit</button>
-            <p id="errorMessage" style="color: red; display: none;">Invalid code. Try again.</p>
+        <div class="secret-code">
+            <h3>Enter your last name to continue</h3>
+            <form class="code-form">
+                <input type="text" id="secretCode" name="secretCode" required>
+                <button type="submit">Enter</button>
+            </form>
         </div>
-
+        
         <!-- Hidden RSVP Form -->
-        <div id="formSection" style="display: none;">
-            <form id="contactForm">
-                <label>What is your name?</label>
-                <input type="text" name="name" placeholder="Your Name" required>
+        <div id="formSection" class="rsvp" style="display: none;">
+            <h1>RSVP Details</h1>
+            <form id="contactForm" class="rsvp-form">
+                <label>Your name</label>
+                <input type="text" name="name" required>
 
                 <label>Are you planning to attend the wedding?</label>
                 <input type="radio" name="weddingAttendance" value="Yes" required> Yes
@@ -33,7 +47,7 @@
                 </select>
 
                 <label>Do you have any dietary restrictions?</label>
-                <textarea name="diet" placeholder="Your Dietary Restrictions"></textarea>
+                <input type="text" name="diet"></input>
 
                 <label>Red or White Wine?</label>
                 <select name="winePreference">
@@ -47,10 +61,10 @@
         </div>
 
         <!-- Thank You Message -->
-        <div id="thankYouMessage" style="display: none;">
-            <h3>Thank you for responding!</h3>
-            <p>We are so excited to have you join us for the big day!</p>
-            <a href="http://haleyandty.com" target="_blank">Wedding Day Details</a>  <!-- Link to the wedding details -->
+        <div id="thankYouMessage" class="thank-you" style="display: none;">
+            <h3>Your response has been received.</h3>
+            <p>Thank you so much. If you're planning to attend, check out the link below for all the deets.</p>
+            <a href="http://haleyandty.com" target="_blank">View Wedding Details</a>  <!-- Link to the wedding details -->
         </div>
     </div>
 
@@ -119,6 +133,10 @@
             checkCode();
         }
     });
+
+    window.onload = function() {
+    document.getElementById('secretCode').focus();
+    };  
 </script>
 
 <style>
