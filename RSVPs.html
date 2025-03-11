@@ -27,23 +27,23 @@
     </div>
 
 <script>
-    // Define valid guest codes
+    // Define valid guest codes (case-insensitive by normalizing to lowercase)
     const validCodes = {
-        "Husband": "Husband",
-        "Clarke": "Clarke",
+        "husband": "Husband",
+        "clarke": "Clarke",
     };
 
     // Function to check the entered code
     function checkCode() {
-        const codeInput = document.getElementById('guestCodeInput').value.trim(); // Removed .toUpperCase() to ensure case sensitivity
+        const codeInput = document.getElementById('guestCodeInput').value.trim().toLowerCase(); // Convert input to lowercase
         const errorMessage = document.getElementById('errorMessage');
         const formSection = document.getElementById('formSection');
         const codeSection = document.getElementById('codeSection');
         const nameField = document.querySelector('input[name="name"]');
         const hiddenCodeField = document.getElementById('hiddenCode');
 
-        // Check if the entered code is valid
-        const validCodeKey = Object.keys(validCodes).find(key => key === codeInput); // Case-sensitive comparison
+        // Check if the entered code is valid (case-insensitive)
+        const validCodeKey = Object.keys(validCodes).find(key => key.toLowerCase() === codeInput); // Convert keys to lowercase for comparison
 
         if (validCodeKey) {
             // ✅ Valid code - reveal the form
