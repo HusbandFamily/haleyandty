@@ -1,61 +1,59 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ty & Haley's Wedding</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bellefair&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap" rel="stylesheet">
-</head>
 <body>
     <div class="container">
-        <!-- Story Section -->
-        <div class="story" style="margin: 80px;">
+        <!-- Secret Code Input -->
+        <div id="code-container">
+            <h2>Enter Your Guest Code</h2>
+            <input type="text" id="guestCodeInput" placeholder="Enter your code">
+            <button onclick="checkCode()">Submit</button>
+            <p id="errorMessage" style="color: red; display: none;">Invalid code. Try again.</p>
+        </div>
+
+        <!-- Hidden Form -->
+        <div id="rsvp-form" style="display: none;">
+            <h2>RSVP Form</h2>
             <form id="contactForm">
                 <label>Name</label>
-                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="text" name="name" required>
 
                 <label>RSVP</label>
-                <select name="rsvp" required>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
+                <input type="text" name="rsvp" required>
 
                 <label>Dietary Restrictions</label>
-                <textarea name="diet" placeholder="Your Dietary Restrictions" required></textarea>
+                <textarea name="diet" required></textarea>
 
+                <input type="hidden" name="code" id="hiddenCode">
                 <button type="submit">Send</button>
             </form>
-
-            <script>
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Serialize form data to a query string (x-www-form-urlencoded)
-                var formData = new FormData(e.target);
-
-                // Log the form data to the console for debugging
-                console.log(Object.fromEntries(formData));
-
-                // Send the form data to Google Apps Script
-                fetch("https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec", {
-                    method: "POST",
-                    body: JSON.stringify(Object.fromEntries(formData)),
-                    headers: { "Content-Type": "application/json" }
-                })
-                .then(response => response.text())
-                .then(data => alert("Message sent!"))
-                .catch(error => console.error('Error:', error));
-            });
-</script>
-
-            </script>
-
         </div>
-</body>
 
-</html>
+        <script>
+            const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
+            
+            function checkCode() {
+                const code = document.getElementById('guestCodeInput').value;
+                fetch(scriptURL + '?code=' + code)
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === 'valid') {
+                            // Store code in browser so they don't enter it again
+                            localStorage.setItem('guestCode', code);
+
+                            // Reveal the form and pass the code along
+                            document.getElementById('code-container').style.display = 'none';
+                            document.getElementById('rsvp-form').style.display = 'block';
+                            document.getElementById('hiddenCode').value = code;
+                        } else {
+                            document.getElementById('errorMessage').style.display = 'block';
+                        }
+                    });
+            }
+
+            // Auto-reveal the form if code was already entered
+            const savedCode = localStorage.getItem('guestCode');
+            if (savedCode) {
+                document.getElementById('guestCodeInput').value = savedCode;
+                checkCode();
+            }
+        </script>
+    </div>
+</body>
