@@ -1,71 +1,104 @@
 <body>
     <div class="container">
-        <!-- Secret Code Input -->
-        <div id="code-container">
+        <!-- Secret Code Section -->
+        <div id="codeSection">
             <h2>Enter Your Guest Code</h2>
             <input type="text" id="guestCodeInput" placeholder="Enter your code">
             <button onclick="checkCode()">Submit</button>
             <p id="errorMessage" style="color: red; display: none;">Invalid code. Try again.</p>
         </div>
 
-        <!-- Hidden Form -->
-        <div id="rsvp-form" style="display: none;">
-            <h2>RSVP Form</h2>
+        <!-- Hidden RSVP Form -->
+        <div id="formSection" style="display: none;">
             <form id="contactForm">
                 <label>Name</label>
-                <input type="text" name="name" required>
+                <input type="text" name="name" placeholder="Your Name" required>
 
                 <label>RSVP</label>
-                <input type="text" name="rsvp" required>
+                <input type="text" name="rsvp" placeholder="RSVP (Yes/No)" required>
 
                 <label>Dietary Restrictions</label>
-                <textarea name="diet" required></textarea>
+                <textarea name="diet" placeholder="Your Dietary Restrictions"></textarea>
 
                 <input type="hidden" name="code" id="hiddenCode">
                 <button type="submit">Send</button>
             </form>
         </div>
-
-        <script>
-            const scriptURL = "YOUR_DEPLOYED_SCRIPT_URL_HERE";
-            const form = document.getElementById('contactForm');
-            const submitButton = form.querySelector('button[type="submit"]');
-        
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                submitButton.textContent = "Sending...";
-                submitButton.disabled = true;
-        
-                // Package form data
-                const formData = new FormData(form);
-        
-                // Send data to Google Apps Script
-                fetch(scriptURL, {
-                    method: "POST",
-                    body: new URLSearchParams(formData)
-                })
-                .then(response => response.text())
-                .then(data => {
-                    if (data === "Success") {
-                        // ✅ Success! Clear form and show message
-                        alert("RSVP Submitted! Thank you.");
-                        form.reset();
-                    } else {
-                        // ❌ Something went wrong (like invalid code)
-                        alert("There was an error. Please try again.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("There was a problem submitting your RSVP.");
-                })
-                .finally(() => {
-                    submitButton.textContent = "Send";
-                    submitButton.disabled = false;
-                });
-            });
-        </script>
-
-        </script>
     </div>
+
+<script>
+    const validCodes = {
+        "Husband": "Husband",
+        "Clarke": "Clarke",
+    };
+
+    function checkCode() {
+        const codeInput = document.getElementById('guestCodeInput').value.trim().toUpperCase();
+        const errorMessage = document.getElementById('errorMessage');
+        const formSection = document.getElementById('formSection');
+        const codeSection = document.getElementById('codeSection');
+        const nameField = document.querySelector('input[name="name"]');
+        const hiddenCodeField = document.getElementById('hiddenCode');
+
+        if (validCodes.hasOwnProperty(codeInput)) {
+            // ✅ Valid code - reveal the form
+            codeSection.style.display = 'none';
+            formSection.style.display = 'block';
+
+            // ✅ Automatically populate the name and hidden code
+            nameField.value = validCodes[codeInput];
+            hiddenCodeField.value = codeInput;
+        } else {
+            // ❌ Invalid code - show error message and shake effect
+            errorMessage.style.display = 'block';
+            document.getElementById('guestCodeInput').classList.add('shake');
+
+            setTimeout(() => {
+                document.getElementById('guestCodeInput').classList.remove('shake');
+            }, 500);
+        }
+    }
+
+    // ✅ Handle Form Submission
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        fetch(scriptURL, {
+            method: "POST",
+            body: new URLSearchParams(new FormData(form))
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data === "Success") {
+                alert("RSVP Submitted! Thank you.");
+                form.reset();
+                window.location.reload();
+            } else {
+                alert("There was an error submitting your RSVP. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("There was an error processing your RSVP.");
+        });
+    });
+</script>
+
+<style>
+    /* 💅 Add a subtle shake effect for wrong codes */
+    .shake {
+        animation: shake 0.2s ease-in-out;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+</style>
 </body>
