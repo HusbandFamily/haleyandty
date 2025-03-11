@@ -27,27 +27,32 @@
     </div>
 
 <script>
+    // Define valid guest codes
     const validCodes = {
         "Husband": "Husband",
         "Clarke": "Clarke",
     };
 
+    // Function to check the entered code
     function checkCode() {
-        const codeInput = document.getElementById('guestCodeInput').value.trim().toUpperCase();
+        const codeInput = document.getElementById('guestCodeInput').value.trim(); // Removed .toUpperCase() to ensure case sensitivity
         const errorMessage = document.getElementById('errorMessage');
         const formSection = document.getElementById('formSection');
         const codeSection = document.getElementById('codeSection');
         const nameField = document.querySelector('input[name="name"]');
         const hiddenCodeField = document.getElementById('hiddenCode');
 
-        if (validCodes.hasOwnProperty(codeInput)) {
+        // Check if the entered code is valid
+        const validCodeKey = Object.keys(validCodes).find(key => key === codeInput); // Case-sensitive comparison
+
+        if (validCodeKey) {
             // ✅ Valid code - reveal the form
             codeSection.style.display = 'none';
             formSection.style.display = 'block';
 
             // ✅ Automatically populate the name and hidden code
-            nameField.value = validCodes[codeInput];
-            hiddenCodeField.value = codeInput;
+            nameField.value = validCodes[validCodeKey]; // Use the correct code name
+            hiddenCodeField.value = validCodeKey; // Store the actual code in hidden field
         } else {
             // ❌ Invalid code - show error message and shake effect
             errorMessage.style.display = 'block';
@@ -59,13 +64,14 @@
         }
     }
 
-    // ✅ Handle Form Submission
+    // Handle form submission to Google Sheets
     const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
     const form = document.getElementById('contactForm');
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
 
+        // Send form data to Google Sheets using fetch
         fetch(scriptURL, {
             method: "POST",
             body: new URLSearchParams(new FormData(form))
@@ -88,7 +94,7 @@
 </script>
 
 <style>
-    /* 💅 Add a subtle shake effect for wrong codes */
+    /* Add a subtle shake effect for wrong codes */
     .shake {
         animation: shake 0.2s ease-in-out;
     }
