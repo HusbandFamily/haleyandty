@@ -13,39 +13,41 @@
             <form id="contactForm">
                 <!-- Name -->
                 <label>What is your name?</label>
-                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="text" name="name" id="name" placeholder="Your Name" required>
+                <p id="nameError" style="color: red; display: none;">Please enter your name.</p>
 
                 <!-- RSVP -->
                 <label>Are you planning to attend the wedding?</label>
                 <label>
-                    <input type="radio" name="weddingAttendance" value="Yes" required> Yes
+                    <input type="radio" name="weddingAttendance" value="Yes" id="weddingYes" required> Yes
                 </label>
                 <label>
-                    <input type="radio" name="weddingAttendance" value="No" required> No
+                    <input type="radio" name="weddingAttendance" value="No" id="weddingNo" required> No
                 </label>
+                <p id="attendanceError" style="color: red; display: none;">Please select your attendance.</p>
 
                 <!-- Welcome Party -->
                 <label>We're planning a welcome party too. Will you attend?</label>
                 <label>
-                    <input type="radio" name="welcomeParty" value="Yes" required> Yes
+                    <input type="radio" name="welcomeParty" value="Yes"> Yes
                 </label>
                 <label>
-                    <input type="radio" name="welcomeParty" value="No" required> No
+                    <input type="radio" name="welcomeParty" value="No"> No
                 </label>
                 <label>
-                    <input type="radio" name="welcomeParty" value="Maybe" required> Maybe
+                    <input type="radio" name="welcomeParty" value="Maybe"> Maybe
                 </label>
 
                 <!-- Pool Party -->
                 <label>We're planning a pool party too. Will you attend?</label>
                 <label>
-                    <input type="radio" name="poolParty" value="Yes" required> Yes
+                    <input type="radio" name="poolParty" value="Yes"> Yes
                 </label>
                 <label>
-                    <input type="radio" name="poolParty" value="No" required> No
+                    <input type="radio" name="poolParty" value="No"> No
                 </label>
                 <label>
-                    <input type="radio" name="poolParty" value="Maybe" required> Maybe
+                    <input type="radio" name="poolParty" value="Maybe"> Maybe
                 </label>
 
                 <!-- Dietary Restrictions -->
@@ -55,13 +57,13 @@
                 <!-- Wine Preference -->
                 <label>Red or white wine?</label>
                 <label>
-                    <input type="radio" name="winePreference" value="Red" required> Red
+                    <input type="radio" name="winePreference" value="Red"> Red
                 </label>
                 <label>
-                    <input type="radio" name="winePreference" value="White" required> White
+                    <input type="radio" name="winePreference" value="White"> White
                 </label>
                 <label>
-                    <input type="radio" name="winePreference" value="Juice" required> Juice
+                    <input type="radio" name="winePreference" value="Juice"> Juice
                 </label>
 
                 <input type="hidden" name="code" id="hiddenCode">
@@ -121,26 +123,49 @@
     form.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // Send form data to Google Sheets using fetch
-        fetch(scriptURL, {
-            method: "POST",
-            body: new URLSearchParams(new FormData(form))
-        })
-        .then(response => response.text())
-        .then(data => {
-            if (data === "Success") {
-                // ✅ On success, hide the form and show the thank you message
-                form.reset();
-                form.style.display = 'none';
-                thankYouMessage.style.display = 'block';
-            } else {
-                alert("There was an error submitting your RSVP. Please try again.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("There was an error processing your RSVP.");
-        });
+        // Reset error messages
+        document.getElementById('nameError').style.display = 'none';
+        document.getElementById('attendanceError').style.display = 'none';
+
+        let valid = true;
+
+        // Check if Name is filled out
+        const nameField = document.getElementById('name');
+        if (!nameField.value.trim()) {
+            document.getElementById('nameError').style.display = 'block';
+            valid = false;
+        }
+
+        // Check if Wedding Attendance is selected
+        const weddingYes = document.getElementById('weddingYes');
+        const weddingNo = document.getElementById('weddingNo');
+        if (!weddingYes.checked && !weddingNo.checked) {
+            document.getElementById('attendanceError').style.display = 'block';
+            valid = false;
+        }
+
+        if (valid) {
+            // Send form data to Google Sheets using fetch
+            fetch(scriptURL, {
+                method: "POST",
+                body: new URLSearchParams(new FormData(form))
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "Success") {
+                    // ✅ On success, hide the form and show the thank you message
+                    form.reset();
+                    form.style.display = 'none';
+                    thankYouMessage.style.display = 'block';
+                } else {
+                    alert("There was an error submitting your RSVP. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("There was an error processing your RSVP.");
+            });
+        }
     });
 </script>
 
