@@ -472,13 +472,7 @@ body {
     .really {
         font-size: 32px;
         top: -35px;
-        left: 170px; /* Adjust position based on your layout */
-    }
-
-    .arrow {
-        font-size: 40px;
-        top: 35px;
-        left: 205px; /* Adjust this to place it between "coming" and "soon" */
+        left: 220px; /* Adjust position based on your layout */
     }
 
     .details h2 {
