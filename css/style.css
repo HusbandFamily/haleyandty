@@ -120,14 +120,6 @@ body {
     font-style: italic;
 }
 
-.arrow {
-    font-size: 40px;
-    font-family: "Dawning of a New Day", serif;
-    font-weight: normal;
-    position: absolute;
-    top: 105px;
-    left: 330px; /* Adjust this to place it between "coming" and "soon" */
-}
 
 .details h2 {
     font-size: 24px;
@@ -241,12 +233,7 @@ body {
 
 /******** Code related to RSVP Questions on RSVP Screen ***********/
 
-.rsvp {
-    background-color: #DAD6C5;
-    padding: 80px 40px;
-    text-align: center;
-    color: #391B00;
-}
+
 
 .rsvp h1 {
     font-family: "Bellefair", serif;
@@ -257,8 +244,9 @@ body {
 .rsvp-form {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    max-width: 400px;
+    gap: 40px; /* Adds uniform spacing between elements */
+    margin-bottom: 20px;
+    width:400px;
     margin: 0 auto;
 }
 
@@ -278,7 +266,6 @@ body {
     border-radius: 120px;
     background-color: #fff;
     color: #391B00;
-    margin-bottom: 20px;
 }
 
 .rsvp-form button {
@@ -296,6 +283,102 @@ body {
     background-color: #847D6D;
     opacity: 0.6;
 }
+
+.rsvp-question {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds spacing between labels and selection groups */
+}
+
+.selection-group {
+    display: flex;
+    gap: 10px; /* Ensures even spacing between the selection cards */
+    justify-content: center;
+}
+
+.selection-card {
+    padding: 12px 16px;
+    background-color: #C3BEA5;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    flex: 1;
+}
+
+
+.selection-card:hover {
+    background-color: #f0eee5;
+}
+
+.selection-card.selected {
+    border-color: #847D6D;
+    background-color: #847D6D;
+    color: #DAD6C5;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .video-section {
+        width: 100%;
+        height: 40vh;
+    }
+
+    .content-section {
+        width: 100%;
+        height: 60vh;
+    }
+}
+
+.RSVPcontainer {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.video-section {
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #DAD6C5;
+    padding: 20px;
+}
+
+.rsvp, .secret-code {
+    width: 80%;
+    max-width: 400px;
+}
+
+.shake {
+    animation: shake 0.2s ease-in-out;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+
 
 
 /******** Code related to Thank you message on RSVP screen **********/
@@ -391,11 +474,6 @@ body {
         left: 220px; /* Adjust position based on your layout */
     }
 
-    .arrow {
-        font-size: 40px;
-        top: 35px;
-        left: 265px; /* Adjust this to place it between "coming" and "soon" */
-    }
 
     .details h2 {
         font-size: 20px;
