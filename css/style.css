@@ -115,10 +115,10 @@ body {
     font-family: "Dawning of a New Day", serif;
     position: absolute;
     font-weight: normal;
-    top: -35px;
-    left: 290px; /* Adjust position based on your layout */
+    top: -30px;
+    left: 270px; /* Adjust position based on your layout */
     font-style: italic;
-    line-height: 30px; 
+    line-height: 40px; 
     text-align:center;
 }
 
@@ -553,6 +553,7 @@ body {
         font-size: 32px;
         top: -25px;
         left: 180px; /* Adjust position based on your layout */
+        line-height: 30px; 
     }
 
     .details h2 {
