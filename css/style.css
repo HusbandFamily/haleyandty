@@ -602,7 +602,7 @@ select:focus {
         font-size: 32px;
         top: 0px;
         left: 0px; /* Adjust position based on your layout */
-        transform: translate(175px, -20px);
+        transform: translate(195px, -20px);
         line-height: 30px; 
     }
 
