@@ -19,6 +19,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased; /* For Chrome and Safari */
+    text-rendering: optimizeLegibility;
 }
 
 body {
@@ -63,6 +65,7 @@ body {
     font-size: 8rem;
     padding: 10px 20px;
     color: #DAD6C5;
+    font-weight: normal;
 }
 
 .story {
@@ -73,6 +76,7 @@ body {
     grid-template-columns: repeat(12, 1fr);
     gap: 60px;
     color: #391B00;
+    font-weight: normal;
 }
 
 
@@ -115,8 +119,9 @@ body {
     font-family: "Dawning of a New Day", serif;
     position: absolute;
     font-weight: normal;
-    top: -30px;
-    left: 260px; /* Adjust position based on your layout */
+    top: 0px;
+    left: 0px; /* Adjust position based on your layout */
+    transform: translate(265px, -20px);
     font-style: italic;
     line-height: 40px; 
     text-align:center;
@@ -176,16 +181,24 @@ body {
 /************** Code related to Secret Password on RSVP Screen ***********/
 
 .secret-code {
-    padding: 120px 40px;
-    text-align: center;
+    text-align: left;
     color: #DAD6C5;
 }
 
-.secret-code h3 {
-    font-family: "Bellefair", serif;
+.secret-code h2 {
+    font-family: "Dawning of a New Day", serif;
+    font-weight: 400;
     color: #391B00;
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 40px;
+    line-height: 10px;
+    text-decoration: none;
+}
+
+.secret-code h3 {
+    font-family: "Dawning of a New Day", serif;
+    font-weight: 400;
+    color: #391B00;
+    font-size: 24px;
     text-decoration: none;
 }
 
@@ -193,7 +206,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    max-width: 400px;
+    max-width: 100%;
     margin: 0 auto;
 }
 
@@ -209,7 +222,7 @@ body {
     height: 48px;
     padding: 24px;
     border: none;
-    border-radius: 120px;
+    border-radius: 4px;
     background-color: #fff;
     color: #391B00;
     margin-bottom:0px;
@@ -223,7 +236,7 @@ body {
     background-color: #847D6D;
     color: #DAD6C5;
     border: none;
-    border-radius: 120px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
@@ -235,28 +248,93 @@ body {
 
 /******** Code related to RSVP Questions on RSVP Screen ***********/
 
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
 
 
-.rsvp h1 {
+.RSVPcontainer {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.video-section {
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.video-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rsvp-date {
+    position: absolute;
     font-family: "Bellefair", serif;
-    font-size: 20px;
-    margin-bottom: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8rem;
+    padding: 10px 20px;
+    color: #DAD6C5;
+}
+
+.content-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #DAD6C5;
+    max-height: 100vh; /* or a specific height you want */
+    overflow-y: auto;
+}
+
+.rsvp, .secret-code {
+    width: 60%;
+    max-width:500px;
+}
+
+
+
+.rsvp h2 {
+   font-family: "Dawning of a New Day", serif;
+   font-weight: 400;
+   color: #391B00;
+   font-size: 40px;
+   text-decoration: none;
+   text-align: left;
+   margin-bottom: 40px;
 }
 
 .rsvp-form {
     display: flex;
     flex-direction: column;
-    gap: 40px; /* Adds uniform spacing between elements */
-    margin-bottom: 20px;
-    width:400px;
-    margin: 0 auto;
+    gap: 32px;
+
+}
+
+.rsvp-question h3 {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    text-align: left;
+    color: #391B00;
+    text-decoration: none;
+    font-weight: normal;
 }
 
 .rsvp-form label {
     font-family: "Bellefair", serif;
-    font-size: 20px;
+    font-size: 16px;
     text-align: left;
     color: #391B00;
+    text-decoration: none;
 }
 
 .rsvp-form input, .rsvp-form select{
@@ -335,38 +413,7 @@ body {
     }
 }
 
-.RSVPcontainer {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-}
 
-.video-section {
-    width: 50%;
-    position: relative;
-    overflow: hidden;
-}
-
-.video-section video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.content-section {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: #DAD6C5;
-    padding: 20px;
-}
-
-.rsvp, .secret-code {
-    width: 80%;
-    max-width: 400px;
-}
 
 .shake {
     animation: shake 0.2s ease-in-out;
@@ -459,6 +506,14 @@ body {
         font-size: 2rem;
     }
 
+    .really {
+        font-size: 32px;
+        top: 0px;
+        left: 0px; /* Adjust position based on your layout */
+        transform: translate(225px, -20px);
+        line-height: 30px; 
+    }
+
     .details .textarea {
         padding: 40px 24px;
     }
@@ -468,12 +523,6 @@ body {
         font-size: 40px;
         display: inline-block;
         position: relative;
-    }
-
-    .really {
-        font-size: 32px;
-        top: -35px;
-        left: 220px; /* Adjust position based on your layout */
     }
 
 
@@ -551,8 +600,9 @@ body {
 
     .really {
         font-size: 32px;
-        top: -25px;
-        left: 180px; /* Adjust position based on your layout */
+        top: 0px;
+        left: 0px; /* Adjust position based on your layout */
+        transform: translate(175px, -20px);
         line-height: 30px; 
     }
 
