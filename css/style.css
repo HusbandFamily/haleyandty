@@ -109,6 +109,7 @@ body {
 }
 
 .details h1 {
+    font-weight: 400;
     font-size: 48px;
     display: inline-block;
     position: relative;
