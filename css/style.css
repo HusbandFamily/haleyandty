@@ -558,13 +558,13 @@ select:focus {
     }
 
     .details .textarea {
-        padding: 40px 12px;
+        padding: 80px 12px 40px;
     }   
 
 
     .story {
         margin: 0 24px;
-        padding: 12px 0;
+        padding: 12px 0 64px;
         gap: 24px;
         font-size: 32px;
     }
