@@ -193,13 +193,14 @@ body {
     font-size: 40px;
     line-height: 10px;
     text-decoration: none;
+    margin-bottom: 40px;
 }
 
 .secret-code h3 {
-    font-family: "Dawning of a New Day", serif;
+    font-family: "Bellefair", serif;
     font-weight: 400;
     color: #391B00;
-    font-size: 24px;
+    font-size: 16px;
     text-decoration: none;
 }
 
@@ -303,7 +304,6 @@ select:focus {
 }
 
 
-
 .rsvp h2 {
    font-family: "Dawning of a New Day", serif;
    font-weight: 400;
@@ -318,7 +318,6 @@ select:focus {
     display: flex;
     flex-direction: column;
     gap: 32px;
-
 }
 
 .rsvp-question h3 {
@@ -341,22 +340,24 @@ select:focus {
 .rsvp-form input, .rsvp-form select{
     font-family: "Bellefair", serif;
     font-size: 16px;
+    height: 48px;
     padding: 24px;
-    Height: 48px;
     border: none;
-    border-radius: 120px;
+    border-radius: 4px;
     background-color: #fff;
     color: #391B00;
+    margin-bottom:0px;
 }
 
 .rsvp-form button {
     font-family: "Bellefair", serif;
     font-size: 16px;
     height:48px;
+    padding: 10px;
     background-color: #847D6D;
     color: #DAD6C5;
     border: none;
-    border-radius: 120px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
@@ -366,7 +367,7 @@ select:focus {
 }
 
 .rsvp-question {
-    display: flex;
+    display: block flex;
     flex-direction: column;
     gap: 10px; /* Adds spacing between labels and selection groups */
 }
@@ -378,23 +379,35 @@ select:focus {
 }
 
 .selection-card {
+    font-family: "Bellefair", serif;
+    color: #391B00;
     padding: 12px 16px;
-    background-color: #C3BEA5;
-    border-radius: 8px;
+    border: 1px solid #847D6D;
+    border-radius: 4px;
     cursor: pointer;
     text-align: center;
     flex: 1;
 }
 
-
 .selection-card:hover {
-    background-color: #f0eee5;
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: 1px solid #DAD6C5;
 }
 
 .selection-card.selected {
-    border-color: #847D6D;
     background-color: #847D6D;
     color: #DAD6C5;
+    border: 1px solid #DAD6C5;
+}
+
+
+#guest1Diet{
+    margin-top: -12px;
+}
+
+#guest2Diet{
+    margin-top: -12px;
 }
 
 /* Responsive styling */
@@ -434,32 +447,141 @@ select:focus {
 /******** Code related to Thank you message on RSVP screen **********/
 
 .thank-you {
-    background-color: #847D6D;
     padding: 100px 40px;
     text-align: center;
     color: #DAD6C5;
 }
 
-.thank-you h3 {
-    font-family: "Bellefair", serif;
-    font-size: 24px;
+.thank-you h2 {
+    font-family: "Dawning of a New Day", serif;
+    font-weight: 400;
+    font-size: 40px;
     margin-bottom: 20px;
-}
-
-.thank-you a {
-    font-family: "Bellefair", serif;
-    font-size: 16px;
-    color: #DAD6C5;
-    cursor: pointer;
+    color: #391B00;
 }
 
 .thank-you p {
     font-family: "Bellefair", serif;
     font-size: 16px;
     margin-bottom: 20px;
-    color: #DAD6C5;
+    color: #391B00;
 }
 
+.thank-you a {
+    display: inline-block;
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height:48px;
+    padding: 12px 48px;
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Remove underline */
+    border: none;
+}
+
+.thank-you a:hover {
+    background-color: #847D6D;
+    opacity: 0.6;
+}
+
+
+
+/*********** Tablet code for RSVP ************/
+@media (max-width: 768px) {
+
+    .video-section {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .content-section {
+        height: 100vh;
+    }
+
+    .rsvp-date {
+        font-size: 5rem;
+    }
+
+    .secret-code h2 {
+        line-height: 32px;
+    }
+
+     .secret-code h3 {
+        line-height: 24px;
+    }
+
+    .rsvp, .secret-code {
+        width: 80%;
+    }
+
+    .rsvp h2 {
+        font-size: 32px;
+        margin-bottom: 0px;
+    }
+
+
+
+/*********** Mobile code for RSVP *************/
+
+@media (max-width: 480px) {
+
+    .RSVPcontainer {
+        display: block;
+        padding: 16px;
+    }
+
+    .video-section {
+        width: 100%;
+        height: 70vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .video-section video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .rsvp-date {
+        font-size: 4rem;
+    }
+
+    .content-section {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: #DAD6C5;
+        padding: 48px 0px;
+    }
+
+    .rsvp, .secret-code {
+        width: 100%;
+    }
+
+    .rsvp h2 {
+        font-size: 32px;
+        margin-bottom: 0px;
+    }
+
+    .thank-you {
+        padding: 0px;
+    }
+
+    .thank-you a {
+        padding: 12px 80px;
+    }
+}
 
 
 
@@ -615,7 +737,6 @@ select:focus {
     .details .faq {
         padding: 40px 0 0;
     }
-
 
     .details .faq div {
         padding: 4px 0;
