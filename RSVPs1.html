@@ -59,7 +59,7 @@
                             <input type="text" name="guest1Diet" placeholder="Any dietary restrictions?" style="width:100%">
                         </div>
 
-                        <button type="button" id="nextButton">Next</button>
+                        <button type="button" id="nextButton" onclick="buttonNext(this)">Next</button>
                         <div id="attendanceError" style="color: red; display: none;">Please make a selection before proceeding.</div>
                     </div>
 
@@ -98,7 +98,7 @@
                             </div>
 
                             <div class="rsvp-question">
-                                <button type="submit" style="width: 100%;">Submit</button>
+                                <button type="submit" onclick="buttonSubmitting(this)" style="width: 100%;">Submit</button>
                             </div>
                         </div>  
                     </div>  
@@ -117,244 +117,254 @@
     </div>
 
 
+
 <script>
     const validCodes = {
-        "JERAMIE DUCHARME": { name1: "Jeramie" },
-        "KATE HARLING": { name1: "Kate" },
-        "LAYLA CLARKSON": { name1: "Layla" },
-        "ZOE FENRICK": { name1: "Zoe" },
-        "CLAYTON FENRICK": { name1: "Clayton" },
-        "CLAY FENRICK": { name1: "Clayton" },
-        "STEFAN FRIESEN": { name1: "Stefan" },
-        "GLENN HUSBAND": { name1: "Glenn" },
-        "JANE VAN ZANT": { name1: "Jane" },
-        "JANE VANZANT": { name1: "Jane" },
-        "PATRICK EASTON": { name1: "Patrick" },
-        "PAT EASTON": { name1: "Patrick" },
-        "JESSIE CRARER": { name1: "Jessie" },
-        "TYLER CLARKE": { name1: "Tyler" },
-        "COURTNEY CLARKE": { name1: "Courtney" },
-        "JESSIE CRARER": { name1: "Jessie" },
-        "KYLE CRARER": { name1: "Kyle" },
-        "JESSE GRUNEAU": { name1: "Jesse" },
-        "CATRIONA CRARER": { name1: "Catriona" },
-    };
+    "JERAMIE DUCHARME": { name1: "Jeramie" },
+    "KATE HARLING": { name1: "Kate" },
+    "LAYLA CLARKSON": { name1: "Layla" },
+    "ZOE FENRICK": { name1: "Zoe" },
+    "CLAYTON FENRICK": { name1: "Clayton" },
+    "CLAY FENRICK": { name1: "Clayton" },
+    "STEFAN FRIESEN": { name1: "Stefan" },
+    "GLENN HUSBAND": { name1: "Glenn" },
+    "JANE VAN ZANT": { name1: "Jane" },
+    "JANE VANZANT": { name1: "Jane" },
+    "PATRICK EASTON": { name1: "Patrick" },
+    "PAT EASTON": { name1: "Patrick" },
+    "JESSIE CRARER": { name1: "Jessie" },
+    "TYLER CLARKE": { name1: "Tyler" },
+    "COURTNEY CLARKE": { name1: "Courtney" },
+    "JESSIE CRARER": { name1: "Jessie" },
+    "KYLE CRARER": { name1: "Kyle" },
+    "JESSE GRUNEAU": { name1: "Jesse" },
+    "CATRIONA CRARER": { name1: "Catriona" },
+    "GARETH WASYLYNKO": { name1: "Gareth" },
+};
 
-    ////////////////////// CHECK IF THE SECRET CODE IS CORRECT ////////////////////
-    function checkCode(event) {
-        event.preventDefault(); // Stop form from submitting the normal way
+////////////////////// CHECK IF THE SECRET CODE IS CORRECT ////////////////////
+function checkCode(event) {
+    event.preventDefault(); // Stop form from submitting the normal way
 
-        const codeInput = document.getElementById('secretCode').value.trim().toUpperCase();
-        const errorMessage = document.getElementById('errorMessage');
-        const formSection = document.getElementById('formSection');
-        const codeSection = document.getElementById('codeSection');
-        const title1 = document.getElementById("title1");
+    const codeInput = document.getElementById('secretCode').value.trim().toUpperCase();
+    const errorMessage = document.getElementById('errorMessage');
+    const formSection = document.getElementById('formSection');
+    const codeSection = document.getElementById('codeSection');
+    const title1 = document.getElementById("title1");
 
-        console.log("Entered Code:", codeInput);
-        console.log("Valid Codes Object:", validCodes);
+    console.log("Entered Code:", codeInput);
+    console.log("Valid Codes Object:", validCodes);
 
-        if (validCodes.hasOwnProperty(codeInput)) {
-            // Valid code - show the RSVP form
-            codeSection.style.display = 'none';
-            formSection.style.display = 'block';
+    if (validCodes.hasOwnProperty(codeInput)) {
+        // Valid code - show the RSVP form
+        codeSection.style.display = 'none';
+        formSection.style.display = 'block';
 
-            // Update the RSVP Names
-            title1.textContent = `${validCodes[codeInput].name1}, are you planning to attend?`;
+        // Update the RSVP Names
+        title1.textContent = `${validCodes[codeInput].name1}, are you planning to attend?`;
 
-            // Add these lines to fill the name fields
-            document.getElementById("guest1Name").value = validCodes[codeInput].name1;
+        // Add these lines to fill the name fields
+        document.getElementById("guest1Name").value = validCodes[codeInput].name1;
 
-            // Set the secretCode value in the hidden input
-            document.getElementById("hiddenSecretCode").value = codeInput;
+        // Set the secretCode value in the hidden input
+        document.getElementById("hiddenSecretCode").value = codeInput;
 
+    } else {
+        // Invalid code - show error message
+        errorMessage.style.display = 'block';
+        document.getElementById('secretCode').classList.add('shake');
+
+        console.error("Title elements not found.");
+
+        setTimeout(() => {
+            document.getElementById('secretCode').classList.remove('shake');
+        }, 500);
+    }
+}
+
+////////////////////// GUEST 1 DIET ////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    const guest1attendingYes = document.getElementById("guest1attendingYes");
+    const guest1attendingNo = document.getElementById("guest1attendingNo");
+    const guest1Diet = document.getElementById("guest1Diet");
+    const guest1weddingAttendanceInput = document.querySelector("input[name='guest1weddingAttendance']");
+
+    function toggleGuest1Diet(value) {
+        if (value === "Yes") {
+            guest1Diet.style.display = "block"; // Show extra questions
         } else {
-            // Invalid code - show error message
-            errorMessage.style.display = 'block';
-            document.getElementById('secretCode').classList.add('shake');
-
-            console.error("Title elements not found.");
-
-            setTimeout(() => {
-                document.getElementById('secretCode').classList.remove('shake');
-            }, 500);
+            guest1Diet.style.display = "none"; // Hide extra questions
         }
     }
 
-    ////////////////////// GUEST 1 DIET ////////////////////
-    document.addEventListener("DOMContentLoaded", function () {
-        const guest1attendingYes = document.getElementById("guest1attendingYes");
-        const guest1attendingNo = document.getElementById("guest1attendingNo");
-        const guest1Diet = document.getElementById("guest1Diet");
-        const guest1weddingAttendanceInput = document.querySelector("input[name='guest1weddingAttendance']");
+    // Ensure the hidden inputs are set correctly when the page is loaded
+    if (!guest1weddingAttendanceInput.value) {
+        guest1weddingAttendanceInput.value = "No Selection";
+    }
 
-        function toggleGuest1Diet(value) {
-            if (value === "Yes") {
-                guest1Diet.style.display = "block"; // Show extra questions
-            } else {
-                guest1Diet.style.display = "none"; // Hide extra questions
-            }
-        }
-
-        // Ensure the hidden inputs are set correctly when the page is loaded
-        if (!guest1weddingAttendanceInput.value) {
-            guest1weddingAttendanceInput.value = "No Selection";
-        }
-
-        guest1attendingYes.addEventListener("click", function () {
-            guest1weddingAttendanceInput.value = "Yes";
-            toggleGuest1Diet("Yes");
-            guest1attendingYes.classList.add("selected");
-            guest1attendingNo.classList.remove("selected");
-        });
-
-        guest1attendingNo.addEventListener("click", function () {
-            guest1weddingAttendanceInput.value = "No";
-            toggleGuest1Diet("No");
-            guest1attendingNo.classList.add("selected");
-            guest1attendingYes.classList.remove("selected");
-        });
-
-        // Add event listeners
-        guest1attendingYes.addEventListener("change", toggleGuest1Diet);
-        guest1attendingNo.addEventListener("change", toggleGuest1Diet);
+    guest1attendingYes.addEventListener("click", function () {
+        guest1weddingAttendanceInput.value = "Yes";
+        toggleGuest1Diet("Yes");
+        guest1attendingYes.classList.add("selected");
+        guest1attendingNo.classList.remove("selected");
     });
 
-    
-    //////////////// Next Button Submission Logic //////////////
+    guest1attendingNo.addEventListener("click", function () {
+        guest1weddingAttendanceInput.value = "No";
+        toggleGuest1Diet("No");
+        guest1attendingNo.classList.add("selected");
+        guest1attendingYes.classList.remove("selected");
+    });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // Guest 1 buttons
-        const guest1attendingYes = document.getElementById("guest1attendingYes");
-        const guest1attendingNo = document.getElementById("guest1attendingNo");
-        const guest1weddingAttendanceInput = document.querySelector("input[name='guest1weddingAttendance']");
-
-        guest1attendingYes.addEventListener("click", function () {
-            guest1weddingAttendanceInput.value = "Yes";
-        });
-
-        guest1attendingNo.addEventListener("click", function () {
-            guest1weddingAttendanceInput.value = "No";
-        });
+    // Add event listeners
+    guest1attendingYes.addEventListener("change", toggleGuest1Diet);
+    guest1attendingNo.addEventListener("change", toggleGuest1Diet);
+});
 
 
-        const nextButton = document.getElementById("nextButton");
-        nextButton.addEventListener("click", function (event) {
-            // Prevent the default form submission to control it with JavaScript
-            event.preventDefault();
+//////////////// Next Button Submission Logic //////////////
 
-            const guest1Selection = document.querySelector("input[name='guest1weddingAttendance']").value;
-            const attendanceError = document.getElementById("attendanceError");
+document.addEventListener("DOMContentLoaded", function () {
+    // Guest 1 buttons
+    const guest1attendingYes = document.getElementById("guest1attendingYes");
+    const guest1attendingNo = document.getElementById("guest1attendingNo");
+    const guest1weddingAttendanceInput = document.querySelector("input[name='guest1weddingAttendance']");
 
-            // Check if both guests are not attending
-            if (guest1Selection === "No") {
-                // Hide the RSVP form and show the thank-you message
-                //document.getElementById("contactForm").submit();
-                document.getElementById("formSection").style.display = "none";
-                document.getElementById("thankYouMessage").style.display = "block";
-                submitForm();
-            } 
-            // If one or both guests are attending, show additional questions
-            else if (guest1Selection === "Yes") {
-                document.getElementById("mainQuestions").style.display = "none";
-                document.getElementById("extraQuestions").style.display = "block";
-            } else {
-                // If neither guest has selected an option, show the error message
-                attendanceError.style.display = "block";
-            }
-        });
+    guest1attendingYes.addEventListener("click", function () {
+        guest1weddingAttendanceInput.value = "Yes";
+    });
+
+    guest1attendingNo.addEventListener("click", function () {
+        guest1weddingAttendanceInput.value = "No";
     });
 
 
-    ////////////////////// SUBMIT FORM WHEN AT LEAST 1 RESPONSE IS YES ////////////////////
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
-    const form = document.getElementById('contactForm');
+    const nextButton = document.getElementById("nextButton");
+    nextButton.addEventListener("click", function (event) {
+        // Prevent the default form submission to control it with JavaScript
+        event.preventDefault();
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Validate form fields before submitting
         const guest1Selection = document.querySelector("input[name='guest1weddingAttendance']").value;
+        const attendanceError = document.getElementById("attendanceError");
 
-        // Ensure all required fields are filled
-        if (guest1Selection === "No Selection") {
-            alert("Please select if you are attending.");
-            return;
+        // Check if both guests are not attending
+        if (guest1Selection === "No") {
+            // Hide the RSVP form and show the thank-you message
+            //document.getElementById("contactForm").submit();
+            document.getElementById("formSection").style.display = "none";
+            document.getElementById("thankYouMessage").style.display = "block";
+            submitForm();
+        } 
+        // If one or both guests are attending, show additional questions
+        else if (guest1Selection === "Yes") {
+            document.getElementById("mainQuestions").style.display = "none";
+            document.getElementById("extraQuestions").style.display = "block";
+        } else {
+            // If neither guest has selected an option, show the error message
+            attendanceError.style.display = "block";
         }
-
-        fetch(scriptURL, {
-            method: "POST",
-            body: new URLSearchParams(new FormData(form))
-        })
-        .then(response => response.text())
-        .then(data => {
-            if (data === "Success") {
-                // Hide the form and show the "Thank You" message
-                document.getElementById('codeSection').style.display = 'none';
-                document.getElementById('formSection').style.display = 'none';
-                document.getElementById('thankYouMessage').style.display = 'block';
-            } else {
-                alert("There was an error submitting your RSVP. Please try again.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("There was an error processing your RSVP.");
-        });
     });
+});
 
-    //////////// SUBMIT FORM WHEN BOTH RESPONSES ARE NO ///////////
-    function submitForm() {
-        const form = document.getElementById('contactForm'); // Get the form
-        const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
 
-        // Use fetch to submit the form data
-        fetch(scriptURL, {
-            method: "POST",
-            body: new URLSearchParams(new FormData(form)) // Collect the form data
-        })
-        .then(response => response.text()) // Handle response
-        .then(data => {
-            if (data === "Success") {
-                console.log("RSVP submitted successfully.");
-            } else {
-                alert("There was an error submitting your RSVP. Please try again.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("There was an error processing your RSVP.");
-        });
+////////////////////// SUBMIT FORM WHEN AT LEAST 1 RESPONSE IS YES ////////////////////
+const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
+const form = document.getElementById('contactForm');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Validate form fields before submitting
+    const guest1Selection = document.querySelector("input[name='guest1weddingAttendance']").value;
+
+    // Ensure all required fields are filled
+    if (guest1Selection === "No Selection") {
+        alert("Please select if you are attending.");
+        return;
     }
 
+    fetch(scriptURL, {
+        method: "POST",
+        body: new URLSearchParams(new FormData(form))
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === "Success") {
+            // Hide the form and show the "Thank You" message
+            document.getElementById('codeSection').style.display = 'none';
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'block';
+        } else {
+            alert("There was an error submitting your RSVP. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error processing your RSVP.");
+    });
+});
+
+//////////// SUBMIT FORM WHEN BOTH RESPONSES ARE NO ///////////
+function submitForm() {
+    const form = document.getElementById('contactForm'); // Get the form
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
+
+    // Use fetch to submit the form data
+    fetch(scriptURL, {
+        method: "POST",
+        body: new URLSearchParams(new FormData(form)) // Collect the form data
+    })
+    .then(response => response.text()) // Handle response
+    .then(data => {
+        if (data === "Success") {
+            console.log("RSVP submitted successfully.");
+        } else {
+            alert("There was an error submitting your RSVP. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error processing your RSVP.");
+    });
+}
 
 
-    ////////////////////// OTHER STUFF ////////////////////
 
-    // Attach checkCode to form submit event
-    document.getElementById('codeForm').addEventListener('submit', checkCode);
+////////////////////// OTHER STUFF ////////////////////
 
-    // Ensure the input field is focused when the page loads
-    window.onload = function() {
-        document.getElementById('secretCode').focus();
-    };
+    function buttonSubmitting(button) {
+        button.textContent = "Submitting...";
+    }   
 
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".selection-group").forEach(group => {
-            group.addEventListener("click", function (event) {
-                if (event.target.classList.contains("selection-card")) {
-                    group.querySelectorAll(".selection-card").forEach(card => {
-                        card.classList.remove("selected");
-                    });
+    function buttonNext(button) {
+        button.textContent = "...";
+    }  
 
-                    event.target.classList.add("selected");
+// Attach checkCode to form submit event
+document.getElementById('codeForm').addEventListener('submit', checkCode);
 
-                    let inputField = group.nextElementSibling;
-                    if (inputField && inputField.type === "hidden") {
-                        inputField.value = event.target.dataset.value;
-                    }
+// Ensure the input field is focused when the page loads
+window.onload = function() {
+    document.getElementById('secretCode').focus();
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".selection-group").forEach(group => {
+        group.addEventListener("click", function (event) {
+            if (event.target.classList.contains("selection-card")) {
+                group.querySelectorAll(".selection-card").forEach(card => {
+                    card.classList.remove("selected");
+                });
+
+                event.target.classList.add("selected");
+
+                let inputField = group.nextElementSibling;
+                if (inputField && inputField.type === "hidden") {
+                    inputField.value = event.target.dataset.value;
                 }
-            });
+            }
         });
     });
+});
 </script>
 </body>

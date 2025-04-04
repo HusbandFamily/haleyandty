@@ -71,7 +71,7 @@
                             <input type="text" name="guest2Diet" placeholder="Any dietary restrictions?" style="width:100%">
                         </div>
 
-                        <button type="button" id="nextButton">Next</button>
+                        <button type="button" id="nextButton" onclick="buttonNext(this)" >Next</button>
                         <div id="attendanceError" style="color: red; display: none;">Please make a selection before proceeding.</div>
                     </div>
 
@@ -110,7 +110,7 @@
                             </div>
 
                             <div class="rsvp-question">
-                                <button type="submit" style="width: 100%;">Submit</button>
+                                <button type="submit" onclick="buttonSubmitting(this)" style="width: 100%;">Submit</button>
                             </div>
                         </div>  
                     </div>  
@@ -454,8 +454,17 @@
 
     ////////////////////// OTHER STUFF ////////////////////
 
+    function buttonSubmitting(button) {
+        button.textContent = "Submitting...";
+    }   
+
+    function buttonNext(button) {
+        button.textContent = "...";
+    }  
+
     // Attach checkCode to form submit event
     document.getElementById('codeForm').addEventListener('submit', checkCode);
+
 
     // Ensure the input field is focused when the page loads
     window.onload = function() {
