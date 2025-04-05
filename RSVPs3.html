@@ -31,7 +31,7 @@
                 <h3>Enter your full name to continue</h3>
                 <input type="text" id="secretCode" name="secretCode" required>
                     <button type="submit">Enter</button>
-                    <p id="errorMessage" style="color: red; display: none;">Sorry, we don't know you? Try again :)</p>
+                    <p id="errorMessage" class="error">Sorry, we don't know you? Try again :)</p>
                 </form>
             </div>
 
@@ -86,7 +86,7 @@
 
 
                         <button type="button" id="nextButton" onclick="buttonNext(this)">Next</button>
-                        <div id="attendanceError" style="color: red; display: none;">Please make a selection before proceeding.</div>
+                        <div id="attendanceError" class="error">Please make a selection before proceeding.</div>
                     </div>
 
 
@@ -145,7 +145,14 @@
 
 <script>
     const validCodes = {
-        "TRACY RADCLIFFE": { name1: "Tracy", name2: "Beck", name3: "Chloe" },
+        "TRACY RADCLIFFE": { name1: "Tracy", name2: "Chloe", name3: "Beck" },
+        "PETER KAZAKOFF": { name1: "Peter", name2: "Rebecca", name3: "Olivia"  },
+        "REBECCA KAZAKOFF": { name1: "Peter", name2: "Rebecca", name3: "Olivia"  },
+        "CONNOR LOWE": { name1: "Connor", name2: "Kristina", name3: "Presley"  },
+        "KRISTINA LOWE": { name1: "Connor", name2: "Kristina", name3: "Presley"  },
+        "OLIVIA LUI": { name1: "Olivia", name2: "Graham", name3: "Helena"  },
+        "GRAHAM COOK": { name1: "Olivia", name2: "Graham", name3: "Helena"  },
+
     };
 
     ////////////////////// CHECK IF THE SECRET CODE IS CORRECT ////////////////////

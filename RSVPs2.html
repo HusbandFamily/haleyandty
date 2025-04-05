@@ -31,7 +31,7 @@
                 <h3>Enter your full name to continue</h3>
                 <input type="text" id="secretCode" name="secretCode" required>
                     <button type="submit">Enter</button>
-                    <p id="errorMessage" style="color: red; display: none;">Sorry, we don't know you? Try again :)</p>
+                    <p id="errorMessage" class="error">Sorry, we don't know you? Try again :)</p>
                 </form>
             </div>
 
@@ -72,7 +72,7 @@
                         </div>
 
                         <button type="button" id="nextButton" onclick="buttonNext(this)" >Next</button>
-                        <div id="attendanceError" style="color: red; display: none;">Please make a selection before proceeding.</div>
+                        <div id="attendanceError" class="error">Please make a selection before proceeding.</div>
                     </div>
 
 
@@ -139,6 +139,7 @@
         "JULIE HEWITT": { name1: "Julie", name2: "Dan" },
         "JULIE HEWITT-CLARKE": { name1: "Julie", name2: "Dan" },
         "DAN KEYWORTH": { name1: "Julie", name2: "Dan" },
+        "DANIEL KEYWORTH": { name1: "Julie", name2: "Dan" },
         "PAUL CLARKE": { name1: "Paul", name2: "Stef" },
         "STEF KAZAKOFF": { name1: "Paul", name2: "Stef" },
         "STEFANIE KAZAKOFF": { name1: "Paul", name2: "Stef" },
@@ -149,16 +150,14 @@
         "MIKE CLARKE": { name1: "Mike", name2: "Steph" },
         "STEPH MAGANJA": { name1: "Mike", name2: "Steph" },
         "STEPHANIE MAGANJA": { name1: "Michael", name2: "Stephanie" },
-        "COOPER HUSBAND": { name1: "Cooper", name2: "Erika" },
+        "COOPER HUSBAND": { name1: "my littlest brother", name2: "Erika" },
         "ERIKA LUNDRIGAN": { name1: "Cooper", name2: "Erika" },
         "ALEX KAZAKOFF": { name1: "Alex", name2: "Siobhán" },
         "SIOBHAN HARVEY": { name1: "Alex", name2: "Siobhán" },
-        "PETER KAZAKOFF": { name1: "Peter", name2: "Rebecca" },
-        "REBECCA KAZAKOFF": { name1: "Peter", name2: "Rebecca" },
         "KRISTIE KEYWORTH": { name1: "Kristie", name2: "Dave" },
         "KRISTIE KEYWORTH-JENSEN": { name1: "Kristie", name2: "Dave" },
-        "BRENDA DRAPER": { name1: "Brenda", name2: "Don" },
-        "DON SALMONS": { name1: "Brenda", name2: "Don" },
+        "BRENDA DRAPER": { name1: "Auntie Brenda", name2: " Uncle Don" },
+        "DON SALMONS": { name1: "Auntie Brenda", name2: "Uncle Don" },
         "DONALD SALMONS": { name1: "Brenda", name2: "Don" },
         "QUINN HANLEY": { name1: "Quinn", name2: "Lenka" },
         "LENKA PROSCHAZKA": { name1: "Quinn", name2: "Lenka" },
@@ -170,6 +169,7 @@
         "TANNER MIDKIFF": { name1: "Cassy", name2: "Tanner" },
         "KATRINA CUNLIFFE": { name1: "Katrina", name2: "BJ" },
         "BJ CUNLIFFE": { name1: "Katrina", name2: "BJ" },
+        "WILLIAM CUNLIFFE": { name1: "Katrina", name2: "BJ" },
         "ELANNA EAGLE": { name1: "Elanna", name2: "Alex" },
         "ALEX VITEK": { name1: "Elanna", name2: "Alex" },
         "DEREK MUNN": { name1: "Derek", name2: "Nora" },
@@ -177,7 +177,7 @@
         "LENORA MUNN": { name1: "Derek", name2: "Nora" },
         "ERIC KRTINIC": { name1: "Eric", name2: "Brittani" },
         "BRITTANI YEE": { name1: "Eric", name2: "Brittani" },
-        "NIEL JACOBSON": { name1: "Niel", name2: "Jen" },
+        "NIEL JACOBSEN": { name1: "Niel", name2: "Jen" },
         "JEN BOUGHNER": { name1: "Niel", name2: "Jen" },
         "ROSS DRAPER": { name1: "Ross", name2: "Linda" },
         "LINDA DRAPER": { name1: "Ross", name2: "Linda" },
@@ -188,24 +188,25 @@
         "SHANNON STRACHAN": { name1: "Shannon", name2: "Jamie" },
         "JAMIE GASCHO": { name1: "Shannon", name2: "Jamie" },
         "JAMIESON GASCHO": { name1: "Shannon", name2: "Jamieson" },
-        "OLIVIA LUI": { name1: "Olivia", name2: "Graham" },
-        "GRAHAM COOK": { name1: "Olivia", name2: "Graham" },
         "JODY CLARKE": { name1: "Jody", name2: "Rhonda" },
         "RHONDA CLARKE": { name1: "Jody", name2: "Rhonda" },
-        "TYLER CLARKE": { name1: "Tyler", name2: "Tyler's partner" },
-        "COURTNEY CLARKE": { name1: "Tyler", name2: "Courtney's partner" },
-        "SEAN BROWER": { name1: "Judy", name2: "Sean" },
+        "SEAN BROUWER": { name1: "Judy", name2: "Sean" },
         "JUDY ZHENG": { name1: "Judy", name2: "Sean" },
         "SHARYN CRARER": { name1: "Greg", name2: "Sharyn" },
+        "SHARYN BRADLEY CRARER": { name1: "Greg", name2: "Sharyn" },
         "GREG CRARER": { name1: "Greg", name2: "Sharyn" },
-        "BRAD CRARER": { name1: "Brad", name2: "Theresa" },
-        "THERESA CRARER": { name1: "Brad", name2: "Theresa" },
+        "BRAD CRARER": { name1: "Brad", name2: "Teresa" },
+        "TERESA CRARER": { name1: "Brad", name2: "Theresa" },
         "BRETT CRARER": { name1: "Brett", name2: "Sarah" },
         "TAYLOR CRARER": { name1: "Taylor", name2: "Lewis" },
         "LEWIS LIDDLE": { name1: "Taylor", name2: "Lewis" },
         "BRANDON HEWITT": { name1: "Brandon", name2: "Annie" },
         "NICK PAULS": { name1: "Nick", name2: "Dana" },
         "DANA KYLE": { name1: "Nick", name2: "Dana" },
+        "JORDAN LYSENKO": { name1: "Jordan", name2: "Sarah" },
+        "SARAH LYSENKO": { name1: "Nick", name2: "Dana" },
+        "CARLA MUGLESTON": { name1: "Carla", name2: "Andiry" },
+        "ANDRIY CHERVATYUK": { name1: "Carla", name2: "Andiry" },
     };
 
     ////////////////////// CHECK IF THE SECRET CODE IS CORRECT ////////////////////
