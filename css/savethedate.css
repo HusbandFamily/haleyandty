@@ -1,0 +1,754 @@
+.bellefair-regular {
+  font-family: "Bellefair", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.dawning-of-a-new-day-regular {
+  font-family: "Dawning of a New Day", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+/******* Code related to homepage *******/
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased; /* For Chrome and Safari */
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    background-color: #DAD6C5;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: auto;
+    margin: 0 auto;
+}
+
+.hero {
+    text-align: center;
+    position: relative;
+    padding: 40px;
+    height: calc(100vh); /* Viewport height minus top & bottom padding */
+}
+
+.hero video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video fills the space while keeping proportions */
+    border-radius: 20px;
+    filter: contrast(140%) grayscale(100%) brightness(50%);
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .hero video {
+        width: calc(100% - 32px);
+        max-width: calc(100% - 32px);
+    }
+}
+
+.hero h1 {
+    position: absolute;
+    font-family: "Bellefair", serif;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8rem;
+    padding: 10px 20px;
+    color: #DAD6C5;
+    font-weight: normal;
+}
+
+.story {
+    font-family: "Dawning of a New Day", serif;
+    font-size: 40px;
+    margin: 80px 0 120px 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 60px;
+    color: #391B00;
+    font-weight: normal;
+}
+
+
+.story p:nth-child(1) {
+    text-align: left;
+    grid-column: 2 / 9;
+}
+
+.story p:nth-child(2) {
+    text-align: left;
+    grid-column: 3 / 10;
+}
+
+.story p:nth-child(3) {;
+    text-align: right;
+    grid-column: 8 / 12;
+}
+
+.details {
+    background-color: #847D6D;
+    width: 100%;
+}
+
+.details .textarea {
+    padding: 100px 40px;
+    color: #DAD6C5;
+    text-align: left;
+    font-family: "Bellefair", serif;
+    position: relative;
+}
+
+.details h1 {
+    font-weight: 400;
+    font-size: 48px;
+    display: inline-block;
+    position: relative;
+}
+
+.really {
+    font-size: 40px;
+    font-family: "Dawning of a New Day", serif;
+    position: absolute;
+    font-weight: normal;
+    top: 0px;
+    left: 0px; /* Adjust position based on your layout */
+    transform: translate(265px, -20px);
+    font-style: italic;
+    line-height: 40px; 
+    text-align:center;
+}
+
+
+.details h2 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.details p {
+    font-size: 16px;
+    padding-top:16px;
+}
+
+.details .faq {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding:40px 0;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+
+.faq div{
+    padding-right: 20px;
+}
+
+.photos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 40px 40px;
+}
+
+.photos img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.footer {
+    font-family: "Dawning of a New Day", serif;
+    color: #D42D20;
+    text-align: center;
+    margin: 40px 0;
+    font-size: 32px;
+}
+
+
+/************** Code related to Secret Password on RSVP Screen ***********/
+
+.secret-code {
+    text-align: left;
+    color: #DAD6C5;
+}
+
+.secret-code h2 {
+    font-family: "Dawning of a New Day", serif;
+    font-weight: 400;
+    color: #391B00;
+    font-size: 40px;
+    line-height: 10px;
+    text-decoration: none;
+    margin-bottom: 40px;
+}
+
+.secret-code h3 {
+    font-family: "Bellefair", serif;
+    font-weight: 400;
+    color: #391B00;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.code-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.code-form label {
+    font-size: 20px;
+    text-align: left;
+    color: #391B00;
+}
+
+.code-form input {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height: 48px;
+    padding: 24px;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #391B00;
+    margin-bottom:0px;
+}
+
+.code-form button {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height:48px;
+    padding: 10px;
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.code-form button:hover {
+    background-color: #847D6D;
+    opacity: 0.6;
+}
+
+
+/******** Code related to RSVP Questions on RSVP Screen ***********/
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+
+.RSVPcontainer {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.video-section {
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.video-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rsvp-date {
+    position: absolute;
+    font-family: "Bellefair", serif;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8rem;
+    padding: 10px 20px;
+    color: #DAD6C5;
+}
+
+.content-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #DAD6C5;
+    max-height: 100vh; /* or a specific height you want */
+    overflow-y: auto;
+}
+
+.rsvp, .secret-code {
+    width: 60%;
+    max-width:500px;
+}
+
+
+.rsvp h2 {
+   font-family: "Dawning of a New Day", serif;
+   font-weight: 400;
+   color: #391B00;
+   font-size: 40px;
+   text-decoration: none;
+   text-align: left;
+   margin-bottom: 40px;
+}
+
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.rsvp-question h3 {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    text-align: left;
+    color: #391B00;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.rsvp-form label {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    text-align: left;
+    color: #391B00;
+    text-decoration: none;
+}
+
+.rsvp-form input, .rsvp-form select{
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height: 48px;
+    padding: 24px;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #391B00;
+    margin-bottom:0px;
+}
+
+.rsvp-form button {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height:48px;
+    padding: 10px;
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.rsvp-form button:hover {
+    background-color: #847D6D;
+    opacity: 0.6;
+}
+
+.rsvp-question {
+    display: block flex;
+    flex-direction: column;
+    gap: 10px; /* Adds spacing between labels and selection groups */
+}
+
+.selection-group {
+    display: flex;
+    gap: 10px; /* Ensures even spacing between the selection cards */
+    justify-content: center;
+}
+
+.selection-card {
+    font-family: "Bellefair", serif;
+    color: #391B00;
+    padding: 12px 16px;
+    border: 1px solid #847D6D;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    flex: 1;
+}
+
+.selection-card:hover {
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: 1px solid #DAD6C5;
+}
+
+.selection-card.selected {
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: 1px solid #DAD6C5;
+}
+
+
+#guest1Diet{
+    margin-top: -12px;
+}
+
+#guest2Diet{
+    margin-top: -12px;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .video-section {
+        width: 100%;
+        height: 40vh;
+    }
+
+    .content-section {
+        width: 100%;
+        height: 60vh;
+    }
+}
+
+
+
+.shake {
+    animation: shake 0.2s ease-in-out;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+
+
+
+/******** Code related to Thank you message on RSVP screen **********/
+
+.thank-you {
+    padding: 100px 40px;
+    text-align: center;
+    color: #DAD6C5;
+}
+
+.thank-you h2 {
+    font-family: "Dawning of a New Day", serif;
+    font-weight: 400;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #391B00;
+}
+
+.thank-you p {
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #391B00;
+}
+
+.thank-you a {
+    display: inline-block;
+    font-family: "Bellefair", serif;
+    font-size: 16px;
+    height:48px;
+    padding: 12px 48px;
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Remove underline */
+    border: none;
+}
+
+.thank-you a:hover {
+    background-color: #847D6D;
+    opacity: 0.6;
+}
+
+
+
+/*********** Tablet code for RSVP ************/
+@media (max-width: 768px) {
+
+    .video-section {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .content-section {
+        height: 100vh;
+    }
+
+    .rsvp-date {
+        font-size: 5rem;
+    }
+
+    .secret-code h2 {
+        line-height: 32px;
+    }
+
+     .secret-code h3 {
+        line-height: 24px;
+    }
+
+    .rsvp, .secret-code {
+        width: 80%;
+    }
+
+    .rsvp h2 {
+        font-size: 32px;
+        margin-bottom: 0px;
+    }
+
+
+
+/*********** Mobile code for RSVP *************/
+
+@media (max-width: 480px) {
+
+    .RSVPcontainer {
+        display: block;
+        padding: 16px;
+    }
+
+    .video-section {
+        width: 100%;
+        height: 70vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .video-section video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .rsvp-date {
+        font-size: 4rem;
+    }
+
+    .content-section {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: #DAD6C5;
+        padding: 48px 0px;
+    }
+
+    .rsvp, .secret-code {
+        width: 100%;
+    }
+
+    .rsvp h2 {
+        font-size: 32px;
+        margin-bottom: 0px;
+    }
+
+    .thank-you {
+        padding: 0px;
+    }
+
+    .thank-you a {
+        padding: 12px 80px;
+    }
+}
+
+
+
+/******* Code related to homepage *******/
+
+
+@media (max-width: 768px) {
+
+    .hero {
+        padding: 32px 16px;
+    }
+
+    .hero video {
+        object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
+    }
+
+
+    .hero h1 {
+        font-size: 5rem;
+        padding: 16px;
+    }
+
+    .story {
+        margin: 0 32px;
+        padding: 32px 0;
+        gap: 24px;
+    }
+
+    .story p:nth-child(1) {
+        text-align: left;
+        grid-column: 1 / 12;
+    }
+
+    .story p:nth-child(2) {
+        text-align: left;
+        grid-column: 3 / 11;
+    }
+
+    .story p:nth-child(3) {;
+        text-align: right;
+        grid-column: 6 / 13;
+    }
+
+    .story p {
+        font-size: 2rem;
+    }
+
+    .really {
+        font-size: 32px;
+        top: 0px;
+        left: 0px; /* Adjust position based on your layout */
+        transform: translate(225px, -20px);
+        line-height: 30px; 
+    }
+
+    .details .textarea {
+        padding: 40px 24px;
+    }
+
+
+    .details h1 {
+        font-size: 40px;
+        display: inline-block;
+        position: relative;
+    }
+
+
+    .details h2 {
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    .details .faq {
+        grid-template-columns: 1fr;
+    }
+
+    .details .faq div {
+        padding: 8px 0;
+    }
+
+    .photos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin: 24px;
+    }   
+
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 20px 0px;
+    }
+
+    .hero video {
+        object-position: calc(50% + 100px) 50%; /* Moves video right by 100px */
+    }
+
+    .details .textarea {
+        padding: 64px 12px 40px;
+    }   
+
+
+    .story {
+        margin: 0 24px;
+        padding: 12px 0 40px;
+        gap: 24px;
+        font-size: 32px;
+    }
+
+    .story p:nth-child(1) {
+        text-align: left;
+        grid-column: 1 / 12;
+    }
+
+    .story p:nth-child(2) {
+        text-align: left;
+        grid-column: 2 / 13;
+    }
+
+    .story p:nth-child(3) {;
+        text-align: right;
+        grid-column: 4 / 13;
+    }
+
+    .story p {
+        font-size: 2rem;
+    }
+
+    details .textarea {
+        padding: 40px 24px;
+    }
+
+
+    .details h1 {
+        font-size: 32px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .really {
+        font-size: 32px;
+        top: 0px;
+        left: 0px; /* Adjust position based on your layout */
+        transform: translate(165px, -20px);
+        line-height: 30px; 
+    }
+
+    .details h2 {
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    .details .faq {
+        padding: 40px 0 0;
+    }
+
+    .details .faq div {
+        padding: 4px 0;
+    }
+
+    .photos {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 24px 12px;
+    }
+
+    .footer {
+        font-size: 32px;
+    }
+}
+
