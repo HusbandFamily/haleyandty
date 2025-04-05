@@ -13,14 +13,16 @@
 
 
 /******* Code related to homepage *******/
-
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased; /* For Chrome and Safari */
     text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+    font-weight: normal;
 }
 
 body {
@@ -33,10 +35,17 @@ body {
     margin: 0 auto;
 }
 
+.homepage-image {
+    border-radius: 20px;
+}
+
+
+/************ HERO VIDEO SECTION **********/
+
 .hero {
     text-align: center;
     position: relative;
-    padding: 40px;
+    padding: 40px 40px 20px;
     height: calc(100vh); /* Viewport height minus top & bottom padding */
 }
 
@@ -68,6 +77,10 @@ body {
     font-weight: normal;
 }
 
+
+/************ STORY SECTION **********/
+
+
 .story {
     font-family: "Dawning of a New Day", serif;
     font-size: 40px;
@@ -95,6 +108,754 @@ body {
     grid-column: 8 / 12;
 }
 
+
+/**************** NAV BAR ***************/
+
+/*nav {
+    position: sticky;
+    top: 0;
+    background: #DAD6C5;
+    padding: 12px;
+    z-index: 1000;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 40px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "Bellefair", serif;
+    font-weight: normal;
+    color: #391B00;
+}
+
+nav ul li a hover {
+    cursor: pointer;
+}
+
+nav ul li a.active {
+    border-bottom: 1px solid #391B00;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/*********** NAV – TABLET ************/
+/*@media (max-width: 768px) {
+
+    nav ul li {
+        margin: 0 24px;
+    }
+
+}*/
+
+/*********** NAV – MOBILE ************/
+/*@media (max-width: 480px) {
+    nav {
+        display: none;
+    }
+}*/
+
+
+/************ SCHEDULE SECTION **********/
+
+.schedule {
+    background-color: #847D6D;
+    width: 100%;
+    font-family: "Bellefair", serif;
+    font-weight: normal;
+    color: #DAD6C5;
+    padding: 80px;
+}
+
+.schedule h1 {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.schedule h2 {
+    font-size: 22px;
+}
+
+.schedule-content {
+    padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.schedule-row {
+    display: grid;
+    grid-template-columns: 1fr 3fr 8fr; /* Aligns with your 12-column layout */
+    align-items: center;
+    text-align: left;
+    padding: 10px 0;
+}
+
+.schedule-details {
+    text-align: right;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #DAD6C5;
+    opacity: 0.4;
+    margin: 5px 0;
+}
+
+/*********** SCHEDULE – TABLET ************/
+@media (max-width: 1000px) {
+
+.schedule {
+    padding: 32px;
+      }
+
+.schedule-row {
+    grid-template-columns: 2fr 3fr 7fr; 
+    align-items: flex-start;
+    gaps: 24px;
+}
+
+ #last-line {
+        display:none;
+    }
+}
+
+/*********** SCHEDULE – MOBILE ************/
+@media (max-width: 480px) {
+
+    .schedule {
+        padding: 40px 16px;
+      }
+
+    .schedule h1 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+ 
+    .schedule-row {
+        grid-template-columns: 1fr; /* Stack items on smaller screens */
+        text-align: left;
+        gap: 12px;
+    }
+
+    .schedule-content {
+        padding-top: 80px;
+    }
+
+    .schedule-details {
+        text-align: left;
+    }
+}
+
+
+
+
+/************ VENUE SECTION ***********/
+.venue {
+    background-color: #3F352B;
+    width: 100%;
+    font-family: "Bellefair", serif;
+    font-weight: normal;
+    color: #DAD6C5;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.venue-content {
+    display: grid;
+    grid-template-columns: 6fr 2fr 4fr; /* Aligns with your 12-column layout */
+    gap: 20px;
+    align-items: stretch; /* Ensures all columns match the tallest element */
+}
+
+.venue h1 {
+    font-size: 40px;
+    margin-bottom: 20px; /* Adds space below the heading */
+}
+
+.venue h2 {
+    font-size: 32px;
+    font-family: "Dawning of a New Day", serif;
+    padding-bottom: 40px;
+}
+
+.venue p {
+    font-size: 18px;
+}
+
+.venue-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.venue-bodytext {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Pushes content to the bottom */
+    flex-grow: 1; /* Ensures it takes up available space */
+    gap: 12px;
+}
+
+.venue-image {
+    width: 100%;
+    height: auto;
+    align-items: flex-end; /* Ensures alignment in case of different-sized images */
+    height: auto;
+}
+
+.venue-image img {
+    display: block;
+    width: 100%;
+    height:auto;
+}
+
+.tablet-inline-image {
+  display: none;
+}
+
+/*********** VENUE – TABLET ************/
+@media (max-width: 1000px) {
+  .second-paragraph-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .venue {
+    padding: 32px;
+  }
+
+  .venue-text h1 {
+    margin-bottom: 80px;
+  }
+
+  .venue-text h2 {
+    width: 100%;
+  }
+
+  .venue-content {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .venue-text {
+    width: 100%;
+  }
+
+  .venue-second-paragraph {
+    flex: 1 1;
+    font-size: 18px;
+  }
+
+  .tablet-inline-image {
+    display: block;
+    width: 50%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .venue-image {
+    display:none;
+  }
+}
+
+
+/*********** VENUE – MOBILE ************/
+@media (max-width: 480px) {
+
+    .venue {
+        padding: 40px 16px;
+      }
+
+    .venue h1 {
+        font-size: 28px;
+    }
+
+    .venue h2 {
+        padding-bottom: 20px;
+    }
+
+    .tablet-inline-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+}
+
+
+
+/************ TRAVEL SECTION **********/
+
+.travel {
+    background-color: #847D6D;
+    width: 100%;
+    font-family: "Bellefair", serif;
+    font-weight: normal;
+    color: #DAD6C5;
+    padding: 80px 0;
+}
+
+.travel h1 {
+    padding: 0 80px;
+    font-size: 40px;
+    margin-bottom: 80px;
+}
+
+/* Carousel Styling */
+.travel-carousel {
+    max-width: 100%;
+    padding: 0 80px;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Smooth snapping */
+    -webkit-overflow-scrolling: touch; /* Better scrolling on iOS */
+}
+
+.carousel-track {
+    display: flex;
+    gap: 80px;
+    width: max-content; /* Ensures track is only as wide as necessary */
+}
+
+
+.carousel-item {
+    display: flex; /* Arrange image and text side by side */
+    align-items: center; /* Align items vertically */
+    text-align: left; /* Align text to the left */
+    width: 80vw; /* Adjust width based on how much of the next item you want to show */
+    scroll-snap-align: center; /* Ensures smooth snapping */
+    gap: 40px; /* Space between image and text */
+    height: auto;
+}
+
+.travel-video {
+    width: 40%;
+    max-height: 64vh;
+}
+
+.carousel-item video:hover {
+    cursor: pointer;
+}
+
+.travel-video video {
+    width: 100%; 
+    height: 100%;
+    border-radius: 20px;
+}
+
+.carousel-item h2 {
+   font-size: 32px;
+   font-family: "Dawning of a New Day", serif;
+}
+
+.carousel-item p {
+    font-size: 18px;
+    color: #DAD6C5;
+}
+
+.carousel-text {
+    display: flex;
+    flex-direction: column;
+    width: 40%; /* Ensures text takes up remaining space */
+    gap: 20px;
+}
+
+
+/* Hide scrollbar */
+.travel-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+#last-item {
+    margin-right: 80px;
+}
+
+.travel-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 40px; /* Space between carousel and indicator */
+}
+
+.indicator-rect {
+    width: 40px;
+    height: 4px;
+    background-color: #DAD6C5;
+    border-radius: 4px;
+    opacity: 0.5; /* Default opacity */
+    transition: opacity 0.3s ease;
+}
+
+.indicator-rect:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.indicator-rect.active {
+    opacity: 1; /* Full opacity for active indicator */
+}
+
+
+/*********** TRAVEL – TABLET ************/
+@media (max-width: 1000px) {
+  
+    .travel {
+        padding: 32px 0xp;
+      }
+
+
+    .travel h1 {
+        padding: 0px 32px;
+    } 
+
+    .travel-carousel {
+        padding: 0px 32px;
+    }
+
+    .carousel-item {
+        display: inline-block;
+    }
+
+    .carousel-item img {
+        width: 60%;
+        margin-bottom: 20px;
+    }
+
+    .carousel-track {
+        gap: 8vw;
+    }
+
+
+    .carousel-text {
+        width: 100%;
+    }
+}
+
+/*********** TRAVEL – MOBILE ************/
+@media (max-width: 480px) {
+
+    .travel {
+        padding: 40px 0px;
+      }
+
+    .travel h1 {
+        font-size: 28px;
+        padding: 0px 16px;
+        margin-bottom: 80px;
+    } 
+
+    .travel-carousel {
+        padding: 0px 16px;
+    }
+
+    .carousel-track {
+        gap: 12vw;
+    }
+
+    .carousel-item {
+        display: inline-block;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+
+    .carousel-text {
+        width: 100%;
+    }
+
+    .travel-indicator {
+        margin-top: 20px; /* Space between carousel and indicator */
+    }
+}
+
+/************ ACCOMMODATION SECTION **********/
+
+.accommodation {
+    background-color: #3F352B;
+    width: 100%;
+    font-family: "Bellefair", serif;
+    font-weight: normal;
+    color: #DAD6C5;
+    padding: 15vh 80px;
+    height: auto;
+    position: relative;
+}
+
+.accommodation-content h1 {
+    font-size: 40px;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+.accommodation-content {
+    display: flex;
+    gap: 80px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.accommodation-text {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+}
+
+.text-block {
+    padding: 0;
+    opacity: 0;
+}
+
+.text-block h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.text-block p {
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.text-tips {
+    padding-bottom: 12px;
+}
+
+.accommodation-image {
+    width: 33%;
+    position: relative; 
+    height: auto;
+}
+
+.accommodation-image img {
+    width: 100%;
+    height: 70vh;
+    border-radius: 12px;
+    object-fit: cover;
+    position: sticky;
+}
+
+#last-block {
+}
+
+
+
+/*********** ACCOMODATION – TABLET ************/
+@media (max-width: 1000px) {
+
+    .accommodation {
+        padding: 32px;
+    }
+
+    .accommodation-image {
+        width: 40%;
+        position: relative; /* Ensures the image's positioning works inside the flex container */
+    }
+
+    .accommodation-content {
+        gap: 40px;
+    }
+
+    .accommodation-text {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+    }
+}
+
+/*********** ACCOMODATION – MOBILE ************/
+@media (max-width: 480px) {
+
+    .accommodation {
+        padding: 40px 16px;
+    }
+
+    .accommodation h1 {
+        font-size: 28px;
+        margin-bottom: 0px;
+    } 
+
+    .accommodation-image {
+        display: none;
+    }
+
+    .accommodation-text {
+        width: 100%;
+        gap: 80px;
+    }
+}
+
+
+
+/************ FAQ SECTION **********/
+
+.faq {
+    background-color: #847D6D;
+    width: 100%;
+    font-family: "Bellefair", serif;
+    font-weight: normal;
+    color: #DAD6C5;
+    padding: 80px;
+}
+
+.faq h2 {
+    font-size: 40px;
+}
+
+.faq h3 {
+   font-size: 32px;
+   font-family: "Dawning of a New Day", serif;
+   margin: 12px 0 80px 80px;
+   line-height: 20px;
+}
+
+.faq-content {
+    display: flex;
+    gap: 40px; /* Adjust space between image and questions */
+    align-items: flex-star;
+}
+
+.faq-image {
+    width: 40%; /* Adjust image size */
+}
+
+.faq-image img {
+    width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 100%; /* Ensures the FAQ section takes up the remaining space */
+}
+
+.faq-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 0px;
+    cursor: pointer;
+    overflow: hidden; /* Ensures content doesn’t overflow when collapsed */
+}
+
+.faq-question:hover {
+    opacity: 0.6;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-item {
+    font-size: 18px;
+    margin: 0;
+}
+
+.faq-icon {
+    font-size: 24px;
+}
+
+.faq-answer {
+    display: none;
+    font-size: 18px;
+    width: 80%;
+}
+
+.faq-item.open .faq-answer {
+    display: block;
+}
+
+
+/*********** FAQ – TABLET ************/
+@media (max-width: 1000px) {
+    .faq {
+        padding: 32px;
+    }
+
+    .faq-image {
+        display: none;
+        width: 100%; /* Adjust image size */
+    }
+}
+
+/*********** FAQ – MOBILE ************/
+@media (max-width: 480px) {
+
+    .faq {
+        padding: 40px 16px;
+    }
+
+    .faq h2 {
+        font-size: 28px;
+    } 
+
+    .faq h3 {
+        margin: 12px 0px 80px 40px;
+    }
+
+
+    .faq-content {
+        display: inline-block;
+        width: 100%;
+    }
+}
+
+
+
+
+/************ FOOTER SECTION **********/
+
+.photos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 40px 40px;
+}
+
+.photos img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.footer {
+    font-family: "Dawning of a New Day", serif;
+    color: #D42D20;
+    text-align: center;
+    margin: 40px 0;
+    font-size: 32px;
+}
+
+////////////// Save the Date FAQs ///////////////////
+
 .details {
     background-color: #847D6D;
     width: 100%;
@@ -121,7 +882,7 @@ body {
     position: absolute;
     font-weight: normal;
     top: 0px;
-    left: 0px; /* Adjust position based on your layout */
+    left: 0px; 
     transform: translate(265px, -20px);
     font-style: italic;
     line-height: 40px; 
@@ -152,31 +913,188 @@ body {
     gap: 40px;
 }
 
-
 .faq div{
     padding-right: 20px;
 }
 
-.photos {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 40px 40px;
+/////////////////////////////////////
+
+
+
+@media (max-width: 1000px) {
+
+    .hero {
+        padding: 32px 16px;
+    }
+
+    .hero video {
+        object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
+    }
+
+
+    .hero h1 {
+        font-size: 5rem;
+        padding: 16px;
+    }
+
+    .story {
+        margin: 0 32px;
+        padding: 32px 0;
+        gap: 24px;
+    }
+
+    .story p:nth-child(1) {
+        text-align: left;
+        grid-column: 1 / 12;
+    }
+
+    .story p:nth-child(2) {
+        text-align: left;
+        grid-column: 3 / 11;
+    }
+
+    .story p:nth-child(3) {;
+        text-align: right;
+        grid-column: 6 / 13;
+    }
+
+    .story p {
+        font-size: 2rem;
+    }
+
+    .photos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin: 24px;
+    }
+
+    ////////////// Save the Date FAQs ///////////////////
+
+    .really {
+        font-size: 32px;
+        top: 0px;
+        left: 0px;
+        transform: translate(225px, -20px);
+        line-height: 30px; 
+    }
+
+    .details .textarea {
+        padding: 40px 24px;
+    }
+
+
+    .details h1 {
+        font-size: 40px;
+        display: inline-block;
+        position: relative;
+    }
+
+
+    .details h2 {
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    .details .faq {
+        grid-template-columns: 1fr;
+    }
+
+    .details .faq div {
+        padding: 8px 0;
+    }
+
+    /////////////////////////////////////////////
 }
 
-.photos img {
-    width: 100%;
-    height: auto;
-    display: block;
+@media (max-width: 480px) {
+    .hero {
+        padding: 20px 0px;
+    }
+
+    .hero video {
+        object-position: calc(50% + 100px) 50%; /* Moves video right by 100px */
+    }
+
+    .story {
+        margin: 0 24px;
+        padding: 12px 0 40px;
+        gap: 24px;
+        font-size: 32px;
+    }
+
+    .story p:nth-child(1) {
+        text-align: left;
+        grid-column: 1 / 12;
+    }
+
+    .story p:nth-child(2) {
+        text-align: left;
+        grid-column: 2 / 13;
+    }
+
+    .story p:nth-child(3) {;
+        text-align: right;
+        grid-column: 4 / 13;
+    }
+
+    .story p {
+        font-size: 2rem;
+    }
+
+    .photos {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 24px 12px;
+    }
+
+    .footer {
+        font-size: 32px;
+    }
+
+
+   /*////////////// Save the Date FAQs ///////////////////*/
+
+    .details .textarea {
+        padding: 64px 12px 40px;
+    }   
+
+
+    details .textarea {
+        padding: 40px 24px;
+    }
+
+
+    .details h1 {
+        font-size: 32px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .really {
+        font-size: 32px;
+        top: 0px;
+        left: 0px;
+        transform: translate(165px, -20px);
+        line-height: 30px; 
+    }
+
+    .details h2 {
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    .details .faq {
+        padding: 40px 0 0;
+    }
+
+    .details .faq div {
+        padding: 4px 0;
+    }
+
+
+    /////////////////////////////////////////////*/*/
+
 }
 
-.footer {
-    font-family: "Dawning of a New Day", serif;
-    color: #D42D20;
-    text-align: center;
-    margin: 40px 0;
-    font-size: 32px;
-}
 
 
 /************** Code related to Secret Password on RSVP Screen ***********/
@@ -200,7 +1118,7 @@ body {
     font-family: "Bellefair", serif;
     font-weight: 400;
     color: #391B00;
-    font-size: 16px;
+    font-size: 18px;
     text-decoration: none;
 }
 
@@ -220,7 +1138,7 @@ body {
 
 .code-form input {
     font-family: "Bellefair", serif;
-    font-size: 16px;
+    font-size: 18px;
     height: 48px;
     padding: 24px;
     border: none;
@@ -232,7 +1150,7 @@ body {
 
 .code-form button {
     font-family: "Bellefair", serif;
-    font-size: 16px;
+    font-size: 18px;
     height:48px;
     padding: 10px;
     background-color: #847D6D;
@@ -245,6 +1163,14 @@ body {
 .code-form button:hover {
     background-color: #847D6D;
     opacity: 0.6;
+}
+
+.error {
+    color: red;
+    font-family: "Bellefair", serif;
+    font-size: 18px;
+    text-align: left;
+    display: none;
 }
 
 
@@ -317,12 +1243,12 @@ select:focus {
 .rsvp-form {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 40px;
 }
 
 .rsvp-question h3 {
     font-family: "Bellefair", serif;
-    font-size: 16px;
+    font-size: 18px;
     text-align: left;
     color: #391B00;
     text-decoration: none;
@@ -331,7 +1257,7 @@ select:focus {
 
 .rsvp-form label {
     font-family: "Bellefair", serif;
-    font-size: 16px;
+    font-size: 18px;
     text-align: left;
     color: #391B00;
     text-decoration: none;
@@ -339,7 +1265,7 @@ select:focus {
 
 .rsvp-form input, .rsvp-form select{
     font-family: "Bellefair", serif;
-    font-size: 16px;
+    font-size: 18px;
     height: 48px;
     padding: 24px;
     border: none;
@@ -351,7 +1277,7 @@ select:focus {
 
 .rsvp-form button {
     font-family: "Bellefair", serif;
-    font-size: 16px;
+    font-size: 18px;
     height:48px;
     padding: 10px;
     background-color: #847D6D;
@@ -470,7 +1396,7 @@ select:focus {
 .thank-you a {
     display: inline-block;
     font-family: "Bellefair", serif;
-    font-size: 16px;
+    font-size: 18px;
     height:48px;
     padding: 12px 48px;
     background-color: #847D6D;
@@ -489,9 +1415,8 @@ select:focus {
 }
 
 
-
 /*********** Tablet code for RSVP ************/
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
 
     .video-section {
         width: 100%;
@@ -502,6 +1427,7 @@ select:focus {
 
     .content-section {
         height: 100vh;
+        min-width: 50vw;
     }
 
     .rsvp-date {
@@ -583,172 +1509,4 @@ select:focus {
     }
 }
 
-
-
-/******* Code related to homepage *******/
-
-
-@media (max-width: 768px) {
-
-    .hero {
-        padding: 32px 16px;
-    }
-
-    .hero video {
-        object-position: calc(50% + 50px) 50%; /* Moves video right by 100px */
-    }
-
-
-    .hero h1 {
-        font-size: 5rem;
-        padding: 16px;
-    }
-
-    .story {
-        margin: 0 32px;
-        padding: 32px 0;
-        gap: 24px;
-    }
-
-    .story p:nth-child(1) {
-        text-align: left;
-        grid-column: 1 / 12;
-    }
-
-    .story p:nth-child(2) {
-        text-align: left;
-        grid-column: 3 / 11;
-    }
-
-    .story p:nth-child(3) {;
-        text-align: right;
-        grid-column: 6 / 13;
-    }
-
-    .story p {
-        font-size: 2rem;
-    }
-
-    .really {
-        font-size: 32px;
-        top: 0px;
-        left: 0px; /* Adjust position based on your layout */
-        transform: translate(225px, -20px);
-        line-height: 30px; 
-    }
-
-    .details .textarea {
-        padding: 40px 24px;
-    }
-
-
-    .details h1 {
-        font-size: 40px;
-        display: inline-block;
-        position: relative;
-    }
-
-
-    .details h2 {
-        font-size: 20px;
-        font-weight: normal;
-    }
-
-    .details .faq {
-        grid-template-columns: 1fr;
-    }
-
-    .details .faq div {
-        padding: 8px 0;
-    }
-
-    .photos {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin: 24px;
-    }   
-
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding: 20px 0px;
-    }
-
-    .hero video {
-        object-position: calc(50% + 100px) 50%; /* Moves video right by 100px */
-    }
-
-    .details .textarea {
-        padding: 64px 12px 40px;
-    }   
-
-
-    .story {
-        margin: 0 24px;
-        padding: 12px 0 40px;
-        gap: 24px;
-        font-size: 32px;
-    }
-
-    .story p:nth-child(1) {
-        text-align: left;
-        grid-column: 1 / 12;
-    }
-
-    .story p:nth-child(2) {
-        text-align: left;
-        grid-column: 2 / 13;
-    }
-
-    .story p:nth-child(3) {;
-        text-align: right;
-        grid-column: 4 / 13;
-    }
-
-    .story p {
-        font-size: 2rem;
-    }
-
-    details .textarea {
-        padding: 40px 24px;
-    }
-
-
-    .details h1 {
-        font-size: 32px;
-        display: inline-block;
-        position: relative;
-    }
-
-    .really {
-        font-size: 32px;
-        top: 0px;
-        left: 0px; /* Adjust position based on your layout */
-        transform: translate(165px, -20px);
-        line-height: 30px; 
-    }
-
-    .details h2 {
-        font-size: 20px;
-        font-weight: normal;
-    }
-
-    .details .faq {
-        padding: 40px 0 0;
-    }
-
-    .details .faq div {
-        padding: 4px 0;
-    }
-
-    .photos {
-        grid-template-columns: repeat(2, 1fr);
-        margin: 24px 12px;
-    }
-
-    .footer {
-        font-size: 32px;
-    }
-}
 
