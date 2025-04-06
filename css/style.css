@@ -290,11 +290,12 @@ hr {
 .venue h2 {
     font-size: 32px;
     font-family: "Dawning of a New Day", serif;
-    padding-bottom: 40px;
+    padding-bottom: 32px;
 }
 
 .venue p {
     font-size: 18px;
+    margin-top: 12px;
 }
 
 .venue-text {
@@ -1408,7 +1409,7 @@ select:focus {
 
 .thank-you p {
     font-family: "Bellefair", serif;
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 20px;
     color: #391B00;
 }
