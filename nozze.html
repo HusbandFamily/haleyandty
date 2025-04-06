@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVPs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bellefair&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="RSVPcontainer">
+        <!-- Video Section -->
+        <div class="video-section">
+            <video muted autoplay loop playsinline preload="auto">
+                <source src="images/RSVP.mp4" type="video/mp4">
+                <source src="images/RSVP.mov" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
+            <div class="rsvp-date">RSVP</div>
+        </div>
+
+        <!-- Enter your Last Name to Continue -->
+        <div class="content-section">
+            <div id="codeSection" class="secret-code">
+                <form id="codeForm" class="code-form" onsubmit="checkCode(event)">
+                <h2>Bentornati, amici</h2>
+                <h3>Enter your full name to continue</h3>
+                <input type="text" id="secretCode" name="secretCode" required>
+                    <button type="submit">Enter</button>
+                    <p id="errorMessage" class="error">Sorry, we don't know you? Try again :)</p>
+                </form>
+            </div>
+
+            <!-- Hidden RSVP Form (Will appear after entering the code) -->
+            <div id="formSection" class="rsvp" style="display: none;">
+                <form id="contactForm">
+                    
+                    <!-- Hidden input fields for guest names -->
+                    <input type="hidden" name="guest1Name" id="guest1Name">
+                    <input type="hidden" name="guest2Name" id="guest2Name">
+                    <input type="hidden" name="secretCode" id="hiddenSecretCode">
+
+
+                    <div id=mainQuestions class="rsvp-form">
+                        <h2>Our wedding day is Oct 1, 2025</h2>
+                        <div class="rsvp-question">
+                            <h3 id="title1">Is Guest 1 Attending?</h3>
+                            <div class="selection-group">
+                                <div class="selection-card" id="guest1attendingYes" data-value="Yes">Yes</div>
+                                <div class="selection-card" id="guest1attendingNo" data-value="No">No</div>
+                            </div>
+                            <input type="hidden" name="guest1weddingAttendance">
+                        </div>
+                        <div id="guest1Diet" style="display: none">                                                    
+                            <input type="text" name="guest1Diet" placeholder="Any dietary restrictions?" style="width:100%">
+                        </div>
+
+                        <button type="button" id="nextButton" onclick="buttonNext(this)">Next</button>
+                        <div id="attendanceError" class="error">Please make a selection before proceeding.</div>
+                    </div>
+
+
+                    <div id="extraQuestions" style="display: none;">
+                        <div class="rsvp-form">
+                            <h2>A few more questions</h2>
+                            <div class="rsvp-question">
+                                <label>Will you be attending the Welcome Dinner on Sept 29?</label>
+                                <div class="selection-group">
+                                    <div class="selection-card" data-value="Yes">Yes</div>
+                                    <div class="selection-card" data-value="No">No</div>
+                                    <div class="selection-card" data-value="Maybe">Unsure</div>
+                                </div>
+                                <input type="hidden" name="welcomeParty">
+                            </div>
+
+                            <div class="rsvp-question">
+                                <label>Will you be attending the Pool Party on Oct 2?</label>
+                                <div class="selection-group">
+                                    <div class="selection-card" data-value="Yes">Yes</div>
+                                    <div class="selection-card" data-value="No">No</div>
+                                    <div class="selection-card" data-value="Maybe">Unsure</div>
+                                </div>
+                                <input type="hidden" name="poolParty">
+                            </div>
+
+                            <div class="rsvp-question">
+                                <label>Are you team red or white wine?</label>
+                                <div class="selection-group">
+                                    <div class="selection-card" data-value="Red">Red</div>
+                                    <div class="selection-card" data-value="White">White</div>
+                                    <div class="selection-card" data-value="Juice">Juice</div>
+                                </div>
+                                <input type="hidden" name="winePreference">
+                            </div>
+
+                            <div class="rsvp-question">
+                                <button type="submit" onclick="buttonSubmitting(this)" style="width: 100%;">Submit</button>
+                            </div>
+                        </div>  
+                    </div>  
+                </form>
+            </div>
+
+
+            <!-- Thank You Message -->
+            <div id="thankYouMessage" class="thank-you" style="display: none;">
+                <h2>Thank you for your response.</h2>
+                <p>If you're planning to attend, check out the link below for itinerary, travel, and accommodation details.</p>
+                <a href="http://haleyandty.com" target="_blank">View Wedding Details</a>  <!-- Link to the wedding details -->
+            </div>
+
+        </div>
+    </div>
+
+
+
+<script>
+    const validCodes = {
+    "JERAMIE DUCHARME": { name1: "Jeramie" },
+    "KATE HARLING": { name1: "Kate" },
+    "LAYLA CLARKSON": { name1: "Layla" },
+    "ZOE FENRICK": { name1: "Zoe" },
+    "CLAYTON FENRICK": { name1: "Clayton" },
+    "CLAY FENRICK": { name1: "Clayton" },
+    "STEFAN FRIESEN": { name1: "Stefan" },
+    "GLENN HUSBAND": { name1: "Glenn" },
+    "JANE VAN ZANT": { name1: "Jane" },
+    "JANE VANZANT": { name1: "Jane" },
+    "PATRICK EASTON": { name1: "Patrick" },
+    "PAT EASTON": { name1: "Patrick" },
+    "JESSIE CRARER": { name1: "Jessie" },
+    "JESSICA CRARER": { name1: "Jessie" },
+    "TYLER CLARKE": { name1: "Tyler" },
+    "COURTNEY CLARKE": { name1: "Courtney" },
+    "KYLE CRARER": { name1: "Kyle" },
+    "JESSE GRUNEAU": { name1: "Jesse" },
+    "CATRIONA CRARER": { name1: "Catriona" },
+    "GARETH WASYLYNKO": { name1: "Gareth" },
+    "TY HUSBAND": { name1: "Ty" },
+    "HALEY CLARKE": { name1: "Haley" },
+};
+
+////////////////////// CHECK IF THE SECRET CODE IS CORRECT ////////////////////
+function checkCode(event) {
+    event.preventDefault(); // Stop form from submitting the normal way
+
+    const codeInput = document.getElementById('secretCode').value.trim().toUpperCase();
+    const errorMessage = document.getElementById('errorMessage');
+    const formSection = document.getElementById('formSection');
+    const codeSection = document.getElementById('codeSection');
+    const title1 = document.getElementById("title1");
+
+    console.log("Entered Code:", codeInput);
+    console.log("Valid Codes Object:", validCodes);
+
+    if (validCodes.hasOwnProperty(codeInput)) {
+        // Valid code - show the RSVP form
+        codeSection.style.display = 'none';
+        formSection.style.display = 'block';
+
+        // Update the RSVP Names
+        title1.textContent = `${validCodes[codeInput].name1}, are you planning to attend?`;
+
+        // Add these lines to fill the name fields
+        document.getElementById("guest1Name").value = validCodes[codeInput].name1;
+
+        // Set the secretCode value in the hidden input
+        document.getElementById("hiddenSecretCode").value = codeInput;
+
+    } else {
+        // Invalid code - show error message
+        errorMessage.style.display = 'block';
+        document.getElementById('secretCode').classList.add('shake');
+
+        console.error("Title elements not found.");
+
+        setTimeout(() => {
+            document.getElementById('secretCode').classList.remove('shake');
+        }, 500);
+    }
+}
+
+////////////////////// GUEST 1 DIET ////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    const guest1attendingYes = document.getElementById("guest1attendingYes");
+    const guest1attendingNo = document.getElementById("guest1attendingNo");
+    const guest1Diet = document.getElementById("guest1Diet");
+    const guest1weddingAttendanceInput = document.querySelector("input[name='guest1weddingAttendance']");
+
+    function toggleGuest1Diet(value) {
+        if (value === "Yes") {
+            guest1Diet.style.display = "block"; // Show extra questions
+        } else {
+            guest1Diet.style.display = "none"; // Hide extra questions
+        }
+    }
+
+    // Ensure the hidden inputs are set correctly when the page is loaded
+    if (!guest1weddingAttendanceInput.value) {
+        guest1weddingAttendanceInput.value = "No Selection";
+    }
+
+    guest1attendingYes.addEventListener("click", function () {
+        guest1weddingAttendanceInput.value = "Yes";
+        toggleGuest1Diet("Yes");
+        guest1attendingYes.classList.add("selected");
+        guest1attendingNo.classList.remove("selected");
+    });
+
+    guest1attendingNo.addEventListener("click", function () {
+        guest1weddingAttendanceInput.value = "No";
+        toggleGuest1Diet("No");
+        guest1attendingNo.classList.add("selected");
+        guest1attendingYes.classList.remove("selected");
+    });
+
+    // Add event listeners
+    guest1attendingYes.addEventListener("change", toggleGuest1Diet);
+    guest1attendingNo.addEventListener("change", toggleGuest1Diet);
+});
+
+
+//////////////// Next Button Submission Logic //////////////
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Guest 1 buttons
+    const guest1attendingYes = document.getElementById("guest1attendingYes");
+    const guest1attendingNo = document.getElementById("guest1attendingNo");
+    const guest1weddingAttendanceInput = document.querySelector("input[name='guest1weddingAttendance']");
+
+    guest1attendingYes.addEventListener("click", function () {
+        guest1weddingAttendanceInput.value = "Yes";
+    });
+
+    guest1attendingNo.addEventListener("click", function () {
+        guest1weddingAttendanceInput.value = "No";
+    });
+
+
+    const nextButton = document.getElementById("nextButton");
+    nextButton.addEventListener("click", function (event) {
+        // Prevent the default form submission to control it with JavaScript
+        event.preventDefault();
+
+        const guest1Selection = document.querySelector("input[name='guest1weddingAttendance']").value;
+        const attendanceError = document.getElementById("attendanceError");
+
+        // Check if both guests are not attending
+        if (guest1Selection === "No") {
+            // Hide the RSVP form and show the thank-you message
+            //document.getElementById("contactForm").submit();
+            document.getElementById("formSection").style.display = "none";
+            document.getElementById("thankYouMessage").style.display = "block";
+            submitForm();
+        } 
+        // If one or both guests are attending, show additional questions
+        else if (guest1Selection === "Yes") {
+            document.getElementById("mainQuestions").style.display = "none";
+            document.getElementById("extraQuestions").style.display = "block";
+        } else {
+            // If neither guest has selected an option, show the error message
+            attendanceError.style.display = "block";
+        }
+    });
+});
+
+
+////////////////////// SUBMIT FORM WHEN AT LEAST 1 RESPONSE IS YES ////////////////////
+const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
+const form = document.getElementById('contactForm');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Validate form fields before submitting
+    const guest1Selection = document.querySelector("input[name='guest1weddingAttendance']").value;
+
+    // Ensure all required fields are filled
+    if (guest1Selection === "No Selection") {
+        alert("Please select if you are attending.");
+        return;
+    }
+
+    fetch(scriptURL, {
+        method: "POST",
+        body: new URLSearchParams(new FormData(form))
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === "Success") {
+            // Hide the form and show the "Thank You" message
+            document.getElementById('codeSection').style.display = 'none';
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'block';
+        } else {
+            alert("There was an error submitting your RSVP. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error processing your RSVP.");
+    });
+});
+
+//////////// SUBMIT FORM WHEN BOTH RESPONSES ARE NO ///////////
+function submitForm() {
+    const form = document.getElementById('contactForm'); // Get the form
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxYJj35YzZKOhYvjI4DRLxihvbYupkJEp_OCVu4OrWLoe3e7FxeTzycglWeFHxUoDd-/exec";
+
+    // Use fetch to submit the form data
+    fetch(scriptURL, {
+        method: "POST",
+        body: new URLSearchParams(new FormData(form)) // Collect the form data
+    })
+    .then(response => response.text()) // Handle response
+    .then(data => {
+        if (data === "Success") {
+            console.log("RSVP submitted successfully.");
+        } else {
+            alert("There was an error submitting your RSVP. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error processing your RSVP.");
+    });
+}
+
+
+
+////////////////////// OTHER STUFF ////////////////////
+
+  function buttonSubmitting(button) {
+        const originalText = button.textContent; // Save the original text
+        button.textContent = "Submitting...";    // Change to temporary text
+
+        setTimeout(() => {
+            button.textContent = originalText;   // Revert after 3 seconds
+        }, 3000); // 3000 milliseconds = 3 seconds
+    } 
+
+// Attach checkCode to form submit event
+document.getElementById('codeForm').addEventListener('submit', checkCode);
+
+// Ensure the input field is focused when the page loads
+window.onload = function() {
+    document.getElementById('secretCode').focus();
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".selection-group").forEach(group => {
+        group.addEventListener("click", function (event) {
+            if (event.target.classList.contains("selection-card")) {
+                group.querySelectorAll(".selection-card").forEach(card => {
+                    card.classList.remove("selected");
+                });
+
+                event.target.classList.add("selected");
+
+                let inputField = group.nextElementSibling;
+                if (inputField && inputField.type === "hidden") {
+                    inputField.value = event.target.dataset.value;
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
