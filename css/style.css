@@ -54,7 +54,7 @@ body {
     height: 100%;
     object-fit: cover; /* Ensures the video fills the space while keeping proportions */
     border-radius: 20px;
-    filter: contrast(140%) grayscale(100%) brightness(50%);
+    filter: contrast(140%) grayscale(100%) brightness(60%);
     opacity: 0.8;
 }
 
@@ -219,7 +219,7 @@ hr {
 @media (max-width: 1000px) {
 
 .schedule {
-    padding: 32px;
+    padding: 64px 32px;
       }
 
 .schedule-row {
@@ -285,7 +285,6 @@ hr {
 
 .venue h1 {
     font-size: 40px;
-    margin-bottom: 20px; /* Adds space below the heading */
 }
 
 .venue h2 {
@@ -313,9 +312,8 @@ hr {
 
 .venue-image {
     width: 100%;
-    height: auto;
+    aspect-ratio: 3 / 4;
     align-items: flex-end; /* Ensures alignment in case of different-sized images */
-    height: auto;
 }
 
 .venue-image img {
@@ -340,7 +338,7 @@ hr {
   }
 
   .venue {
-    padding: 32px;
+    padding: 64px 32px;
   }
 
   .venue-text h1 {
@@ -358,6 +356,7 @@ hr {
 
   .venue-text {
     width: 100%;
+    aspect-ratio: 3 / 4;
   }
 
   .venue-second-paragraph {
@@ -413,7 +412,7 @@ hr {
     font-family: "Bellefair", serif;
     font-weight: normal;
     color: #DAD6C5;
-    padding: 80px 0;
+    padding: 64px 0;
 }
 
 .travel h1 {
@@ -449,8 +448,9 @@ hr {
 }
 
 .travel-video {
-    width: 40%;
-    max-height: 64vh;
+    width: 36%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden; /* Optional: hides overflow just in case */
 }
 
 .carousel-item video:hover {
@@ -458,8 +458,9 @@ hr {
 }
 
 .travel-video video {
-    width: 100%; 
+    width: 100%;
     height: 100%;
+    object-fit: cover; /* Ensures the video fills the box nicely */
     border-radius: 20px;
 }
 
@@ -536,9 +537,11 @@ hr {
         display: inline-block;
     }
 
-    .carousel-item img {
-        width: 60%;
-        margin-bottom: 20px;
+    .travel-video {
+        width: 55%;
+        aspect-ratio: 3 / 4;
+        overflow: hidden; /* Optional: hides overflow just in case */
+        margin-bottom: 40px;
     }
 
     .carousel-track {
@@ -576,11 +579,12 @@ hr {
         display: inline-block;
     }
 
-    .carousel-item img {
-        width: 100%;
-        margin-bottom: 20px;
+    .travel-video {
+        width: 80%;
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+        margin-bottom: 40px;
     }
-
 
     .carousel-text {
         width: 100%;
@@ -612,7 +616,7 @@ hr {
 
 .accommodation-content {
     display: flex;
-    gap: 80px;
+    gap: 40px;
     width: 100%;
     justify-content: space-between;
 }
@@ -621,7 +625,7 @@ hr {
     width: 50%;
     display: flex;
     flex-direction: column;
-    gap: 120px;
+    gap: 200px;
 }
 
 .text-block {
@@ -643,16 +647,31 @@ hr {
     padding-bottom: 12px;
 }
 
-.accommodation-image {
+
+/*.accommodation-image {
     width: 33%;
+    aspect-ratio: 3 / 4;
+    position: relative;
+
+}
+
+.accommodation-image img {
+    width: 100%;
+    height:auto;
+    position: sticky;
+    border-radius: 12px;
+}*/
+
+.accommodation-image {
+    width: 440px;
     position: relative; 
-    height: auto;
+    aspect-ratio: 3/4;
 }
 
 .accommodation-image img {
     width: 100%;
     height: 70vh;
-    border-radius: 12px;
+    border-radius: 20px;
     object-fit: cover;
     position: sticky;
 }
@@ -666,11 +685,11 @@ hr {
 @media (max-width: 1000px) {
 
     .accommodation {
-        padding: 32px;
+        padding: 64px 32px;
     }
 
     .accommodation-image {
-        width: 40%;
+        width: 50%;
         position: relative; /* Ensures the image's positioning works inside the flex container */
     }
 
@@ -679,10 +698,14 @@ hr {
     }
 
     .accommodation-text {
-        width: 60%;
+        width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 80px;
+        gap: 120px;
+    }
+
+    .accommodation-image {
+        display: none;
     }
 }
 
@@ -734,25 +757,29 @@ hr {
 
 .faq-content {
     display: flex;
-    gap: 40px; /* Adjust space between image and questions */
-    align-items: flex-star;
+    gap: 40px;
+    align-items: stretch; /* makes children match height */
 }
 
 .faq-image {
-    width: 40%; /* Adjust image size */
+    width: 440px;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
 }
 
-.faq-image img {
+.faq-image video {
     width: 100%;
-    border-radius: 20px;
+    height: 100%;
     object-fit: cover;
+    display: block;
+    border-radius: 20px;
 }
 
 .faq-container {
     display: flex;
     flex-direction: column;
     gap: 0px;
-    width: 100%; /* Ensures the FAQ section takes up the remaining space */
+    width: 100%;
 }
 
 .faq-item {
@@ -797,13 +824,9 @@ hr {
 /*********** FAQ – TABLET ************/
 @media (max-width: 1000px) {
     .faq {
-        padding: 32px;
+        padding: 64px 32px;
     }
 
-    .faq-image {
-        display: none;
-        width: 100%; /* Adjust image size */
-    }
 }
 
 /*********** FAQ – MOBILE ************/
@@ -854,7 +877,7 @@ hr {
     font-size: 32px;
 }
 
-////////////// Save the Date FAQs ///////////////////
+/*////////////// Save the Date FAQs ///////////////////
 
 .details {
     background-color: #847D6D;
@@ -915,9 +938,7 @@ hr {
 
 .faq div{
     padding-right: 20px;
-}
-
-/////////////////////////////////////
+}*/
 
 
 
@@ -968,9 +989,9 @@ hr {
         margin: 24px;
     }
 
-    ////////////// Save the Date FAQs ///////////////////
+/*    ////////////// Save the Date FAQs ///////////////////*/
 
-    .really {
+    /*.really {
         font-size: 32px;
         top: 0px;
         left: 0px;
@@ -1001,9 +1022,7 @@ hr {
 
     .details .faq div {
         padding: 8px 0;
-    }
-
-    /////////////////////////////////////////////
+    }*/
 }
 
 @media (max-width: 480px) {
@@ -1051,7 +1070,7 @@ hr {
     }
 
 
-   /*////////////// Save the Date FAQs ///////////////////*/
+  /* ////////////// Save the Date FAQs ///////////////////
 
     .details .textarea {
         padding: 64px 12px 40px;
@@ -1088,10 +1107,7 @@ hr {
 
     .details .faq div {
         padding: 4px 0;
-    }
-
-
-    /////////////////////////////////////////////*/*/
+    }*/
 
 }
 
@@ -1200,6 +1216,8 @@ select:focus {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: contrast(140%) grayscale(100%) brightness(60%);
+    opacity: 0.8;
 }
 
 .rsvp-date {
