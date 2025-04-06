@@ -321,6 +321,8 @@ hr {
     display: block;
     width: 100%;
     height:auto;
+    opacity: 0.8;
+    filter: saturate(90%);
 }
 
 .tablet-inline-image {
@@ -462,6 +464,8 @@ hr {
     height: 100%;
     object-fit: cover; /* Ensures the video fills the box nicely */
     border-radius: 20px;
+    opacity: 0.8;
+    filter: saturate(90%);
 }
 
 .carousel-item h2 {
@@ -674,6 +678,8 @@ hr {
     border-radius: 20px;
     object-fit: cover;
     position: sticky;
+    opacity: 0.8;
+    filter: saturate(80%) brightness(120%);
 }
 
 #last-block {
@@ -773,6 +779,8 @@ hr {
     object-fit: cover;
     display: block;
     border-radius: 20px;
+    opacity: 0.9;
+    filter: saturate(90%);
 }
 
 .faq-container {
