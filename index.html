@@ -1,18 +1,17 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ty & Haley's Wedding</title>
-    <link rel="stylesheet" href="css/savethedate.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bellefair&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="container">
         <!-- Hero Section -->
         <div class="hero">
@@ -23,6 +22,17 @@
             <h1> 01.10.25</h1>
         </div>
 
+        <!-- Nav Bar -->
+        <!-- <nav id="navbar">
+            <ul>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#venue">Venue</a></li>
+                <li><a href="#travel">Travel</a></li>
+                <li><a href="#accommodation">Accommodation</a></li>
+                <li><a href="#faq">FAQs</a></li>
+            </ul>
+        </nav> -->
+
         <!-- Story Section -->
         <div class="story">
             <p>Nearly 10 years ago, Ty and Haley fell for the hills of Tuscany, and subsequently, for each other.</p>
@@ -30,30 +40,236 @@
             <p>As love will have it, dreams sometimes do come true.</p>
         </div>
 
-        <!-- Details Section -->
-        <div class="details">
-            <div class="textarea">
-                <h1>RSVPs coming &nbsp; &nbsp;<span class="really">really<br>^&nbsp;</span>soon.</h1>
-                <h2>Until then, here are some preliminary details:</h2>
-                <div class="faq">
-                    <div class="column">
-                        <div><h2>Is this my invitation?</h2> <p>Yes! But we will send you a detailed invite with all the information and details to RSVP in the coming weeks. For now, we’ve tried to answer some of the questions you’re already (probably) thinking about.</p></div>
-                        <div><h2>Is it in Italy, actually?</h2> <p>Si, il es en Tuscano, Italia.</p></div>
-                        <div><h2>Where in Tuscany is this wedding??</h2> <p>We’ve booked a beautiful venue amongst the Tuscan hills, an hour south of Florence and about 30 minutes north of Sienna. We have reserved the property from Sept 29th to Oct 3rd.</p></div>
+        <!-- Schedule Section -->
+        <div class="schedule section" id="schedule">
+            <h1>Schedule of Events</h1>
+            <h2>We'll share a more detailed itinerary closer to the wedding.</h2>
+            <div class="schedule-content">
+                <div class="schedule-row">
+                    <div>SEPT 29</div>
+                    <div>Welcome Dinner</div>
+                    <div class="schedule-details">Dinner together on the venue property. Good pizza, wine, and company.</div>
+                </div>
+                <hr>
+                <div class="schedule-row">
+                    <div>SEPT 30</div>
+                    <div>Explore Tuscany</div>
+                    <div class="schedule-details">A day to explore nearby towns and see more of Tuscany. Move like a tourist, act like a local.</div>
+                </div>
+                <hr>
+                <div class="schedule-row">
+                    <div>OCT 01</div>
+                    <div>Wedding Day</div>
+                    <div class="schedule-details">A short ceremony followed by a sunset apertivo, a long dinner, and a lively party. La dolce vita!</div>
+                </div>
+                <hr>
+                <div class="schedule-row">
+                    <div>OCT 02</div>
+                    <div>Pool Party</div>
+                    <div class="schedule-details">Ending on a splash, with a relaxing day at the venue by the pool. Plus a tennis match, anyone?</div>
+                </div>
+                <hr id="last-line">
+            </div>
+        </div>
+
+        <!-- Venue Section -->
+        <div class="venue section" id="venue">
+            <div class="venue-content">
+                <div class="venue-text">
+                    <h1>Our Venue</h1>
+                    <div class="venue-bodytext">
+                        <div class="second-paragraph-wrapper">
+                            <img class="tablet-inline-image" src="images/venue-section.jpg" alt="Venue Image">
+                            <h2>In the heart of Tuscany</h2>
+                            <p> At a winery on a hill, called Quercia al Poggio. The property has 100 hectares of organic vineyards and olive groves, and a couple farmhouses that make up a rural village (a former convent of Vallombrosan monks dating back to 1039). It’s truly a haven of peace, quiet, and calm, and the perfect place for hosting our wedding. </p>
+                            <p class="venue-second-paragraph">
+                                It’s located about 1 hour south of Florence and 20 minutes from Poggibonsi, the nearest large town. The venue is at the top of a hill, up a winding road offering beautiful views of the Chianti region.
+                            </p>
+                        </div>
+                    </div> 
+                </div>
+                <div></div>
+                <div class="venue-image">
+                    <img class="homepage-image" src="images/venue-section.jpg" alt="Venue Image">
+                </div>
+            </div>
+        </div>
+
+        <!-- Travel Section -->
+        <div class="travel section" id="travel">
+            <h1>Getting There</h1>
+            <div class="travel-carousel">
+                <div class="carousel-track">
+                    <div class="carousel-item" data-index="0">
+                        <div class="travel-video">
+                            <video autoplay muted loop playsinline preload="auto">
+                                <source src="images/byplane.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>  
+                        <div class="carousel-text">
+                            <h2>By plane</h2>
+                            <p>The closest airport is in Florence, an hour drive away, but you can also fly into Pisa (1.5hrs), Bologna (2hrs), or Rome (3hrs).</p>
+                            <p>Typically, the most cost-effective way to get there is by flying to a major European centre (Paris, Amsterdam, Munich, London, etc.) and then catching a short regional flight to one of the Italian airports listed above.</p>
+                        </div>
                     </div>
-                    <div class="column">
-                        <div><h2>Will there be other events surrounding the wedding?</h2> <p>The ceremony is October 1st, but we are planning a few other events between Sept 29th and Oct 3rd. Festivities include a welcome event on Sept 29th, so consider joining us a few days early.</p></div>
-                        <div><h2>How do I get there?</h2> <p>The closest airports are Florence and Pisa, but you can also fly into Rome or Bologna, they’re just a little further away. We recommend renting a car upon arrival, as transit in the Tuscan hills is limited. However, there are a few train stations nearby our venue if you’d like to cab from those.</p></div>
-                        <div><h2>Will you have spaghetti?</h2> <p>Yes, and plenty of wine to wash it down.</p></div>
+                    <div class="carousel-item" data-index="1">
+                        <div class="travel-video">
+                            <video autoplay muted loop playsinline preload="auto">
+                                <source src="images/bycar.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>  
+                        <div class="carousel-text">
+                            <h2>By car</h2>
+                            <p>We highly recommend renting a vehicle, because it’s the best way to see Tuscany and access our venue. Every airport has a car rental agency, and our venue has free on-site parking.</p> 
+                            <p>Driving in Italy is not difficult at all, we’ve done it a few times without any issues. You’re still driving on the same side of the road, just in a smaller vehicle with a few more roundabouts.</p>
+                        </div>
                     </div>
-                    <div class="column">
-                        <div><h2>What about accommodation?</h2> <p>There is some, limited accommodation on our venue property for close friends and family, and many wonderful options nearby. We’ll provide more information about accommodation once official RSVPs are sent out.</p></div>
-                        <div><h2>Already busy that day?</h2> <p>That’s okay, life happens. If you know you can’t make it, please let us know as soon as possible. We’ll be missing you though.</p></div>
-                        <div><h2>My question isn’t here???</h2> <p>Feel free to send us a text and we’ll try our best to answer them.</p></div>
+                    <div class="carousel-item" data-index="2" id="last-item">
+                        <div class="travel-video">
+                            <video autoplay muted loop playsinline preload="auto">
+                                <source src="images/bytrain.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>  
+                        <div class="carousel-text">
+                        <h2>By train</h2>
+                        <p>Public transportation in Tuscany exists, but is limited. There are train stations in Florence, Poggibonsi, and Siena, but travelling by train will not enable access to the smaller Tuscan towns or our venue, Quercia al Poggio. There are regional taxi and bus services, but ride share services, like Uber, are not very reliable outside of Florence.</p>
+                        <p>If you don't plan to drive, let us know and we'll try to connect you with other guests who have vehicle rentals.</p>
+                    </div>
                     </div>
                 </div>
-            </div>  
+            </div>
+            <!-- Indicator Below the Carousel -->
+            <div class="travel-indicator">
+                <div class="indicator-rect" id="indicator-1"></div>
+                <div class="indicator-rect" id="indicator-2"></div>
+                <div class="indicator-rect" id="indicator-3"></div>
+            </div>
         </div>
+
+        <!-- Accommodation Section -->
+        <div class="accommodation section"  id="accommodation">
+            <div class="accommodation-content">
+                <div class="accommodation-text">
+                    <h1>Accommodation</h1>
+                    <div class="text-block">
+                        <h2>On Site</h2>
+                        <p>There are a few apartments on the venue that are already reserved for close family and friends. We have already reached out to you if you are staying on the property, otherwise there are lots of great accommodation options nearby.</p>
+                    </div>
+                    <div class="text-block">
+                        <h2>Down the Road</h2>
+                        <p>There are lots of options nearby, depending on your budget and interest. The road between Quercia al Poggio and Poggibonsi (Strada della Paneretta) has many family-run bed and breakfasts. Most are less than a 10 min drive from our venue and decently affordable. We recommend this accommodation style if you want a more traditional Tuscan experience or intend to frequently visit us at the venue.</p>
+                    </div>
+                    <div class="text-block">
+                        <h2>Tuscan Towns</h2>
+                        <p>There are some very small and charming Tuscan towns nearby our venue that have lots of villas or Airbnbs. Check out the towns of San Donato (15 min away), Castellina in Chianti (20 min away), or Barberino Val d'Elsa (20 min away). Staying in these areas will offer you a good balance of Tuscan charm, urban conveniences, and affordability.</p>
+                    </div>
+                    <div class="text-block">
+                        <h2>Poggibonsi</h2>
+                        <p>The town of Poggibonsi is only 20 minutes away from our venue. It is more of a commercial and business centre, so it lacks some of the romantic Tuscan charm you may expect in Italy. Expect typical urban conveniences like grocery stores, banks, fast food, and some larger, uncomplicated hotels. We only recommend staying here if you want a more North American hotel experience or if you need to quickly secure a place to stay.</p>
+                    </div>
+                    <div class="text-block">
+                        <h2>Florence or Siena</h2>
+                        <p>Both cities are very large, so they offer tons of accommodation. However, Florence is 60 minutes from our venue, and Siena is 40 minutes. We don’t recommend staying that far away, unless you love driving. But we do recommend visiting these places at some point while you’re in Tuscany.</p>
+                    </div>
+                    <div class="text-block" id="last-block">
+                        <h2>Tips & Advice</h2>
+                        <p class="text-tips">You can find most villas, hotels, and bed & breakfasts on typical travel websites like Expedia or Booking.com, but don’t forget to check out Airbnb.</p>
+                        <p class="text-tips">We highly recommend opening Google Maps and just clicking around near our venue. You can find some incredible, authentic Tuscan B&Bs that aren’t listed anywhere else. Many don’t have websites either, but you can email their owner directly to arrange a booking.</p>
+                        <p class="text-tips">We once stayed at a hotel called Pimpinella di Semifonte (30 min away). It is very affordable, and the owner Alessandra is very kind. The catch? You have to drive 2 miles down an extremely perilous dirt road, but whoever braves it will be rewarded with a charming and memorable stay.</p>
+                        <p class="text-tips">If you would like some help with finding accommodation, or if you would like us to connect you with other guests with similar accommodation preferences, we are happy to help. Just send us a message.</p>
+                    </div>
+                </div>
+                <div class="accommodation-image">
+                    <img src="images/accommodation1.jpg" alt="Accommodation">
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq section" id="faq">
+            <h2>All the other stuff</h2>
+            <h3>(but still good to know)</h3>
+            <div class="faq-content">
+                <div class="faq-image">
+                    <video autoplay muted loop playsinline preload="auto">
+                        <source src="images/sunset.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <!-- <div class="faq-image">
+                    <img src="images/faq-section.jpg" alt="FAQ Image">
+                </div> -->
+                <div class="faq-container">
+                    <hr>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p>Is there a wedding day dress code?</p>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>On the wedding day, we recommend keeping things formal, but only as formal as you feel comfortable. Black tie vibes, colours encouraged. For the welcome dinner, semi-formal is recommended.</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p>Can I bring my child?</p>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We would be happy to include your children, we’ll just have to sort out some logistics with our vendors. Send us a message and we will make sure to include them.</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p>Can I bring a +1?</p>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Unfortunately, our venue capacity prevents us from offering +1s to our guests. If you have someone special that you would like to attend with you, please send us a message and we’ll see what we can do..</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p>What’s the weather like on Oct 1st?</p>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Expect the weather to feel like a Vancouver summer. Warm and pleasant during the day when the sun is out (23-26ºC), and a bit cooler and milder once the sun sets (13-16ºC). Pack a mix of warm weather clothes and light layers, and keep an eye on the forecast when you start packing.</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p>Will the wedding events be outdoors?</p>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We plan to host all our wedding events outdoors in a mix of grassy and stone areas, so bring appropriate footwear. We’ve also arranged an indoor plan in the case of wet weather.</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p>Any specific clothes to pack?</p>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Bring a bathing suit if you plan to attend the pool party, along with some activewear, as we might do a pickup tennis tournament if there is time and interest.</p>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+
+
 
         <!-- Photos Section -->
         <div class="photos">
@@ -68,6 +284,321 @@
             <p>See you in Tuscany!<br>– Haley & Ty</p>
         </div>
     </div>
-</body>
 
+
+<script>
+    ////////////// STICKY ACCOMMODATION IMAGE ///////////////
+document.addEventListener("DOMContentLoaded", function () {
+    const imageContainer = document.querySelector(".accommodation-image");
+    const accommodationImage = imageContainer.querySelector("img");
+    const contentContainer = document.querySelector(".accommodation-content");
+    const topRedBar = document.querySelector(".red-bar.top");
+    const bottomRedBar = document.querySelector(".red-bar.bottom");
+
+    let lastScrollY = window.scrollY;  // Store the last scroll position
+    let isSticky = false;  // Flag to check if the image is sticky
+
+    function getCenteredTopOffset() {
+        const viewportHeight = window.innerHeight;
+        const imageHeight = accommodationImage.offsetHeight;
+        return (viewportHeight - imageHeight) / 2;
+    }
+
+    function checkScroll() {
+        const contentRect = contentContainer.getBoundingClientRect();
+        const imageBottom = accommodationImage.getBoundingClientRect().bottom;
+        const containerBottom = contentRect.bottom - parseFloat(getComputedStyle(contentContainer).paddingBottom);
+
+        // Check if we're scrolling up or down
+        if (window.scrollY > lastScrollY) {
+            // Scrolling down
+            if (imageBottom >= containerBottom) {
+                // When image reaches bottom of container, stop it from sticking
+                accommodationImage.style.position = "absolute";
+                accommodationImage.style.top = `${contentRect.height - accommodationImage.clientHeight}px`;
+                topRedBar.style.display = 'none'; // Hide the top red bar
+                bottomRedBar.style.display = 'none'; // Hide the bottom red bar
+                isSticky = false;
+            } else {
+                // Set sticky behavior centered in viewport
+                accommodationImage.style.position = "sticky";
+                accommodationImage.style.top = `${getCenteredTopOffset()}px`;
+                topRedBar.style.display = 'block'; // Show the top red bar
+            bottomRedBar.style.display = 'block'; // Show the bottom red bar
+                isSticky = true;
+            }
+        } else {
+            // Scrolling up
+            if (!isSticky && window.scrollY + getCenteredTopOffset() >= contentContainer.offsetTop) {
+                // When scrolling up, allow image to stick in the center
+                accommodationImage.style.position = "sticky";
+                accommodationImage.style.top = `${getCenteredTopOffset()}px`;
+                topRedBar.style.display = 'block'; // Show the top red bar
+                bottomRedBar.style.display = 'block'; // Show the bottom red bar
+                isSticky = true;
+            }
+        }
+
+        lastScrollY = window.scrollY; // Update the scroll position
+    }
+
+    window.addEventListener("scroll", checkScroll);
+    checkScroll();
+
+    // Optional: Update position on window resize
+    window.addEventListener("resize", () => {
+        if (isSticky) {
+            accommodationImage.style.top = `${getCenteredTopOffset()}px`;
+        }
+    });
+});
+
+
+
+//////////////// UPDATE ACCOMMODATION IMAGE ///////////////
+document.addEventListener("DOMContentLoaded", function () {
+    const textBlocks = document.querySelectorAll('.text-block');
+    const accommodationImage = document.querySelector('.accommodation-image img');
+
+    let lastScrollY = window.scrollY;
+    let currentImageIndex = -1;
+    const offset = 100;
+
+    function updateImage() {
+        const viewportCenter = window.innerHeight * 0.5;
+        const isScrollingDown = window.scrollY > lastScrollY;
+        lastScrollY = window.scrollY;
+
+        let newIndex = -1;
+
+        // Loop through each block to find the one that should trigger the image update
+        textBlocks.forEach((block, index) => {
+            const rect = block.getBoundingClientRect();
+            const blockTop = rect.top;
+            const blockBottom = rect.bottom - offset;
+
+            // If scrolling down, check if the top of the block crosses the center
+            if (isScrollingDown) {
+                if (blockTop <= viewportCenter && blockBottom > viewportCenter) {
+                    newIndex = index;
+                }
+            } else {
+                // If scrolling up, check if the bottom of the previous block crosses the center
+                if (blockBottom >= viewportCenter && blockTop < viewportCenter) {
+                    newIndex = index - 1;
+                }
+            }
+        });
+
+        // Only update the image if the index has changed
+        if (newIndex !== -1 && newIndex !== currentImageIndex) {
+            currentImageIndex = newIndex;
+            accommodationImage.src = `images/accommodation${newIndex + 1}.jpg`;
+        }
+    }
+
+    window.addEventListener("scroll", updateImage);
+    updateImage();
+});
+
+
+    //////////////// FADING ACCOMMODATION TEXT ///////////////
+        document.addEventListener("DOMContentLoaded", function () {
+            const textBlocks = document.querySelectorAll('.text-block');
+            
+            function updateOpacity() {
+                textBlocks.forEach((block) => {
+                    const rect = block.getBoundingClientRect();
+                    const blockTop = rect.top;
+                    const blockBottom = rect.bottom;
+
+                    // Calculate the opacity: 
+                    // When block is at the bottom of the viewport, opacity is 0
+                    // As the block scrolls up, opacity increases from 0 to 100% (at the center of the viewport)
+                    if (blockBottom > 0 && blockTop < window.innerHeight) {
+                        const opacity = Math.min(1, (window.innerHeight - blockTop) / window.innerHeight);
+                        block.style.opacity = opacity;
+                    } else if (blockTop > window.innerHeight) {
+                        // When block is below the viewport, opacity is 0
+                        block.style.opacity = 0;
+                    }
+                });
+            }
+
+        window.addEventListener("scroll", updateOpacity);
+        updateOpacity(); // Run on page load to initialize opacity
+    });
+
+    /////////////// FAQ ACCORDIONS ///////////////
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    // Add event listener to each FAQ item to toggle open/close on click (on the entire row)
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        const icon = item.querySelector('.faq-icon');
+
+        // Toggle the FAQ item open/close when any part of the question row is clicked
+        item.addEventListener('click', () => {
+            // First, close all other FAQ items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('open');
+                    otherItem.querySelector('.faq-icon').textContent = '+';
+                }
+            });
+
+            // Then toggle the current item's open/close state
+            item.classList.toggle('open');
+            icon.textContent = item.classList.contains('open') ? '–' : '+';
+        });
+
+        // Allow the FAQ answer to be clicked to close the accordion
+        answer.addEventListener('click', (e) => {
+            // Prevent event from propagating to the parent and opening/closing the accordion again
+            e.stopPropagation();
+            
+            item.classList.remove('open');
+            icon.textContent = '+';
+        });
+});
+
+    /////////////// CAROUSEL INDICATOR ///////////////
+     document.addEventListener("DOMContentLoaded", function () {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const indicators = document.querySelectorAll('.indicator-rect');
+    const carousel = document.querySelector('.travel-carousel');
+
+    function updateIndicator() {
+        // Get the current scroll position
+        const scrollPosition = carousel.scrollLeft;
+
+        // Determine which carousel item is visible
+        carouselItems.forEach((item, index) => {
+            const itemRect = item.getBoundingClientRect();
+            const itemCenter = itemRect.left + itemRect.width / 2;
+
+            // Calculate the indicator index based on the center of the visible item
+            if (itemCenter >= 0 && itemCenter <= window.innerWidth) {
+                // Set the corresponding indicator to active (100% opacity)
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                indicators[index].classList.add('active');
+            }
+        });
+    }
+
+    // Call the update function whenever the user scrolls
+    carousel.addEventListener('scroll', updateIndicator);
+
+    // Initialize the indicator on page load
+    updateIndicator();
+
+    // Add click event to indicators
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            // Scroll the carousel to the corresponding item
+            const item = carouselItems[index];
+            const itemOffset = item.offsetLeft; // Get the left offset of the item in the carousel
+            carousel.scrollTo({
+                left: itemOffset,
+                behavior: 'smooth' // Smooth scrolling
+            });
+        });
+    });
+});
+
+     ///////////// MAKE CAROUSEL CLICKABLE /////////////
+    document.addEventListener('DOMContentLoaded', function() {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const carouselTrack = document.querySelector('.carousel-track');
+
+        carouselItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Get the index of the clicked item
+                const index = item.getAttribute('data-index');
+                const targetItem = carouselTrack.children[index]; // Get the carousel item using the index
+
+                // Scroll to the target item (smooth scroll)
+                targetItem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'center'
+                });
+            });
+        });
+    });
+
+    ///////////// NAV BAR /////////////////
+//    document.addEventListener("DOMContentLoaded", function () {
+//     const sections = document.querySelectorAll(".section");
+//     const navLinks = document.querySelectorAll("nav ul li a");
+
+//     const observer = new IntersectionObserver(
+//         (entries) => {
+//             entries.forEach((entry) => {
+//                 if (entry.isIntersecting) {
+//                     navLinks.forEach((link) => {
+//                         link.classList.remove("active");
+//                         if (link.getAttribute("href").substring(1) === entry.target.id) {
+//                             link.classList.add("active");
+//                         }
+//                     });
+//                 }
+//             });
+//         },
+//         { threshold: 0.3 } // Lowered from 0.6 to 0.3 to ensure visibility triggers properly
+//     );
+
+//     sections.forEach((section) => {
+//         observer.observe(section);
+//     });
+
+//     // Additional observer to specifically track accommodation-content
+//     const accommodationSection = document.querySelector("#accommodation");
+//     const accommodationObserver = new IntersectionObserver(
+//         (entries) => {
+//             entries.forEach((entry) => {
+//                 if (entry.isIntersecting) {
+//                     navLinks.forEach((link) => {
+//                         link.classList.remove("active");
+//                         if (link.getAttribute("href").substring(1) === entry.target.id) {
+//                             link.classList.add("active");
+//                         }
+//                     });
+//                 }
+//             });
+//         },
+//         { threshold: 0.2 } // Even lower to make sure it gets detected
+//     );
+
+//     if (accommodationSection) {
+//         accommodationObserver.observe(accommodationSection);
+//     }
+// });
+
+
+// const container = document.querySelector('.faq-container');
+// const videoWrapper = document.querySelector('.faq-image');
+
+// if (container && videoWrapper) {
+//     const setVideoHeight = () => {
+//         videoWrapper.style.height = container.offsetHeight + 'px';
+//     };
+
+//     // Observe dynamic height changes
+//     const observer = new ResizeObserver(setVideoHeight);
+//     observer.observe(container);
+
+//     // Only respond to clicks on .faq-question elements
+//     const faqQuestions = container.querySelectorAll('.faq-question');
+//     faqQuestions.forEach(question => {
+//         question.addEventListener('click', () => {
+//             requestAnimationFrame(setVideoHeight);
+//         });
+//     });
+// }
+
+
+</script>
+</body>
 </html>
