@@ -109,66 +109,6 @@ body {
 }
 
 
-/**************** NAV BAR ***************/
-
-/*nav {
-    position: sticky;
-    top: 0;
-    background: #DAD6C5;
-    padding: 12px;
-    z-index: 1000;
-}
-
-nav ul {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    margin: 0 40px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    font-size: 18px;
-    font-family: "Bellefair", serif;
-    font-weight: normal;
-    color: #391B00;
-}
-
-nav ul li a hover {
-    cursor: pointer;
-}
-
-nav ul li a.active {
-    border-bottom: 1px solid #391B00;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-/*********** NAV – TABLET ************/
-/*@media (max-width: 768px) {
-
-    nav ul li {
-        margin: 0 24px;
-    }
-
-}*/
-
-/*********** NAV – MOBILE ************/
-/*@media (max-width: 480px) {
-    nav {
-        display: none;
-    }
-}*/
-
-
-/************ SCHEDULE SECTION **********/
-
 .schedule {
     background-color: #847D6D;
     width: 100%;
@@ -179,8 +119,8 @@ html {
 }
 
 .schedule h1 {
-    font-size: 40px;
-    margin-bottom: 12px;
+    font-size: 40px;;
+    margin-bottom: 80px;
 }
 
 .schedule h2 {
@@ -209,10 +149,45 @@ html {
 }
 
 hr {
-    border: none;
-    border-top: 1px solid #DAD6C5;
-    opacity: 0.4;
-    margin: 5px 0;
+  border: none;
+  border-top: 1px solid #DAD6C5;
+  opacity: 0.4;
+  margin: 0;
+}
+
+.schedule hr { 
+    margin: 24px 0; 
+}
+.faq hr { 
+    margin: 8px 0; 
+}
+
+
+/* Title + time row inside schedule accordions */
+.schedule .faq-answer {
+  width: 100%;  
+}
+
+.event {
+    margin:40px 0;
+}
+
+.schedule .faq-answer .event-row {
+  display: grid;
+  grid-template-columns: 1fr auto; /* left = title, right = time */
+  column-gap: 24px;
+  align-items: start;
+  margin-bottom:24px;
+}
+
+.schedule .faq-answer .event-time {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.schedule .faq-answer .event-desc {
+  margin: 12px 0 0;
+  width: 60%;
 }
 
 /*********** SCHEDULE – TABLET ************/
@@ -225,7 +200,7 @@ hr {
 .schedule-row {
     grid-template-columns: 2fr 3fr 7fr; 
     align-items: flex-start;
-    gaps: 24px;
+    gap: 24px;
 }
 
  #last-line {
@@ -863,6 +838,28 @@ hr {
 }
 
 
+/********** EVENTS ACCORDION **********/
+
+.event-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-details {
+    display: none;
+    font-size: 18px;
+    width: 80%;
+}
+
+.schedule-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 0px;
+    cursor: pointer;
+    overflow: hidden; /* Ensures content doesn’t overflow when collapsed */
+}
 
 
 /************ FOOTER SECTION **********/
