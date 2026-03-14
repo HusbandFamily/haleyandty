@@ -68,9 +68,10 @@ export default async function handler(req, res) {
     }
 
     try {
-
-        const sharedRes = await fetch(
-            'https://photoslibrary.googleapis.com/v1/sharedAlbums',
+        // Try your own albums first (avoids sharedAlbums scope issues)
+        let albumId = null;
+        const albumsRes = await fetch(
+            'https://photoslibrary.googleapis.com/v1/albums',
             {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -79,29 +80,23 @@ export default async function handler(req, res) {
             }
         );
 
-        if (!sharedRes.ok) {
-            const errText = await sharedRes.text();
-            console.error('sharedAlbums error:', errText);
-            res.status(sharedRes.status).json({ error: 'Failed to fetch shared albums', details: errText });
-            return;
-        }
-
-        const sharedData = await sharedRes.json();
-        const sharedAlbums = sharedData.sharedAlbums || [];
-        let albumId = null;
-
-        for (const album of sharedAlbums) {
-            const shareUrl = album.shareInfo?.shareableUrl || '';
-            const idFromUrl = shareUrl.split('/').pop();
-            if (idFromUrl === shareLinkId) {
-                albumId = album.id;
-                break;
+        if (albumsRes.ok) {
+            const albumsData = await albumsRes.json();
+            const albums = albumsData.albums || [];
+            for (const album of albums) {
+                const shareUrl = album.shareInfo?.shareableUrl || '';
+                const idFromUrl = shareUrl.split('/').pop();
+                if (idFromUrl === shareLinkId) {
+                    albumId = album.id;
+                    break;
+                }
             }
         }
 
+        // If not found in your albums, try shared-with-you albums
         if (!albumId) {
-            const allRes = await fetch(
-                'https://photoslibrary.googleapis.com/v1/albums',
+            const sharedRes = await fetch(
+                'https://photoslibrary.googleapis.com/v1/sharedAlbums',
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
@@ -109,10 +104,10 @@ export default async function handler(req, res) {
                     }
                 }
             );
-            if (allRes.ok) {
-                const allData = await allRes.json();
-                const allAlbums = allData.albums || [];
-                for (const album of allAlbums) {
+            if (sharedRes.ok) {
+                const sharedData = await sharedRes.json();
+                const sharedAlbums = sharedData.sharedAlbums || [];
+                for (const album of sharedAlbums) {
                     const shareUrl = album.shareInfo?.shareableUrl || '';
                     const idFromUrl = shareUrl.split('/').pop();
                     if (idFromUrl === shareLinkId) {
