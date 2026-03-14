@@ -1,0 +1,19 @@
+{
+  "photos": [
+    {
+      "url": "https://example.com/photo1.jpg",
+      "alt": "Description of photo 1",
+      "aspectRatio": "4 / 3"
+    },
+    {
+      "url": "https://example.com/photo2.jpg",
+      "alt": "Description of photo 2",
+      "aspectRatio": "3 / 4"
+    },
+    {
+      "url": "https://example.com/photo3.jpg",
+      "aspectRatio": "4 / 3"
+    }
+  ]
+}
+

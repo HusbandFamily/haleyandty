@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photos - Ty & Haley's Wedding</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bellefair&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="photos-hero">
+            <video id="heroVideo" autoplay muted loop playsinline preload="auto">
+                <source src="images/Tuscany.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <button id="soundToggle" class="sound-toggle" aria-label="Toggle sound">
+                <svg id="soundIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9v6h4l5 5V4L7 9H3z"></path>
+                    <path id="soundSlash" d="M21 9l-6 6M15 9l6 6" style="display: none;"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Thank You Message Section -->
+        <div class="photos-thank-you">
+            <p>Thank you for celebrating with us in Tuscany. We're so grateful you were there to witness our love story unfold among the rolling hills and golden sunsets. Here are some moments we captured—because memories this beautiful deserve to be shared (and maybe bragged about just a little).</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="photos-tabs-container">
+            <div class="photos-tabs">
+                <button class="tab-button active" data-tab="welcome-party">Welcome Party</button>
+                <button class="tab-button" data-tab="tuscany-touring">Tuscany Touring</button>
+                <button class="tab-button" data-tab="wedding-day">Wedding Day</button>
+                <button class="tab-button" data-tab="pool-party">Pool Party</button>
+            </div>
+        </div>
+
+        <!-- Photo Gallery (filled by API) -->
+        <div class="photos-gallery-container">
+            <div id="photosGallery" class="photos-gallery masonry-grid"></div>
+            <div id="photosLoading" class="photos-loading">
+                <p>Loading photos...</p>
+            </div>
+            <div id="photosError" class="photos-error" style="display: none;"></div>
+        </div>
+
+        <!-- Full-Screen Image Viewer -->
+        <div id="imageViewer" class="image-viewer" style="display: none;">
+            <button class="viewer-close" aria-label="Close viewer">&times;</button>
+            <button class="viewer-prev" aria-label="Previous image">&#8249;</button>
+            <button class="viewer-next" aria-label="Next image">&#8250;</button>
+            <img id="viewerImage" src="" alt="Full screen view">
+        </div>
+    </div>
+
+    <script src="js/google-photos.js"></script>
+    <script src="js/photos.js"></script>
+</body>
+</html>
