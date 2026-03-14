@@ -1,5 +1,11 @@
 // Photos page: tabs, gallery from Vercel API, full-screen viewer
 
+function escapeHtml(s) {
+    const div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+}
+
 let currentTab = 'welcome-party';
 let currentPhotos = [];
 let currentPhotoIndex = 0;
@@ -72,14 +78,15 @@ async function switchTab(tabId) {
         } else {
             if (photosError) {
                 photosError.style.display = 'block';
-                photosError.innerHTML = '<p>No photos could be loaded. Check that the Vercel API is deployed and GOOGLE_PHOTOS_ACCESS_TOKEN is set, or try again later.</p>';
+                photosError.innerHTML = '<p>No photos could be loaded. In Vercel, set GOOGLE_PHOTOS_REFRESH_TOKEN, GOOGLE_PHOTOS_CLIENT_ID, and GOOGLE_PHOTOS_CLIENT_SECRET, then redeploy. You can also <a href="/api/get-photos-by-share-link?shareLinkId=zMvGzMNd4BvJYdok7" target="_blank" rel="noopener">open the API directly</a> to see the error response.</p>';
             }
         }
     } catch (err) {
         if (photosLoading) photosLoading.style.display = 'none';
         if (photosError) {
             photosError.style.display = 'block';
-            photosError.innerHTML = '<p>Error loading photos. Try again later.</p>';
+            const msg = (err && err.message) ? err.message : 'Error loading photos. Try again later.';
+            photosError.innerHTML = '<p><strong>Error:</strong> ' + escapeHtml(msg) + '</p><p><a href="/api/get-photos-by-share-link?shareLinkId=zMvGzMNd4BvJYdok7" target="_blank" rel="noopener">Open API in new tab</a> to see full response.</p>';
         }
         console.error(err);
     }

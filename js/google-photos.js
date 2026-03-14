@@ -56,20 +56,16 @@ async function getPhotosForTab(tabId) {
     const base = window.location.hostname.includes('vercel.app') ? '' : VERCEL_API_BASE_URL;
     const url = `${base}/api/get-photos-by-share-link?shareLinkId=${encodeURIComponent(album.shareLinkId)}`;
 
-    try {
-        const res = await fetch(url);
-        if (!res.ok) {
-            const err = await res.json().catch(() => ({}));
-            throw new Error(err.error || res.statusText);
-        }
-        const data = await res.json();
-        const photos = data.photos || [];
-        if (photos.length > 0) setCached(album.shareLinkId, photos);
-        return photos;
-    } catch (e) {
-        console.error('getPhotosForTab:', e);
-        return [];
+    const res = await fetch(url);
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        const msg = err.error || err.details || res.statusText;
+        throw new Error(msg);
     }
+    const data = await res.json();
+    const photos = data.photos || [];
+    if (photos.length > 0) setCached(album.shareLinkId, photos);
+    return photos;
 }
 
 window.getPhotosForTab = getPhotosForTab;

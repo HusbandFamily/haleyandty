@@ -18,13 +18,19 @@ async function getAccessToken() {
                 grant_type: 'refresh_token'
             })
         });
-        if (res.ok) {
-            const data = await res.json();
-            return data.access_token || null;
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.access_token) {
+            return data.access_token;
         }
+        const errMsg = data.error_description || data.error || res.statusText;
+        throw new Error('Refresh token failed: ' + (errMsg || 'unknown error'));
     }
 
-    return process.env.GOOGLE_PHOTOS_ACCESS_TOKEN || null;
+    if (process.env.GOOGLE_PHOTOS_ACCESS_TOKEN) {
+        return process.env.GOOGLE_PHOTOS_ACCESS_TOKEN;
+    }
+
+    throw new Error('Set GOOGLE_PHOTOS_REFRESH_TOKEN, GOOGLE_PHOTOS_CLIENT_ID, and GOOGLE_PHOTOS_CLIENT_SECRET in Vercel.');
 }
 
 export default async function handler(req, res) {
@@ -49,15 +55,19 @@ export default async function handler(req, res) {
         return;
     }
 
+    let accessToken;
     try {
-        const accessToken = await getAccessToken();
+        accessToken = await getAccessToken();
+    } catch (e) {
+        res.status(500).json({ error: e.message || 'Failed to get access token' });
+        return;
+    }
+    if (!accessToken) {
+        res.status(500).json({ error: 'No access token available.' });
+        return;
+    }
 
-        if (!accessToken) {
-            res.status(500).json({
-                error: 'Google Photos API not configured. Set GOOGLE_PHOTOS_REFRESH_TOKEN, GOOGLE_PHOTOS_CLIENT_ID, and GOOGLE_PHOTOS_CLIENT_SECRET in Vercel (or GOOGLE_PHOTOS_ACCESS_TOKEN for short-lived token).'
-            });
-            return;
-        }
+    try {
 
         const sharedRes = await fetch(
             'https://photoslibrary.googleapis.com/v1/sharedAlbums',
