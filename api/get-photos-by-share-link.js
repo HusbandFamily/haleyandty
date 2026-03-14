@@ -68,54 +68,58 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Try your own albums first (avoids sharedAlbums scope issues)
+        // Match share link ID from URL (ignore query params)
+        const matchShareId = (shareableUrl) => {
+            if (!shareableUrl) return null;
+            const part = shareableUrl.split('/').pop() || '';
+            return part.split('?')[0].trim() || null;
+        };
+
+        // Try your own albums first, with pagination
         let albumId = null;
-        const albumsRes = await fetch(
-            'https://photoslibrary.googleapis.com/v1/albums',
-            {
+        let pageToken = null;
+        do {
+            const url = 'https://photoslibrary.googleapis.com/v1/albums?pageSize=50' + (pageToken ? '&pageToken=' + encodeURIComponent(pageToken) : '');
+            const albumsRes = await fetch(url, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 }
-            }
-        );
-
-        if (albumsRes.ok) {
+            });
+            if (!albumsRes.ok) break;
             const albumsData = await albumsRes.json();
             const albums = albumsData.albums || [];
             for (const album of albums) {
-                const shareUrl = album.shareInfo?.shareableUrl || '';
-                const idFromUrl = shareUrl.split('/').pop();
-                if (idFromUrl === shareLinkId) {
+                if (matchShareId(album.shareInfo?.shareableUrl) === shareLinkId) {
                     albumId = album.id;
                     break;
                 }
             }
-        }
+            pageToken = albumId ? null : (albumsData.nextPageToken || null);
+        } while (pageToken);
 
-        // If not found in your albums, try shared-with-you albums
+        // If not found in your albums, try shared-with-you albums (paginated)
         if (!albumId) {
-            const sharedRes = await fetch(
-                'https://photoslibrary.googleapis.com/v1/sharedAlbums',
-                {
+            pageToken = null;
+            do {
+                const url = 'https://photoslibrary.googleapis.com/v1/sharedAlbums?pageSize=50' + (pageToken ? '&pageToken=' + encodeURIComponent(pageToken) : '');
+                const sharedRes = await fetch(url, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
                         'Content-Type': 'application/json'
                     }
-                }
-            );
-            if (sharedRes.ok) {
+                });
+                if (!sharedRes.ok) break;
                 const sharedData = await sharedRes.json();
                 const sharedAlbums = sharedData.sharedAlbums || [];
                 for (const album of sharedAlbums) {
-                    const shareUrl = album.shareInfo?.shareableUrl || '';
-                    const idFromUrl = shareUrl.split('/').pop();
-                    if (idFromUrl === shareLinkId) {
+                    if (matchShareId(album.shareInfo?.shareableUrl) === shareLinkId) {
                         albumId = album.id;
                         break;
                     }
                 }
-            }
+                pageToken = albumId ? null : (sharedData.nextPageToken || null);
+            } while (pageToken);
         }
 
         if (!albumId) {
