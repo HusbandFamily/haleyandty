@@ -48,7 +48,7 @@ export default async function handler(req, res) {
         return;
     }
 
-    const { shareLinkId, debug } = req.query;
+    const { shareLinkId, albumId: albumIdParam, debug } = req.query;
 
     let accessToken;
     try {
@@ -64,40 +64,53 @@ export default async function handler(req, res) {
 
     // Debug: return first page of your albums so we can see shareInfo format
     if (debug === '1') {
-        const url = 'https://photoslibrary.googleapis.com/v1/albums?pageSize=50';
-        const res = await fetch(url, {
-            headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }
-        });
-        if (!res.ok) {
-            const err = await res.text();
-            return res.status(res.status).json({ error: 'Albums fetch failed', details: err });
+        try {
+            const apiUrl = 'https://photoslibrary.googleapis.com/v1/albums?pageSize=50';
+            const fetchRes = await fetch(apiUrl, {
+                headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }
+            });
+            const data = await fetchRes.json().catch(function () { return {}; });
+            if (!fetchRes.ok) {
+                res.status(fetchRes.status).json({ error: 'Albums fetch failed', details: (data && data.error) || fetchRes.statusText });
+                return;
+            }
+            const albums = data.albums || [];
+            const list = albums.map(function (a) {
+                return {
+                    id: a.id,
+                    title: a.title,
+                    shareableUrl: (a.shareInfo && a.shareInfo.shareableUrl) || null,
+                    shareToken: (a.shareInfo && a.shareInfo.shareToken) || null
+                };
+            });
+            res.status(200).json({ total: list.length, nextPageToken: data.nextPageToken || null, albums: list });
+            return;
+        } catch (debugErr) {
+            console.error('Debug error:', debugErr);
+            res.status(500).json({ error: 'Debug failed', message: debugErr.message, stack: debugErr.stack });
+            return;
         }
-        const data = await res.json();
-        const list = (data.albums || []).map((a) => ({
-            id: a.id,
-            title: a.title,
-            shareableUrl: a.shareInfo?.shareableUrl ?? null,
-            shareToken: a.shareInfo?.shareToken ?? null
-        }));
-        return res.status(200).json({ total: list.length, nextPageToken: data.nextPageToken || null, albums: list });
     }
 
-    if (!shareLinkId) {
-        res.status(400).json({ error: 'Share link ID is required' });
+    if (!shareLinkId && !albumIdParam) {
+        res.status(400).json({ error: 'Share link ID or album ID is required' });
         return;
     }
 
     try {
-        // Match: exact ID from URL path, or shareToken, or ID anywhere in shareableUrl
-        const albumMatches = (album) => {
-            const url = album.shareInfo?.shareableUrl || '';
-            const token = album.shareInfo?.shareToken || '';
-            const pathId = url.split('/').pop()?.split('?')[0]?.trim() || '';
-            return pathId === shareLinkId || token === shareLinkId || url.includes(shareLinkId);
-        };
+        // If albumId provided directly (from debug output), use it and skip search
+        let albumId = albumIdParam && String(albumIdParam).trim() || null;
 
-        // Try your own albums first, with pagination
-        let albumId = null;
+        if (!albumId) {
+            // Match: exact ID from URL path, or shareToken, or ID anywhere in shareableUrl
+            const albumMatches = (album) => {
+                const url = album.shareInfo?.shareableUrl || '';
+                const token = album.shareInfo?.shareToken || '';
+                const pathId = url.split('/').pop()?.split('?')[0]?.trim() || '';
+                return pathId === shareLinkId || token === shareLinkId || url.includes(shareLinkId);
+            };
+
+            // Try your own albums first, with pagination
         let pageToken = null;
         do {
             const url = 'https://photoslibrary.googleapis.com/v1/albums?pageSize=50' + (pageToken ? '&pageToken=' + encodeURIComponent(pageToken) : '');
@@ -141,6 +154,7 @@ export default async function handler(req, res) {
                 }
                 pageToken = albumId ? null : (sharedData.nextPageToken || null);
             } while (pageToken);
+        }
         }
 
         if (!albumId) {

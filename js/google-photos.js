@@ -3,6 +3,7 @@
 // Vercel deployment URL (API runs here; site can stay on GitHub Pages)
 const VERCEL_API_BASE_URL = 'https://haleyandty.vercel.app';
 
+// Add albumId (from ?debug=1 response) to each album if share link lookup fails
 const photoAlbums = {
     'welcome-party': {
         name: 'Welcome Party',
@@ -48,13 +49,17 @@ function setCached(shareLinkId, photos) {
 
 async function getPhotosForTab(tabId) {
     const album = photoAlbums[tabId];
-    if (!album || !album.shareLinkId) return [];
+    const cacheKey = album?.shareLinkId || album?.albumId || tabId;
+    if (!album || (!album.shareLinkId && !album.albumId)) return [];
 
-    const cached = getCached(album.shareLinkId);
+    const cached = getCached(cacheKey);
     if (cached && cached.length > 0) return cached;
 
     const base = window.location.hostname.includes('vercel.app') ? '' : VERCEL_API_BASE_URL;
-    const url = `${base}/api/get-photos-by-share-link?shareLinkId=${encodeURIComponent(album.shareLinkId)}`;
+    const params = new URLSearchParams();
+    if (album.albumId) params.set('albumId', album.albumId);
+    if (album.shareLinkId) params.set('shareLinkId', album.shareLinkId);
+    const url = `${base}/api/get-photos-by-share-link?${params.toString()}`;
 
     const res = await fetch(url);
     if (!res.ok) {
@@ -64,7 +69,7 @@ async function getPhotosForTab(tabId) {
     }
     const data = await res.json();
     const photos = data.photos || [];
-    if (photos.length > 0) setCached(album.shareLinkId, photos);
+    if (photos.length > 0) setCached(cacheKey, photos);
     return photos;
 }
 
