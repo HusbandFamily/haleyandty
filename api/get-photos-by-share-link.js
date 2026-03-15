@@ -48,12 +48,7 @@ export default async function handler(req, res) {
         return;
     }
 
-    const { shareLinkId } = req.query;
-
-    if (!shareLinkId) {
-        res.status(400).json({ error: 'Share link ID is required' });
-        return;
-    }
+    const { shareLinkId, debug } = req.query;
 
     let accessToken;
     try {
@@ -67,12 +62,38 @@ export default async function handler(req, res) {
         return;
     }
 
+    // Debug: return first page of your albums so we can see shareInfo format
+    if (debug === '1') {
+        const url = 'https://photoslibrary.googleapis.com/v1/albums?pageSize=50';
+        const res = await fetch(url, {
+            headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }
+        });
+        if (!res.ok) {
+            const err = await res.text();
+            return res.status(res.status).json({ error: 'Albums fetch failed', details: err });
+        }
+        const data = await res.json();
+        const list = (data.albums || []).map((a) => ({
+            id: a.id,
+            title: a.title,
+            shareableUrl: a.shareInfo?.shareableUrl ?? null,
+            shareToken: a.shareInfo?.shareToken ?? null
+        }));
+        return res.status(200).json({ total: list.length, nextPageToken: data.nextPageToken || null, albums: list });
+    }
+
+    if (!shareLinkId) {
+        res.status(400).json({ error: 'Share link ID is required' });
+        return;
+    }
+
     try {
-        // Match share link ID from URL (ignore query params)
-        const matchShareId = (shareableUrl) => {
-            if (!shareableUrl) return null;
-            const part = shareableUrl.split('/').pop() || '';
-            return part.split('?')[0].trim() || null;
+        // Match: exact ID from URL path, or shareToken, or ID anywhere in shareableUrl
+        const albumMatches = (album) => {
+            const url = album.shareInfo?.shareableUrl || '';
+            const token = album.shareInfo?.shareToken || '';
+            const pathId = url.split('/').pop()?.split('?')[0]?.trim() || '';
+            return pathId === shareLinkId || token === shareLinkId || url.includes(shareLinkId);
         };
 
         // Try your own albums first, with pagination
@@ -90,7 +111,7 @@ export default async function handler(req, res) {
             const albumsData = await albumsRes.json();
             const albums = albumsData.albums || [];
             for (const album of albums) {
-                if (matchShareId(album.shareInfo?.shareableUrl) === shareLinkId) {
+                if (albumMatches(album)) {
                     albumId = album.id;
                     break;
                 }
@@ -113,7 +134,7 @@ export default async function handler(req, res) {
                 const sharedData = await sharedRes.json();
                 const sharedAlbums = sharedData.sharedAlbums || [];
                 for (const album of sharedAlbums) {
-                    if (matchShareId(album.shareInfo?.shareableUrl) === shareLinkId) {
+                    if (albumMatches(album)) {
                         albumId = album.id;
                         break;
                     }
