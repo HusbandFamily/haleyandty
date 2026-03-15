@@ -62,6 +62,60 @@ export default async function handler(req, res) {
         return;
     }
 
+    // Diagnostic: check env vars, token, and scopes
+    if (debug === 'check') {
+        try {
+            // 1. Check which env vars are set
+            const envCheck = {
+                GOOGLE_PHOTOS_REFRESH_TOKEN: !!process.env.GOOGLE_PHOTOS_REFRESH_TOKEN,
+                GOOGLE_PHOTOS_CLIENT_ID: !!process.env.GOOGLE_PHOTOS_CLIENT_ID,
+                GOOGLE_PHOTOS_CLIENT_SECRET: !!process.env.GOOGLE_PHOTOS_CLIENT_SECRET,
+                GOOGLE_PHOTOS_ACCESS_TOKEN: !!process.env.GOOGLE_PHOTOS_ACCESS_TOKEN,
+                REFRESH_TOKEN_FIRST_10: process.env.GOOGLE_PHOTOS_REFRESH_TOKEN
+                    ? process.env.GOOGLE_PHOTOS_REFRESH_TOKEN.substring(0, 10) + '...'
+                    : null,
+                CLIENT_ID_FIRST_20: process.env.GOOGLE_PHOTOS_CLIENT_ID
+                    ? process.env.GOOGLE_PHOTOS_CLIENT_ID.substring(0, 20) + '...'
+                    : null
+            };
+
+            // 2. Check what scopes the access token actually has
+            var tokenInfo = null;
+            try {
+                var tokenInfoRes = await fetch('https://oauth2.googleapis.com/tokeninfo?access_token=' + encodeURIComponent(accessToken));
+                tokenInfo = await tokenInfoRes.json().catch(function () { return {}; });
+            } catch (e) {
+                tokenInfo = { error: e.message };
+            }
+
+            // 3. Check if Photos Library API is enabled
+            var photosApiCheck = null;
+            try {
+                var photosRes = await fetch('https://photoslibrary.googleapis.com/v1/albums?pageSize=1', {
+                    headers: { 'Authorization': 'Bearer ' + accessToken }
+                });
+                var photosBody = await photosRes.json().catch(function () { return {}; });
+                photosApiCheck = {
+                    status: photosRes.status,
+                    ok: photosRes.ok,
+                    body: photosBody
+                };
+            } catch (e) {
+                photosApiCheck = { error: e.message };
+            }
+
+            res.status(200).json({
+                envVarsSet: envCheck,
+                tokenInfo: tokenInfo,
+                photosApiTest: photosApiCheck
+            });
+            return;
+        } catch (e) {
+            res.status(500).json({ error: 'Diagnostic failed', message: e.message });
+            return;
+        }
+    }
+
     // Debug: return first page of your albums so we can see shareInfo format
     if (debug === '1') {
         try {
