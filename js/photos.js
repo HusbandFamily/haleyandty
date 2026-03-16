@@ -1,4 +1,4 @@
-// Photos page: tabs, gallery from Vercel API, full-screen viewer
+// Photos page: tabs, gallery from scraper API, full-screen viewer
 
 function escapeHtml(s) {
     const div = document.createElement('div');
@@ -78,7 +78,7 @@ async function switchTab(tabId) {
         } else {
             if (photosError) {
                 photosError.style.display = 'block';
-                photosError.innerHTML = '<p>No photos could be loaded. In Vercel, set GOOGLE_PHOTOS_REFRESH_TOKEN, GOOGLE_PHOTOS_CLIENT_ID, and GOOGLE_PHOTOS_CLIENT_SECRET, then redeploy. You can also <a href="/api/get-photos-by-share-link?shareLinkId=zMvGzMNd4BvJYdok7" target="_blank" rel="noopener">open the API directly</a> to see the error response.</p>';
+                photosError.innerHTML = '<p>No photos found in this album. Please try again later.</p>';
             }
         }
     } catch (err) {
@@ -86,7 +86,7 @@ async function switchTab(tabId) {
         if (photosError) {
             photosError.style.display = 'block';
             const msg = (err && err.message) ? err.message : 'Error loading photos. Try again later.';
-            photosError.innerHTML = '<p><strong>Error:</strong> ' + escapeHtml(msg) + '</p><p><a href="/api/get-photos-by-share-link?shareLinkId=zMvGzMNd4BvJYdok7" target="_blank" rel="noopener">Open API in new tab</a> to see full response.</p>';
+            photosError.innerHTML = '<p><strong>Error:</strong> ' + escapeHtml(msg) + '</p><p>Please try again later.</p>';
         }
         console.error(err);
     }

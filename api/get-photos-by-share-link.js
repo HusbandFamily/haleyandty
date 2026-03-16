@@ -1,36 +1,124 @@
-// Vercel Serverless Function: fetch photos from Google Photos shared albums
-// Uses refresh token so you never have to manually update an access token.
-// Set in Vercel: GOOGLE_PHOTOS_REFRESH_TOKEN, GOOGLE_PHOTOS_CLIENT_ID, GOOGLE_PHOTOS_CLIENT_SECRET
+// Vercel Serverless Function: scrape Google Photos shared albums
+// No OAuth, API keys, or Google Cloud project needed.
+// Works by fetching the public shared album page and extracting image URLs
+// via Google's internal batchexecute RPC.
 
-async function getAccessToken() {
-    const refreshToken = process.env.GOOGLE_PHOTOS_REFRESH_TOKEN;
-    const clientId = process.env.GOOGLE_PHOTOS_CLIENT_ID;
-    const clientSecret = process.env.GOOGLE_PHOTOS_CLIENT_SECRET;
+const RPCID = 'snAcKc';
+const BATCH_EXECUTE_URL = 'https://photos.google.com/_/PhotosUi/data/batchexecute';
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36';
 
-    if (refreshToken && clientId && clientSecret) {
-        const res = await fetch('https://oauth2.googleapis.com/token', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                client_id: clientId,
-                client_secret: clientSecret,
-                refresh_token: refreshToken,
-                grant_type: 'refresh_token'
-            })
-        });
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && data.access_token) {
-            return data.access_token;
+async function extractAlbumInfo(shareLinkId) {
+    const albumPageUrl = `https://photos.app.goo.gl/${shareLinkId}`;
+
+    const response = await fetch(albumPageUrl, {
+        headers: { 'User-Agent': UA },
+        redirect: 'follow'
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch album page (HTTP ${response.status})`);
+    }
+
+    const html = await response.text();
+
+    const canonicalMatch = html.match(/<link\s+rel="canonical"\s+href="([^"]+)"/);
+    if (!canonicalMatch) {
+        throw new Error('Could not find album on this page');
+    }
+
+    const canonicalUrl = new URL(canonicalMatch[1]);
+    const pathParts = canonicalUrl.pathname.split('/').filter(Boolean);
+    const albumId = pathParts[pathParts.length - 1];
+
+    let key = canonicalUrl.searchParams.get('key');
+    if (!key) {
+        const keyMatch = html.match(/\["(AF1Q[^"]+)"/);
+        if (keyMatch) key = keyMatch[1];
+    }
+
+    if (!albumId || !key) {
+        throw new Error('Could not extract album ID or key from page');
+    }
+
+    return { albumId, key, html };
+}
+
+async function fetchAlbumPage(albumId, key, pageToken) {
+    const queryData = [[RPCID, JSON.stringify([albumId, pageToken || null, null, key])]];
+    const params = new URLSearchParams();
+    params.append('f.req', JSON.stringify([queryData]));
+
+    const response = await fetch(BATCH_EXECUTE_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'User-Agent': UA
+        },
+        body: params.toString()
+    });
+
+    if (!response.ok) {
+        throw new Error(`Album data request failed (HTTP ${response.status})`);
+    }
+
+    const rawText = await response.text();
+    const cleaned = rawText.replace(/^\)\]\}'/, '');
+
+    const parsed = JSON.parse(cleaned);
+    const rpcItem = parsed.find(item => Array.isArray(item) && item[1] === RPCID);
+
+    if (!rpcItem || !rpcItem[2]) {
+        throw new Error('Unexpected response format from Google Photos');
+    }
+
+    const data = JSON.parse(rpcItem[2]);
+
+    const rawItems = data[1] || [];
+    const items = rawItems.map(item => {
+        const id = item[0];
+        const url = (item[1] && item[1][0]) || '';
+        return { id, url };
+    }).filter(item => item.url);
+
+    return { items, nextPageToken: data[2] || null };
+}
+
+function extractUrlsFromHtml(html) {
+    const urlPattern = /https:\/\/lh3\.googleusercontent\.com\/pw\/[A-Za-z0-9_\-]+/g;
+    const matches = html.match(urlPattern) || [];
+    const unique = [...new Set(matches)];
+    return unique.map(url => ({
+        url: url + '=w2048-h1536',
+        alt: 'Wedding photo'
+    }));
+}
+
+async function scrapeAlbumPhotos(shareLinkId) {
+    const { albumId, key, html } = await extractAlbumInfo(shareLinkId);
+
+    try {
+        const allItems = [];
+        let pageToken = null;
+        let page = 0;
+
+        do {
+            if (page++ > 20) break;
+            const result = await fetchAlbumPage(albumId, key, pageToken);
+            allItems.push(...result.items);
+            pageToken = result.nextPageToken;
+        } while (pageToken);
+
+        if (allItems.length > 0) {
+            return allItems.map(item => ({
+                url: item.url + '=w2048-h1536',
+                alt: 'Wedding photo'
+            }));
         }
-        const errMsg = data.error_description || data.error || res.statusText;
-        throw new Error('Refresh token failed: ' + (errMsg || 'unknown error'));
+    } catch (rpcErr) {
+        console.warn('RPC extraction failed, falling back to HTML parsing:', rpcErr.message);
     }
 
-    if (process.env.GOOGLE_PHOTOS_ACCESS_TOKEN) {
-        return process.env.GOOGLE_PHOTOS_ACCESS_TOKEN;
-    }
-
-    throw new Error('Set GOOGLE_PHOTOS_REFRESH_TOKEN, GOOGLE_PHOTOS_CLIENT_ID, and GOOGLE_PHOTOS_CLIENT_SECRET in Vercel.');
+    return extractUrlsFromHtml(html);
 }
 
 export default async function handler(req, res) {
@@ -39,214 +127,29 @@ export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
+        return res.status(200).end();
     }
 
     if (req.method !== 'GET') {
-        res.status(405).json({ error: 'Method not allowed' });
-        return;
+        return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { shareLinkId, albumId: albumIdParam, debug } = req.query;
+    const { shareLinkId } = req.query;
 
-    let accessToken;
-    try {
-        accessToken = await getAccessToken();
-    } catch (e) {
-        res.status(500).json({ error: e.message || 'Failed to get access token' });
-        return;
-    }
-    if (!accessToken) {
-        res.status(500).json({ error: 'No access token available.' });
-        return;
-    }
-
-    // Diagnostic: check env vars, token, and scopes
-    if (debug === 'check') {
-        try {
-            // 1. Check which env vars are set
-            const envCheck = {
-                GOOGLE_PHOTOS_REFRESH_TOKEN: !!process.env.GOOGLE_PHOTOS_REFRESH_TOKEN,
-                GOOGLE_PHOTOS_CLIENT_ID: !!process.env.GOOGLE_PHOTOS_CLIENT_ID,
-                GOOGLE_PHOTOS_CLIENT_SECRET: !!process.env.GOOGLE_PHOTOS_CLIENT_SECRET,
-                GOOGLE_PHOTOS_ACCESS_TOKEN: !!process.env.GOOGLE_PHOTOS_ACCESS_TOKEN,
-                REFRESH_TOKEN_FIRST_10: process.env.GOOGLE_PHOTOS_REFRESH_TOKEN
-                    ? process.env.GOOGLE_PHOTOS_REFRESH_TOKEN.substring(0, 10) + '...'
-                    : null,
-                CLIENT_ID_FIRST_20: process.env.GOOGLE_PHOTOS_CLIENT_ID
-                    ? process.env.GOOGLE_PHOTOS_CLIENT_ID.substring(0, 20) + '...'
-                    : null
-            };
-
-            // 2. Check what scopes the access token actually has
-            var tokenInfo = null;
-            try {
-                var tokenInfoRes = await fetch('https://oauth2.googleapis.com/tokeninfo?access_token=' + encodeURIComponent(accessToken));
-                tokenInfo = await tokenInfoRes.json().catch(function () { return {}; });
-            } catch (e) {
-                tokenInfo = { error: e.message };
-            }
-
-            // 3. Check if Photos Library API is enabled
-            var photosApiCheck = null;
-            try {
-                var photosRes = await fetch('https://photoslibrary.googleapis.com/v1/albums?pageSize=1', {
-                    headers: { 'Authorization': 'Bearer ' + accessToken }
-                });
-                var photosBody = await photosRes.json().catch(function () { return {}; });
-                photosApiCheck = {
-                    status: photosRes.status,
-                    ok: photosRes.ok,
-                    body: photosBody
-                };
-            } catch (e) {
-                photosApiCheck = { error: e.message };
-            }
-
-            res.status(200).json({
-                envVarsSet: envCheck,
-                tokenInfo: tokenInfo,
-                photosApiTest: photosApiCheck
-            });
-            return;
-        } catch (e) {
-            res.status(500).json({ error: 'Diagnostic failed', message: e.message });
-            return;
-        }
-    }
-
-    // Debug: return first page of your albums so we can see shareInfo format
-    if (debug === '1') {
-        try {
-            const apiUrl = 'https://photoslibrary.googleapis.com/v1/albums?pageSize=50';
-            const fetchRes = await fetch(apiUrl, {
-                headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }
-            });
-            const data = await fetchRes.json().catch(function () { return {}; });
-            if (!fetchRes.ok) {
-                res.status(fetchRes.status).json({ error: 'Albums fetch failed', details: (data && data.error) || fetchRes.statusText });
-                return;
-            }
-            const albums = data.albums || [];
-            const list = albums.map(function (a) {
-                return {
-                    id: a.id,
-                    title: a.title,
-                    shareableUrl: (a.shareInfo && a.shareInfo.shareableUrl) || null,
-                    shareToken: (a.shareInfo && a.shareInfo.shareToken) || null
-                };
-            });
-            res.status(200).json({ total: list.length, nextPageToken: data.nextPageToken || null, albums: list });
-            return;
-        } catch (debugErr) {
-            console.error('Debug error:', debugErr);
-            res.status(500).json({ error: 'Debug failed', message: debugErr.message, stack: debugErr.stack });
-            return;
-        }
-    }
-
-    if (!shareLinkId && !albumIdParam) {
-        res.status(400).json({ error: 'Share link ID or album ID is required' });
-        return;
+    if (!shareLinkId) {
+        return res.status(400).json({ error: 'shareLinkId query parameter is required' });
     }
 
     try {
-        // If albumId provided directly (from debug output), use it and skip search
-        let albumId = albumIdParam && String(albumIdParam).trim() || null;
+        const photos = await scrapeAlbumPhotos(shareLinkId);
 
-        if (!albumId) {
-            // Match: exact ID from URL path, or shareToken, or ID anywhere in shareableUrl
-            const albumMatches = (album) => {
-                const url = album.shareInfo?.shareableUrl || '';
-                const token = album.shareInfo?.shareToken || '';
-                const pathId = url.split('/').pop()?.split('?')[0]?.trim() || '';
-                return pathId === shareLinkId || token === shareLinkId || url.includes(shareLinkId);
-            };
-
-            // Try your own albums first, with pagination
-        let pageToken = null;
-        do {
-            const url = 'https://photoslibrary.googleapis.com/v1/albums?pageSize=50' + (pageToken ? '&pageToken=' + encodeURIComponent(pageToken) : '');
-            const albumsRes = await fetch(url, {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (!albumsRes.ok) break;
-            const albumsData = await albumsRes.json();
-            const albums = albumsData.albums || [];
-            for (const album of albums) {
-                if (albumMatches(album)) {
-                    albumId = album.id;
-                    break;
-                }
-            }
-            pageToken = albumId ? null : (albumsData.nextPageToken || null);
-        } while (pageToken);
-
-        // If not found in your albums, try shared-with-you albums (paginated)
-        if (!albumId) {
-            pageToken = null;
-            do {
-                const url = 'https://photoslibrary.googleapis.com/v1/sharedAlbums?pageSize=50' + (pageToken ? '&pageToken=' + encodeURIComponent(pageToken) : '');
-                const sharedRes = await fetch(url, {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (!sharedRes.ok) break;
-                const sharedData = await sharedRes.json();
-                const sharedAlbums = sharedData.sharedAlbums || [];
-                for (const album of sharedAlbums) {
-                    if (albumMatches(album)) {
-                        albumId = album.id;
-                        break;
-                    }
-                }
-                pageToken = albumId ? null : (sharedData.nextPageToken || null);
-            } while (pageToken);
-        }
-        }
-
-        if (!albumId) {
-            res.status(404).json({ error: 'Album not found for this share link' });
-            return;
-        }
-
-        const mediaRes = await fetch(
-            'https://photoslibrary.googleapis.com/v1/mediaItems:search',
-            {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    albumId,
-                    pageSize: 100
-                })
-            }
-        );
-
-        if (!mediaRes.ok) {
-            const errText = await mediaRes.text();
-            console.error('mediaItems:search error:', errText);
-            res.status(mediaRes.status).json({ error: 'Failed to fetch media items', details: errText });
-            return;
-        }
-
-        const mediaData = await mediaRes.json();
-        const photos = (mediaData.mediaItems || []).map(item => ({
-            url: item.baseUrl + '=w2048-h2048',
-            alt: item.description || item.filename || 'Wedding photo'
-        }));
-
-        res.status(200).json({ photos });
+        res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+        return res.status(200).json({ photos, count: photos.length });
     } catch (error) {
-        console.error('get-photos error:', error);
-        res.status(500).json({ error: 'Internal server error', message: error.message });
+        console.error('Scraper error:', error);
+        return res.status(500).json({
+            error: 'Failed to load photos from album',
+            message: error.message
+        });
     }
 }
