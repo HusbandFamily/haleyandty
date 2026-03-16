@@ -6,19 +6,19 @@ const VERCEL_API_BASE_URL = 'https://haleyandty.vercel.app';
 const photoAlbums = {
     'welcome-party': {
         name: 'Welcome Party',
-        shareLinkId: 'zMvGzMNd4BvJYdok7'
+        shareLinkId: 'ucWxSPb3eCosfusH9'
     },
     'tuscany-touring': {
         name: 'Tuscany Touring',
-        shareLinkId: 'LqawFef4gJmi7C5J7'
+        shareLinkId: 'NTmdkq1dTPNPU9QJ9'
     },
     'wedding-day': {
         name: 'Wedding Day',
-        shareLinkId: 'tAqLNDejzyzSSonL7'
+        shareLinkId: 'ucWxSPb3eCosfusH9'
     },
     'pool-party': {
         name: 'Pool Party',
-        shareLinkId: 'q6iLDzRT5Ypz7KedA'
+        shareLinkId: 'NTmdkq1dTPNPU9QJ9'
     }
 };
 
