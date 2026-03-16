@@ -23,7 +23,9 @@ const photoAlbums = {
 };
 
 const CACHE_DURATION = 60 * 60 * 1000;
-const CACHE_PREFIX = 'gp_';
+// Bump this version to force all visitors to refresh photos immediately
+const CACHE_VERSION = 1;
+const CACHE_PREFIX = 'gp_v' + CACHE_VERSION + '_';
 
 function getCached(key) {
     try {
