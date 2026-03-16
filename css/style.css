@@ -1476,7 +1476,7 @@ select:focus {
         font-size: 32px;
         margin-bottom: 0px;
     }
-
+}
 
 
 /*********** Mobile code for RSVP *************/
@@ -1592,8 +1592,8 @@ select:focus {
     font-family: "Dawning of a New Day", serif;
     font-size: 40px;
     margin: 80px auto;
-    max-width: 900px;
-    padding: 0 40px;
+    max-width: 1200px;
+    padding: 0 80px;
     color: #391B00;
     text-align: center;
     line-height: 1.6;
@@ -1603,7 +1603,7 @@ select:focus {
 .photos-tabs-container {
     display: flex;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 40px 80px;
     background-color: #847D6D;
 }
 
@@ -1640,7 +1640,7 @@ select:focus {
 /* Photo Gallery Container */
 .photos-gallery-container {
     background-color: #3F352B;
-    padding: 80px 40px;
+    padding: 80px;
     min-height: 400px;
 }
 
@@ -1826,7 +1826,7 @@ select:focus {
     }
 
     .photos-tabs-container {
-        padding: 32px 16px;
+        padding: 32px 32px;
     }
 
     .photos-gallery-container {
@@ -1881,7 +1881,7 @@ select:focus {
     }
 
     .photos-tabs-container {
-        padding: 24px 12px;
+        padding: 24px 16px;
     }
 
     .photos-tabs {
