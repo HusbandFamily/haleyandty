@@ -1,1 +1,6 @@
-{}
+{
+  "redirects": [
+    { "source": "/", "destination": "https://haleyandty.com", "permanent": false },
+    { "source": "/:path((?!api).*)", "destination": "https://haleyandty.com/:path", "permanent": false }
+  ]
+}
