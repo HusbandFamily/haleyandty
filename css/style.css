@@ -1592,7 +1592,7 @@ select:focus {
     font-family: "Dawning of a New Day", serif;
     font-size: 40px;
     margin: 80px auto;
-    max-width: 1200px;
+    max-width: 1680px;
     padding: 0 80px;
     color: #391B00;
     text-align: center;
@@ -1603,8 +1603,11 @@ select:focus {
 .photos-tabs-container {
     display: flex;
     justify-content: center;
-    padding: 40px 80px;
-    background-color: #847D6D;
+    padding: 12px 80px;
+    background-color: #DAD6C5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .photos-tabs {
@@ -1619,8 +1622,8 @@ select:focus {
     font-size: 18px;
     padding: 12px 32px;
     background-color: transparent;
-    color: #DAD6C5;
-    border: 2px solid #DAD6C5;
+    color: #391B00;
+    border: 2px solid #847D6D;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1628,18 +1631,17 @@ select:focus {
 }
 
 .tab-button:hover {
-    background-color: rgba(218, 214, 197, 0.2);
+    background-color: rgba(132, 125, 109, 0.15);
 }
 
 .tab-button.active {
-    background-color: #DAD6C5;
-    color: #847D6D;
-    border-color: #DAD6C5;
+    background-color: #847D6D;
+    color: #DAD6C5;
+    border-color: #847D6D;
 }
 
 /* Photo Gallery Container */
 .photos-gallery-container {
-    background-color: #3F352B;
     padding: 80px;
     min-height: 400px;
 }
@@ -1685,42 +1687,25 @@ select:focus {
 
 .photos-gallery {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 80px;
     gap: 16px;
     width: 100%;
-    grid-auto-rows: auto;
-    align-items: start;
 }
 
 .photo-item {
-    width: 100%;
     overflow: hidden;
     border-radius: 12px;
-    position: relative;
 }
 
 .photos-gallery img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     border-radius: 12px;
     cursor: pointer;
     transition: transform 0.3s ease, opacity 0.3s ease;
     object-fit: cover;
-}
-
-/* Support for different aspect ratios */
-.photo-item[data-aspect="3-4"] img {
-    aspect-ratio: 3 / 4;
-}
-
-.photo-item[data-aspect="4-3"] img {
-    aspect-ratio: 4 / 3;
-}
-
-/* Default square aspect ratio */
-.photo-item:not([data-aspect]) img {
-    aspect-ratio: 1 / 1;
 }
 
 .photos-gallery img:hover {
@@ -1826,7 +1811,7 @@ select:focus {
     }
 
     .photos-tabs-container {
-        padding: 32px 32px;
+        padding: 12px 32px;
     }
 
     .photos-gallery-container {
@@ -1834,8 +1819,14 @@ select:focus {
     }
 
     .photos-gallery {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 70px;
         gap: 12px;
+    }
+
+    .photos-gallery .photo-item {
+        grid-column: span 2 !important;
+        grid-row: span 3 !important;
     }
 
     .viewer-prev {
@@ -1881,7 +1872,7 @@ select:focus {
     }
 
     .photos-tabs-container {
-        padding: 24px 16px;
+        padding: 12px 16px;
     }
 
     .photos-tabs {
@@ -1899,7 +1890,13 @@ select:focus {
 
     .photos-gallery {
         grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 60px;
         gap: 8px;
+    }
+
+    .photos-gallery .photo-item {
+        grid-column: span 1 !important;
+        grid-row: span 3 !important;
     }
 
     .viewer-prev,
