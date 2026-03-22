@@ -33,8 +33,8 @@ window.PHOTO_GRID_CONFIG = {
    *   { col: 1, span: 6 }   — Half-width, left side
    */
   layout: [
-    { col: 1, span: 4 },
-    { col: 5, span: 4 },
+    { col: 2, span: 4 },
+    { col: 8, span: 4 },
     { col: 9, span: 4 },
     { col: 1, span: 6 },
     { col: 8, span: 5 },

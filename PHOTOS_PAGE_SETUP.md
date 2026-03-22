@@ -1,6 +1,6 @@
 # Photos Page Setup
 
-- **Page:** `photos.html` (e.g. `haleyandty.com/photos.html`).
+- **Page:** `unmilionedipiccoledecisioni/index.html` (e.g. `haleyandty.com/unmilionedipiccoledecisioni/`).
 - **Config:** `js/google-photos.js` — `photoAlbums` (share link IDs) and `VERCEL_API_BASE_URL`.
 - **Hosting:** Site on GitHub Pages; API on Vercel.
 

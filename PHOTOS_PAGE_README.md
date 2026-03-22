@@ -5,7 +5,7 @@ The photos page shows your Google Photos albums in a gallery on your site. Your 
 ## How it works
 
 - **Your domain** (e.g. haleyandty.com) → GitHub Pages (all HTML, CSS, JS).
-- **Photos page** loads; JavaScript calls your **Vercel API** (`/api/get-photos-by-share-link?shareLinkId=...`).
+- **Photos page** (haleyandty.com/unmilionedipiccoledecisioni/) loads; JavaScript calls your **Vercel API** (`/api/get-photos-by-share-link?shareLinkId=...`).
 - The API fetches the public Google Photos shared album page, extracts image URLs, and returns them as JSON. The page renders them in a masonry grid with a full-screen viewer.
 - Results are cached server-side for 1 hour and client-side in localStorage for 1 hour.
 
@@ -21,7 +21,7 @@ No environment variables are needed.
 
 ### 2. Point the site at your API
 
-In `js/google-photos.js`, set **VERCEL_API_BASE_URL** to your Vercel URL (e.g. `https://haleyandty.vercel.app`). Commit and push so your GitHub Pages site calls this API when visitors open the photos page.
+In `js/google-photos.js`, set **VERCEL_API_BASE_URL** to your Vercel URL (e.g. `https://haleyandty.vercel.app`). Commit and push so your GitHub Pages site calls this API when visitors open the photos page at haleyandty.com/unmilionedipiccoledecisioni/.
 
 ### 3. Configure albums
 
