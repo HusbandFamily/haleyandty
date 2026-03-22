@@ -1686,26 +1686,25 @@ select:focus {
 }
 
 .photos-gallery {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-auto-rows: 80px;
-    gap: 16px;
+    column-count: 4;
+    column-gap: 16px;
     width: 100%;
 }
 
 .photo-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
     overflow: hidden;
     border-radius: 12px;
 }
 
 .photos-gallery img {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
     border-radius: 12px;
     cursor: pointer;
     transition: transform 0.3s ease, opacity 0.3s ease;
-    object-fit: cover;
 }
 
 .photos-gallery img:hover {
@@ -1819,14 +1818,12 @@ select:focus {
     }
 
     .photos-gallery {
-        grid-template-columns: repeat(4, 1fr);
-        grid-auto-rows: 70px;
-        gap: 12px;
+        column-count: 2;
+        column-gap: 12px;
     }
 
     .photos-gallery .photo-item {
-        grid-column: span 2 !important;
-        grid-row: span 3 !important;
+        margin-bottom: 12px;
     }
 
     .viewer-prev {
@@ -1889,14 +1886,12 @@ select:focus {
     }
 
     .photos-gallery {
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: 60px;
-        gap: 8px;
+        column-count: 1;
+        column-gap: 8px;
     }
 
     .photos-gallery .photo-item {
-        grid-column: span 1 !important;
-        grid-row: span 3 !important;
+        margin-bottom: 8px;
     }
 
     .viewer-prev,

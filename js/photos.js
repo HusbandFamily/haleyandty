@@ -1,34 +1,5 @@
 // Photos page: tabs, gallery from scraper API, full-screen viewer
 
-// Editorial grid layout config: col = column start (1-8), w = column span, h = row span
-// Each row is ~80px tall on desktop. Adjust these to reposition/resize images.
-const defaultLayout = [
-    { col: 3, w: 2, h: 3 },
-    { col: 6, w: 3, h: 3 },
-    { col: 1, w: 5, h: 4 },
-    { col: 6, w: 3, h: 4 },
-    { col: 2, w: 4, h: 3 },
-    { col: 1, w: 2, h: 3 },
-    { col: 4, w: 2, h: 2 },
-    { col: 6, w: 3, h: 4 },
-    { col: 1, w: 2, h: 2 },
-    { col: 3, w: 4, h: 4 },
-    { col: 3, w: 3, h: 4 },
-    { col: 7, w: 2, h: 3 },
-    { col: 1, w: 3, h: 4 },
-    { col: 4, w: 2, h: 3 },
-    { col: 6, w: 3, h: 4 },
-    { col: 2, w: 4, h: 3 },
-    { col: 7, w: 2, h: 2 },
-];
-
-const layouts = {
-    'welcome-party': defaultLayout,
-    'tuscany-touring': defaultLayout,
-    'wedding-day': defaultLayout,
-    'pool-party': defaultLayout,
-};
-
 function escapeHtml(s) {
     const div = document.createElement('div');
     div.textContent = s;
@@ -125,17 +96,9 @@ function renderPhotos(photos) {
     if (!photosGallery) return;
     photosGallery.innerHTML = '';
 
-    const layout = layouts[currentTab] || defaultLayout;
-
     photos.forEach((photo, i) => {
         const item = document.createElement('div');
         item.className = 'photo-item';
-
-        if (layout[i]) {
-            const { col, w, h } = layout[i];
-            item.style.gridColumn = `${col} / span ${w}`;
-            item.style.gridRow = `span ${h}`;
-        }
 
         const img = document.createElement('img');
         img.src = typeof photo === 'string' ? photo : (photo.url || photo);

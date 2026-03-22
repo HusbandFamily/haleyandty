@@ -88,7 +88,7 @@ function extractUrlsFromHtml(html) {
     const matches = html.match(urlPattern) || [];
     const unique = [...new Set(matches)];
     return unique.map(url => ({
-        url: url + '=w2048-h1536',
+        url: url + '=w2048',
         alt: 'Wedding photo'
     }));
 }
@@ -110,7 +110,7 @@ async function scrapeAlbumPhotos(shareLinkId) {
 
         if (allItems.length > 0) {
             return allItems.map(item => ({
-                url: item.url + '=w2048-h1536',
+                url: item.url + '=w2048',
                 alt: 'Wedding photo'
             }));
         }
