@@ -1,4 +1,5 @@
 // Photos page: tabs, gallery from scraper API, full-screen viewer
+// Layout is controlled by js/photo-grid-config.js — edit that file to customize.
 
 function escapeHtml(s) {
     const div = document.createElement('div');
@@ -92,13 +93,55 @@ async function switchTab(tabId) {
     }
 }
 
+function isDesktopLayout() {
+    return window.matchMedia('(min-width: 1001px)').matches;
+}
+
+function applyGridConfig() {
+    if (!photosGallery) return;
+    const config = window.PHOTO_GRID_CONFIG || { columns: 12, gap: 32, layout: [] };
+    const layout = config.layout || [];
+
+    if (isDesktopLayout()) {
+        photosGallery.style.gridTemplateColumns = `repeat(${config.columns || 12}, 1fr)`;
+        photosGallery.style.gap = `${config.gap ?? 32}px`;
+        photosGallery.querySelectorAll('.photo-item').forEach((item, i) => {
+            const entry = layout[i % layout.length];
+            if (entry && entry.col != null && entry.span != null) {
+                item.style.gridColumn = `${entry.col} / span ${entry.span}`;
+            }
+        });
+    } else {
+        photosGallery.style.gridTemplateColumns = '';
+        photosGallery.style.gap = '';
+        photosGallery.querySelectorAll('.photo-item').forEach(item => {
+            item.style.gridColumn = '';
+        });
+    }
+}
+
 function renderPhotos(photos) {
     if (!photosGallery) return;
     photosGallery.innerHTML = '';
 
+    const config = window.PHOTO_GRID_CONFIG || { columns: 12, gap: 32, layout: [] };
+    const layout = config.layout || [];
+
+    if (!window._photoGridResizeBound) {
+        window._photoGridResizeBound = true;
+        window.addEventListener('resize', applyGridConfig);
+    }
+
     photos.forEach((photo, i) => {
         const item = document.createElement('div');
         item.className = 'photo-item';
+
+        if (isDesktopLayout()) {
+            const entry = layout[i % layout.length];
+            if (entry && entry.col != null && entry.span != null) {
+                item.style.gridColumn = `${entry.col} / span ${entry.span}`;
+            }
+        }
 
         const img = document.createElement('img');
         img.src = typeof photo === 'string' ? photo : (photo.url || photo);
@@ -108,6 +151,8 @@ function renderPhotos(photos) {
         item.appendChild(img);
         photosGallery.appendChild(item);
     });
+
+    applyGridConfig();
 }
 
 function openViewer(index) {
